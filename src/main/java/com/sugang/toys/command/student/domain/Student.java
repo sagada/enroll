@@ -25,7 +25,7 @@ public class Student {
     @Embedded
     private StudentBirthDay birthDay;
 
-    @Min(value = 1, message = "1학년부터...")
+    @Min(value = 1, message = "최저 1학년")
     @Max(value = 4, message = "4학년 초과에러")
     @Getter
     private Integer grade;
