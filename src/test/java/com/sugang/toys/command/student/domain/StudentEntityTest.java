@@ -1,6 +1,6 @@
 package com.sugang.toys.command.student.domain;
 
-import com.sugang.toys.command.student.domain.exception.StudentErrorCode;
+import com.sugang.toys.command.common.exception.ErrorCode;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +52,7 @@ public class StudentEntityTest {
 
         // then
         Assertions.assertThatThrownBy(() -> student.update(updated))
-                .hasMessage(StudentErrorCode.EXPEL_UPDATE_ERROR.getMessage());
+                .hasMessage(ErrorCode.EXPEL_UPDATE_ERROR.getMessage());
     }
 
 }

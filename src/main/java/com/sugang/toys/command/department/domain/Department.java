@@ -1,16 +1,22 @@
 package com.sugang.toys.command.department.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Department {
+public class Department{
 
     @Id
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Division division;
+
+    @Embedded
+    private DepartmentPhoneNumber phoneNumber;
 
 
 }

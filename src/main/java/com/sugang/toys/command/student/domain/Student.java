@@ -1,7 +1,7 @@
 package com.sugang.toys.command.student.domain;
 
-
-import com.sugang.toys.command.student.domain.exception.StudentErrorCode;
+import com.sugang.toys.command.common.exception.ErrorCode;
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.student.domain.exception.StudentException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class Student {
 
@@ -25,7 +25,7 @@ public class Student {
     @Embedded
     private StudentBirthDay birthDay;
 
-    @Min(value = 1, message = "최저 1학년")
+    @Min(value = 1, message = "1학년 부터 ")
     @Max(value = 4, message = "4학년 초과에러")
     @Getter
     private Integer grade;
@@ -43,6 +43,10 @@ public class Student {
     {
         return name.value();
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     private Student(Long id, String name, Long departmentId, String birthDay, StudentStatus studentStatus, int grade)
     {
@@ -86,12 +90,12 @@ public class Student {
     {
         if (StudentStatus.EXPEL.equals(this.studentStatus))
         {
-            throw new StudentException(StudentErrorCode.EXPEL_UPDATE_ERROR);
+            throw new StudentException(ErrorCode.EXPEL_UPDATE_ERROR);
         }
 
         if (isGraduation())
         {
-            throw new StudentException(StudentErrorCode.GRADUATION_UPDATE_ERROR);
+            throw new StudentException(ErrorCode.GRADUATION_UPDATE_ERROR);
         }
     }
 
@@ -112,9 +116,14 @@ public class Student {
 
         if (grade >= 4)
         {
-            throw new StudentException(StudentErrorCode.EXCEED_GRADE_UPDATE_ERROR);
+            throw new StudentException(ErrorCode.EXCEED_GRADE_UPDATE_ERROR);
         }
 
         this.grade += 1;
+    }
+
+    public Long id()
+    {
+        return id;
     }
 }
