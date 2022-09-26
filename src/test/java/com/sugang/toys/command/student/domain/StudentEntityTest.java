@@ -1,11 +1,17 @@
 package com.sugang.toys.command.student.domain;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
+import com.sugang.toys.command.department.domain.Department;
+import com.sugang.toys.command.department.domain.Division;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StudentEntityTest {
 
+    static Department givenDepartment()
+    {
+        return new Department(1L, "we", Division.IT, null);
+    }
     @Test
     void 학생_생성자_테스트()
     {
@@ -13,7 +19,7 @@ public class StudentEntityTest {
         String studentName = "이름";
         String birthDay = "2022-02-22";
         // when
-        Student student = Student.create(null, studentName, 1L, birthDay, StudentStatus.ATTENDING, 1);
+        Student student = Student.create(null, studentName, givenDepartment(), birthDay, StudentStatus.ATTENDING, 1);
 
         // then
         Assertions.assertThat(student).isNotNull();
@@ -29,8 +35,8 @@ public class StudentEntityTest {
         String studentName = "변경_이름";
         String birthDay = "2022-03-29";
 
-        Student student = Student.create(null, "이름", 1L, "2022-01-01", StudentStatus.ATTENDING, 1);
-        Student updated = Student.create(null, studentName, 1L, birthDay, StudentStatus.ATTENDING, 1);
+        Student student = Student.create(null, "이름", givenDepartment(), "2022-01-01", StudentStatus.ATTENDING, 1);
+        Student updated = Student.create(null, studentName, givenDepartment(), birthDay, StudentStatus.ATTENDING, 1);
 
         // when
         student.update(updated);
@@ -47,8 +53,8 @@ public class StudentEntityTest {
         String studentName = "변경_이름";
         String birthDay = "2022-03-29";
 
-        Student student = Student.create(null, "이름", 1L, "2022-01-01", StudentStatus.EXPEL, 1);
-        Student updated = Student.create(null, studentName, 1L, birthDay, StudentStatus.EXPEL, 1);
+        Student student = Student.create(null, "이름", givenDepartment(), "2022-01-01", StudentStatus.EXPEL, 1);
+        Student updated = Student.create(null, studentName, givenDepartment(), birthDay, StudentStatus.EXPEL, 1);
 
         // then
         Assertions.assertThatThrownBy(() -> student.update(updated))

@@ -3,7 +3,6 @@ package com.sugang.toys.command.student.domain;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.student.domain.exception.StudentException;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 @Entity
 public class Student {
 
@@ -44,37 +43,39 @@ public class Student {
         return name.value();
     }
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    private Student(Long id, String name, Long departmentId, String birthDay, StudentStatus studentStatus, int grade)
+    private Student(Long id, String name, Department department, String birthDay, StudentStatus studentStatus, int grade)
     {
         this.id = id;
         this.name = new StudentName(name);
         this.birthDay = new StudentBirthDay(birthDay);
         this.studentStatus = studentStatus;
         this.grade = grade;
+        this.department = department;
     }
 
     public static Student enter(
             String name
-            , Long departmentId
+            , Department department
             , String birthday
     )
     {
-        return new Student(null, name, departmentId, birthday, StudentStatus.ATTENDING, 1);
+        return new Student(null, name, department, birthday, StudentStatus.ATTENDING, 1);
     }
 
     public static Student create(
             Long id
             , String name
-            , Long departmentId
+            , Department department
             , String birthday
             , StudentStatus studentStatus
             , int grade)
     {
-       return new Student(id, name, departmentId, birthday, studentStatus, grade);
+       return new Student(id, name, department, birthday, studentStatus, grade);
     }
 
     public void update(Student student)
@@ -110,7 +111,7 @@ public class Student {
         return StudentStatus.GRADUATION.equals(this.studentStatus);
     }
 
-    public void upgrade()
+    public void addOneGrade()
     {
         validateUpdateStudent();
 
@@ -125,5 +126,25 @@ public class Student {
     public Long id()
     {
         return id;
+    }
+
+    public boolean isEnter()
+    {
+        return this.studentStatus.equals(StudentStatus.ENTER);
+    }
+
+    public void assignDepartment(Department department)
+    {
+        if (!this.studentStatus.equals(StudentStatus.ENTER))
+        {
+            throw new StudentException(ErrorCode.ASSIGN_DEPART_MENT_ERROR);
+        }
+
+        if (this.department != null)
+        {
+            throw new StudentException(ErrorCode.ASSIGN_DEPART_MENT_ERROR);
+        }
+
+        this.department = department;
     }
 }
