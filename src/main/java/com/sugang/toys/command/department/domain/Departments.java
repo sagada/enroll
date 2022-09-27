@@ -5,16 +5,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @NoArgsConstructor
 @Entity
-public class Department{
+@Getter
+public class Departments {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -23,7 +23,7 @@ public class Department{
     @Embedded
     private DepartmentPhoneNumber phoneNumber;
 
-    public Department(Long id, String name, Division division, DepartmentPhoneNumber phoneNumber)
+    public Departments(Long id, String name, Division division, DepartmentPhoneNumber phoneNumber)
     {
         this.id = id;
         this.name = name;
@@ -31,13 +31,13 @@ public class Department{
         this.phoneNumber = phoneNumber;
     }
 
-    public static Department create(
+    public static Departments create(
             Long id
             , String name
             , Division division
             , DepartmentPhoneNumber phoneNumber
     )
     {
-        return new Department(id, name, division, phoneNumber);
+        return new Departments(id, name, division, phoneNumber);
     }
 }

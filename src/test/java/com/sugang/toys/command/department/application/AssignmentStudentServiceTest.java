@@ -1,6 +1,6 @@
 package com.sugang.toys.command.department.application;
 
-import com.sugang.toys.command.department.domain.Department;
+import com.sugang.toys.command.department.domain.Departments;
 import com.sugang.toys.command.department.domain.DepartmentPhoneNumber;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.department.domain.Division;
@@ -37,7 +37,7 @@ class AssignmentStudentServiceTest {
         Mockito.when(studentRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(student));
 
-        Department department = Department.create(
+        Departments departments = Departments.create(
                 1L,
                 "컴퓨터공학과",
                 Division.IT,
@@ -45,13 +45,13 @@ class AssignmentStudentServiceTest {
         );
 
         Mockito.when(departmentRepository.findById(Mockito.any()))
-                .thenReturn(Optional.of(department));
+                .thenReturn(Optional.of(departments));
 
         // when
         assignmentStudentService.assign(1L, 1L);
 
         // then
-        Assertions.assertEquals(student.getDepartment().getName(), "컴퓨터공학과");
+        Assertions.assertEquals(student.getDepartments().getName(), "컴퓨터공학과");
     }
 
 }
