@@ -1,9 +1,9 @@
 package com.sugang.toys.command.classregistration.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.sugang.toys.command.course.domain.Course;
+import com.sugang.toys.command.student.domain.Student;
+
+import javax.persistence.*;
 
 @Entity
 public class CourseRegistration {
@@ -12,5 +12,12 @@ public class CourseRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Course course;
+
+    @JoinColumn(name = "student_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Student student;
 
 }
