@@ -148,9 +148,4 @@ public class Student {
 
         this.departments = departments;
     }
-
-    public void registerCourse(Course course)
-    {
-
-    }
 }
