@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -15,13 +16,13 @@ import java.time.DayOfWeek;
 public class CourseSchedule {
 
     private DayOfWeek day;
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     @Embedded
     private RoomNumber roomNumber;
 
-    public CourseSchedule(DayOfWeek day, String from, String to, String roomNumber)
+    public CourseSchedule(DayOfWeek day, LocalDateTime from, LocalDateTime to, String roomNumber)
     {
         this.day = day;
         this.from = from;

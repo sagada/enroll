@@ -1,11 +1,11 @@
 package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.command.professor.domain.Professor;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
+import java.time.*;
+import java.util.Set;
 
 class CourseTest {
 
@@ -15,15 +15,15 @@ class CourseTest {
         // given
         CourseSchedule courseSchedule = new CourseSchedule(
                 DayOfWeek.MONDAY,
-                "14:00:00",
-                "16:00:00",
+                LocalDateTime.of(2022, Month.MARCH, 23, 11, 30),
+                LocalDateTime.of(2022, Month.MARCH, 23, 13, 30),
                 "1234"
         );
 
         // when
         Course course = Course.create(
                 null
-                , Lists.newArrayList(courseSchedule)
+                , Set.of(courseSchedule)
                 , null
                 , new Professor()
                 , "courseName1"
@@ -40,15 +40,15 @@ class CourseTest {
         // given
         CourseSchedule courseSchedule1 = new CourseSchedule(
                 DayOfWeek.MONDAY,
-                "14:00:00",
-                "16:00:00",
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "1234"
         );
 
         CourseSchedule courseSchedule2 = new CourseSchedule(
                 DayOfWeek.MONDAY,
-                "14:00:00",
-                "16:00:00",
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "1234"
         );
 
@@ -57,7 +57,7 @@ class CourseTest {
                 RuntimeException.class,
                 () ->  Course.create(
                         null
-                        , Lists.newArrayList(courseSchedule1, courseSchedule2)
+                        , Set.of(courseSchedule1, courseSchedule2)
                         , null
                         , new Professor()
                         , "courseName1"

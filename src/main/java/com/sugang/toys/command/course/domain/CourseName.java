@@ -1,5 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @Getter
 @Embeddable
+@EqualsAndHashCode(of = {"value"})
 public class CourseName {
     private String value;
 

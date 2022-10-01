@@ -2,13 +2,13 @@ package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.command.professor.domain.Professor;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.DayOfWeek;
+import java.time.*;
+import java.util.Set;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
@@ -23,21 +23,21 @@ public class CourseJpaRepositoryTest {
         // given
         CourseSchedule courseSchedule1 = new CourseSchedule(
                 DayOfWeek.MONDAY,
-                "14:00:00",
-                "16:00:00",
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "4567"
         );
 
         CourseSchedule courseSchedule2 = new CourseSchedule(
                 DayOfWeek.WEDNESDAY,
-                "15:00:00",
-                "17:00:00",
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "1234"
         );
 
         Course course = Course.create(
                 null,
-                Lists.newArrayList(courseSchedule1, courseSchedule2)
+                Set.of(courseSchedule1, courseSchedule2)
                 , null
                 , new Professor()
                 , "courseName1"
@@ -45,15 +45,15 @@ public class CourseJpaRepositoryTest {
         );
 
         // when
-        Course save = courseRepository.save(course);
+        Course savedCourse = courseRepository.save(course);
 
         // then
-        Assertions.assertThat(save).isNotNull();
+        Assertions.assertThat(savedCourse).isNotNull();
+        Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName1");
 
-        CourseSchedules courseSchedules = save.getCourseSchedules();
+        CourseSchedules courseSchedules = savedCourse.getCourseSchedules();
 
         Assertions.assertThat(courseSchedules.getCourseScheduleList()).hasSize(2);
-        Assertions.assertThat(courseSchedules.getCourseScheduleList())
-                .containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
+        Assertions.assertThat(courseSchedules.getCourseScheduleList()).containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
     }
 }

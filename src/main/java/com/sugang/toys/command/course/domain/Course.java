@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,6 +24,11 @@ public class Course {
     @Embedded
     private CourseName name;
 
+    public String getName()
+    {
+        return name.getValue();
+    }
+
     @Embedded
     private CourseSchedules courseSchedules;
 
@@ -40,7 +44,7 @@ public class Course {
 
     protected Course(
             Long id
-            , List<CourseSchedule> courseScheduleList
+            , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
             , Professor professor
             , String name
@@ -58,7 +62,7 @@ public class Course {
 
     public static Course create(
             Long id
-            , List<CourseSchedule> courseScheduleList
+            , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
             , Professor professor
             , String name
