@@ -1,7 +1,6 @@
 package com.sugang.toys.command.student.domain;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.department.domain.Departments;
 import com.sugang.toys.command.student.domain.exception.StudentException;
 import lombok.Getter;
@@ -15,7 +14,7 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @Entity
 @Getter
-@ToString(exclude = "{departments}")
+@ToString(exclude = {"departments"})
 public class Student {
 
     @Id

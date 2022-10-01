@@ -35,7 +35,5 @@ public class CourseRegisterService {
 
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException(ErrorCode.NONE_STUDENT.getMessage()));
-
-        student.registerCourse(course);
     }
 }

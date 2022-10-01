@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -23,10 +24,26 @@ public class CourseRegistration {
     @ManyToOne(fetch = FetchType.LAZY)
     private Student student;
 
-    public CourseRegistration(Course course, Student student)
+    private boolean finish;
+
+    private LocalDateTime registerDate;
+
+    private Integer courseValue;
+
+    public CourseRegistration(Course course, Student student, Integer courseValue)
     {
         this.course = course;
         this.student = student;
+        this.courseValue = courseValue;
+    }
+
+    public static CourseRegistration register(
+            Course course,
+            Student student,
+            Integer courseValue
+    )
+    {
+        return new CourseRegistration(course, student, courseValue);
     }
 
 }

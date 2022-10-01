@@ -1,21 +1,31 @@
 package com.sugang.toys.command.course.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import java.time.DayOfWeek;
 
+@Setter
 @Getter
+@Embeddable
+@ToString
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"day", "from", "to", "roomNumber"})
 public class CourseSchedule {
-    private String day;
-    private LocalDate from;
-    private LocalDate to;
 
-    public CourseSchedule(String day, LocalDate from, LocalDate to)
+    private DayOfWeek day;
+    private String from;
+    private String to;
+
+    @Embedded
+    private RoomNumber roomNumber;
+
+    public CourseSchedule(DayOfWeek day, String from, String to, String roomNumber)
     {
         this.day = day;
         this.from = from;
         this.to = to;
+        this.roomNumber = new RoomNumber(roomNumber);
     }
 }
