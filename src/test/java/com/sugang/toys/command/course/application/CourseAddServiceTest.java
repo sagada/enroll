@@ -2,6 +2,7 @@ package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
+import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.department.domain.Division;
@@ -36,8 +37,6 @@ public class CourseAddServiceTest {
     @Mock
     DepartmentRepository departmentRepository;
 
-    @Mock
-    Course course;
     @Test
     void init()
     {
@@ -62,10 +61,23 @@ public class CourseAddServiceTest {
         Mockito.when(departmentRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(new Department(1L, "부서", Division.IT, "2022-02-02", "202-0222")));
 
+
+        Course course = Course.create(
+                1L,
+                Set.of(new CourseSchedule(DayOfWeek.FRIDAY
+                        , LocalDateTime.of(1922, Month.MARCH, 3, 3, 3)
+                        , LocalDateTime.of(1922, Month.MARCH, 3, 5, 3)
+                        , "1234"
+                )),
+                null,
+                null,
+                "자료구조",
+                new Department(),
+                10
+        );
+
         Mockito.when(courseRepository.save(Mockito.any()))
                 .thenReturn(course);
-
-        Mockito.when(course.getId()).thenReturn(1L);
 
         // when
         Long aLong = courseAddService.addCourse(addCourseRequest);
