@@ -1,9 +1,11 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,6 +13,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@ToString(exclude = {"professor", "department"})
 public class Course {
 
     @Id
@@ -39,6 +42,10 @@ public class Course {
     @JoinColumn(name = "prof_id")
     private Professor professor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "depart_id")
+    private Department department;
+
     @Column(name = "max_stu_cnt")
     private Integer maxStudentCount;
 
@@ -48,6 +55,7 @@ public class Course {
             , Set<Long> preCourseIdSet
             , Professor professor
             , String name
+            , Department department
             , CourseStatus courseStatus
             , Integer maxStudentCount)
     {
@@ -58,6 +66,7 @@ public class Course {
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.preCourses = new PreCourses(preCourseIdSet);
         this.name = new CourseName(name);
+        this.department = department;
     }
 
     public static Course create(
@@ -66,6 +75,7 @@ public class Course {
             , Set<Long> preCourseIdSet
             , Professor professor
             , String name
+            , Department department
             , Integer maxStudentCount)
     {
         return new Course(
@@ -74,6 +84,7 @@ public class Course {
                 , preCourseIdSet
                 , professor
                 , name
+                , department
                 , CourseStatus.OPEN
                 , maxStudentCount);
     }

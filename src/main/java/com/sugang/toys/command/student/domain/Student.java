@@ -1,7 +1,7 @@
 package com.sugang.toys.command.student.domain;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.department.domain.Departments;
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.student.domain.exception.StudentException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @Entity
 @Getter
-@ToString(exclude = {"departments"})
+@ToString(exclude = {"department"})
 public class Student {
 
     @Id
@@ -46,36 +46,36 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_id")
-    private Departments departments;
+    private Department department;
 
-    private Student(Long id, String name, Departments departments, String birthDay, StudentStatus studentStatus, int grade)
+    private Student(Long id, String name, Department department, String birthDay, StudentStatus studentStatus, int grade)
     {
         this.id = id;
         this.name = new StudentName(name);
         this.birthDay = new StudentBirthDay(birthDay);
         this.studentStatus = studentStatus;
         this.grade = grade;
-        this.departments = departments;
+        this.department = department;
     }
 
     public static Student enter(
             String name
-            , Departments departments
+            , Department department
             , String birthday
     )
     {
-        return new Student(null, name, departments, birthday, StudentStatus.ATTENDING, 1);
+        return new Student(null, name, department, birthday, StudentStatus.ATTENDING, 1);
     }
 
     public static Student create(
             Long id
             , String name
-            , Departments departments
+            , Department department
             , String birthday
             , StudentStatus studentStatus
             , int grade)
     {
-       return new Student(id, name, departments, birthday, studentStatus, grade);
+       return new Student(id, name, department, birthday, studentStatus, grade);
     }
 
     public void update(Student student)
@@ -133,18 +133,18 @@ public class Student {
         return this.studentStatus.equals(StudentStatus.ENTER);
     }
 
-    public void assignDepartment(Departments departments)
+    public void assignDepartment(Department department)
     {
         if (!this.studentStatus.equals(StudentStatus.ENTER))
         {
             throw new StudentException(ErrorCode.ASSIGN_DEPART_MENT_ERROR);
         }
 
-        if (this.departments != null)
+        if (this.department != null)
         {
             throw new StudentException(ErrorCode.ASSIGN_DEPART_MENT_ERROR);
         }
 
-        this.departments = departments;
+        this.department = department;
     }
 }

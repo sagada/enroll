@@ -22,7 +22,11 @@ public class CourseSchedule {
     @Embedded
     private RoomNumber roomNumber;
 
-    public CourseSchedule(DayOfWeek day, LocalDateTime from, LocalDateTime to, String roomNumber)
+    public CourseSchedule(
+            DayOfWeek day
+            , LocalDateTime from
+            , LocalDateTime to
+            , String roomNumber)
     {
         this.day = day;
         this.from = from;

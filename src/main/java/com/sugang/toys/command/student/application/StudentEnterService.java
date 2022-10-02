@@ -10,13 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class StudentEnterService {
     private final StudentRepository studentRepository;
-    private final EmailService emailService;
 
     @Autowired
-    public StudentEnterService(StudentRepository studentRepository, EmailService emailService)
+    public StudentEnterService(StudentRepository studentRepository)
     {
         this.studentRepository = studentRepository;
-        this.emailService = emailService;
     }
 
     @Transactional

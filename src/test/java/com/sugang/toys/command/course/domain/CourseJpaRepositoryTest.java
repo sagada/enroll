@@ -1,5 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ public class CourseJpaRepositoryTest {
                 , null
                 , new Professor()
                 , "courseName1"
+                , new Department()
                 , 100
         );
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Getter
-public class Departments {
+public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,21 +23,23 @@ public class Departments {
     @Embedded
     private DepartmentPhoneNumber phoneNumber;
 
-    public Departments(Long id, String name, Division division, DepartmentPhoneNumber phoneNumber)
+
+    public Department(Long id, String name, Division division, String phoneNumber, String faxNumber)
     {
         this.id = id;
         this.name = name;
         this.division = division;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = new DepartmentPhoneNumber(phoneNumber, faxNumber);
     }
 
-    public static Departments create(
+    public static Department create(
             Long id
             , String name
             , Division division
-            , DepartmentPhoneNumber phoneNumber
+            , String phoneNumber
+            , String faxNumber
     )
     {
-        return new Departments(id, name, division, phoneNumber);
+        return new Department(id, name, division, phoneNumber, faxNumber);
     }
 }

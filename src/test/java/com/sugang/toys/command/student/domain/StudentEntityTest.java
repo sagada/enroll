@@ -1,17 +1,18 @@
 package com.sugang.toys.command.student.domain;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.department.domain.Departments;
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.Division;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StudentEntityTest {
 
-    static Departments givenDepartment()
+    static Department givenDepartment()
     {
-        return new Departments(1L, "we", Division.IT, null);
+        return new Department(1L, "we", Division.IT, "222-2222", "2222-2222");
     }
+
     @Test
     void 학생_생성자_테스트()
     {

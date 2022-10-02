@@ -1,7 +1,7 @@
 package com.sugang.toys.command.department.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.department.domain.Departments;
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.student.domain.Student;
 import com.sugang.toys.command.student.domain.StudentRepository;
@@ -26,14 +26,14 @@ public class AssignmentStudentService {
     }
 
     @Transactional
-    public void assign(Long studentId, Long departMentId)
+    public void assign(Long studentId, Long departmentId)
     {
-        Departments departments = departmentRepository.findById(departMentId)
+        Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new RuntimeException("없는 학과"));
 
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new StudentException(ErrorCode.NONE_STUDENT));
 
-        student.assignDepartment(departments);
+        student.assignDepartment(department);
     }
 }
