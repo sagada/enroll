@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Getter
+@Table(name = "course")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @ToString(exclude = {"professor", "department"})

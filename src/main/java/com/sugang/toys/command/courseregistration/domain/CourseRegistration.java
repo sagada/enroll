@@ -1,4 +1,4 @@
-package com.sugang.toys.command.classregistration.domain;
+package com.sugang.toys.command.courseregistration.domain;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.student.domain.Student;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Table(name = "registration")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class CourseRegistration {

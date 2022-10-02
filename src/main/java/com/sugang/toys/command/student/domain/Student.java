@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+
+@Table(name = "student")
 @NoArgsConstructor
 @Entity
 @Getter

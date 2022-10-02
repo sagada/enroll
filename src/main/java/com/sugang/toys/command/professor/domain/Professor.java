@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+@Table(name = "professor")
 @Getter
 @Entity
 @ToString

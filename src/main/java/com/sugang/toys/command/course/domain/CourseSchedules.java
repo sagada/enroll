@@ -6,13 +6,11 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import java.util.Set;
 
-@EqualsAndHashCode(of = {"courseScheduleList"})
 @Setter
 @NoArgsConstructor
 @Embeddable
 @Getter
-@ToString
-public class CourseSchedules {
+public class  CourseSchedules {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "course_scheduler", joinColumns = @JoinColumn(name = "course_id"))

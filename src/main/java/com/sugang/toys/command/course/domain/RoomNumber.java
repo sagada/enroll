@@ -16,7 +16,6 @@ import javax.persistence.Embeddable;
 @EqualsAndHashCode(of = {"value"})
 public class RoomNumber {
 
-    @Column(name = "room_number")
     private String value;
 
     public RoomNumber(String value)
