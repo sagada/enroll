@@ -38,25 +38,43 @@ public class Professor {
     }
 
     public Course openCourse(
-            Set<CourseSchedule> courseScheduleList
+            Set<CourseSchedule> openCourseScheduleList
             , String name
             , Department department
             , Integer maxStudentCount
-            , ProfessorOpenCourseValidateService professorOpenCourseValidateService)
+            , OpenCourseValidateService openCourseValidateService)
     {
-        invalidOpenCourseCheck(professorOpenCourseValidateService, courseScheduleList);
-        return Course.open(courseScheduleList, this, name, department, maxStudentCount);
+        validateOpenCourse(openCourseValidateService, openCourseScheduleList);
+        return Course.open(openCourseScheduleList, this, name, department, maxStudentCount);
     }
 
-    private void invalidOpenCourseCheck(
-            ProfessorOpenCourseValidateService professorOpenCourseValidateService
+    private void validateOpenCourse(
+            OpenCourseValidateService openCourseValidateService
             , Set<CourseSchedule> courseScheduleList)
     {
-        professorOpenCourseValidateService.validate(this, courseScheduleList);
+        openCourseValidateService.openCourseScheduleCheck(this, courseScheduleList);
 
         if (!professorStatus.equals(ProfessorStatus.WORK))
         {
-            throw new IllegalStateException("WORK 아닌 교수는 개설을 할 수 없습니다.");
+            throw new IllegalStateException("NOT WORKING PROFESSOR!");
         }
+    }
+
+    public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)
+    {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.professorStatus = professorStatus;
+    }
+
+    public static Professor create(
+            Long id
+            , PhoneNumber phoneNumber
+            , String name
+            , ProfessorStatus professorStatus
+    )
+    {
+        return new Professor(id, phoneNumber, name, professorStatus);
     }
 }

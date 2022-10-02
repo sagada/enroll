@@ -6,7 +6,7 @@ import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.professor.domain.Professor;
-import com.sugang.toys.command.professor.domain.ProfessorOpenCourseValidateService;
+import com.sugang.toys.command.professor.domain.OpenCourseValidateService;
 import com.sugang.toys.command.professor.domain.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,16 @@ public class OpenCourseService {
     private final CourseRepository courseRepository;
     private final ProfessorRepository professorRepository;
     private final DepartmentRepository departmentRepository;
-    private final ProfessorOpenCourseValidateService professorOpenCourseValidateService;
+    private final OpenCourseValidateService openCourseValidateService;
 
     @Transactional
     public Long openCourse(OpenCourseRequest openCourseRequest)
     {
         Professor professor = professorRepository.findById(openCourseRequest.getProfessorId())
-                .orElseThrow(() -> new RuntimeException("없는 교수"));
+                .orElseThrow(() -> new RuntimeException("NOT EXISTS professor!"));
 
         Department department = departmentRepository.findById(openCourseRequest.getDepartmentId())
-                .orElseThrow(() -> new RuntimeException("없는 학과"));
+                .orElseThrow(() -> new RuntimeException("NOT EXISTS Department!"));
 
         Set<CourseSchedule> schedules = openCourseRequest.getCourseScheduleSet().stream()
                 .map(OpenCourseRequest.CourseScheduleDto::convert)
@@ -42,7 +42,7 @@ public class OpenCourseService {
                 , openCourseRequest.getCourseName()
                 , department
                 , openCourseRequest.getMaxCourseStudentCount()
-                , professorOpenCourseValidateService
+                , openCourseValidateService
         );
 
         return courseRepository.save(course).getId();
