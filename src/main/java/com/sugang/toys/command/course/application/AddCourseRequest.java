@@ -2,12 +2,14 @@ package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@Accessors(chain = true)
 public class AddCourseRequest {
     private Long professorId;
     private String courseName;

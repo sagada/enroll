@@ -23,7 +23,7 @@ public class CourseAddService {
     private final DepartmentRepository departmentRepository;
 
     @Transactional
-    public void addCourse(AddCourseRequest addCourseRequest)
+    public Long addCourse(AddCourseRequest addCourseRequest)
     {
         Professor professor = professorRepository.findById(addCourseRequest.getProfessorId())
                 .orElseThrow(() -> new RuntimeException("없는 교수"));
@@ -45,6 +45,6 @@ public class CourseAddService {
                 , addCourseRequest.getMaxCourseStudentCount()
         );
 
-        courseRepository.save(course);
+        return courseRepository.save(course).getId();
     }
 }
