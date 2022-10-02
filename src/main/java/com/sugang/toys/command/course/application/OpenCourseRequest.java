@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Accessors(chain = true)
-public class AddCourseRequest {
+public class OpenCourseRequest {
     private Long professorId;
     private String courseName;
     private Long departmentId;

@@ -1,6 +1,7 @@
 package com.sugang.toys.command.course.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/course")
 public class CourseController {
 
-    private final CourseAddService courseAddService;
+    private final OpenCourseService openCourseService;
 
-    @PostMapping("/add")
-    public void addCourse(@RequestBody AddCourseRequest addCourseRequest)
+    @PostMapping("/open")
+    public ResponseEntity<Long> openCourse(@RequestBody OpenCourseRequest openCourseRequest)
     {
-        courseAddService.addCourse(addCourseRequest);
+        return ResponseEntity.ok(openCourseService.openCourse(openCourseRequest));
     }
 }

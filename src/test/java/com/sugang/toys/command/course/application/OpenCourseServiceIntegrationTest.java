@@ -15,23 +15,23 @@ import java.util.Set;
 @Transactional
 @Sql(scripts = {"classpath:sql/init.sql"})
 @SpringBootTest
-public class CourseAddServiceIntegrationTest {
+public class OpenCourseServiceIntegrationTest {
 
     @Autowired
-    CourseAddService courseAddService;
+    OpenCourseService openCourseService;
 
     @Test
     void addCourseTest()
     {
         // given
-        AddCourseRequest addCourseRequest = new AddCourseRequest()
+        OpenCourseRequest openCourseRequest = new OpenCourseRequest()
                 .setCourseName("course_name")
                 .setProfessorId(1111L)
                 .setDepartmentId(99999L)
                 .setMaxCourseStudentCount(10)
                 .setCourseScheduleSet(
                         Set.of(
-                                new AddCourseRequest.CourseScheduleDto(
+                                new OpenCourseRequest.CourseScheduleDto(
                                     DayOfWeek.FRIDAY,
                                     LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
                                     LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
@@ -39,7 +39,7 @@ public class CourseAddServiceIntegrationTest {
         )));
 
         // when
-        Long id = courseAddService.addCourse(addCourseRequest);
+        Long id = openCourseService.addCourse(openCourseRequest);
 
         // then
         Assertions.assertNotNull(id);

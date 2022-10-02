@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "course")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@ToString(exclude = {"professor", "department"})
+@ToString
 public class Course {
 
     @Id
@@ -41,14 +41,24 @@ public class Course {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prof_id")
+    @ToString.Exclude
     private Professor professor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_id")
+    @ToString.Exclude
     private Department department;
 
     @Column(name = "max_stu_cnt")
     private Integer maxStudentCount;
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
 
     protected Course(
             Long id
@@ -83,6 +93,24 @@ public class Course {
                 id
                 , courseScheduleList
                 , preCourseIdSet
+                , professor
+                , name
+                , department
+                , CourseStatus.OPEN
+                , maxStudentCount);
+    }
+
+    public static Course open(
+            Set<CourseSchedule> courseScheduleList
+            , Professor professor
+            , String name
+            , Department department
+            , Integer maxStudentCount)
+    {
+        return new Course(
+                null
+                , courseScheduleList
+                , null
                 , professor
                 , name
                 , department

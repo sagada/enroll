@@ -23,10 +23,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
-public class CourseAddServiceTest {
+public class OpenCourseServiceTest {
 
     @InjectMocks
-    private CourseAddService courseAddService;
+    private OpenCourseService openCourseService;
 
     @Mock
     CourseRepository courseRepository;
@@ -41,14 +41,14 @@ public class CourseAddServiceTest {
     void 강좌_생성_테스트()
     {
         // given
-        AddCourseRequest addCourseRequest = new AddCourseRequest()
+        OpenCourseRequest openCourseRequest = new OpenCourseRequest()
                 .setCourseName("course_name")
                 .setProfessorId(1111L)
                 .setDepartmentId(99999L)
                 .setMaxCourseStudentCount(10)
                 .setCourseScheduleSet(
                         Set.of(
-                                new AddCourseRequest.CourseScheduleDto(
+                                new OpenCourseRequest.CourseScheduleDto(
                                         DayOfWeek.FRIDAY,
                                         LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
                                         LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
@@ -80,7 +80,7 @@ public class CourseAddServiceTest {
                 .thenReturn(course);
 
         // when
-        Long id = courseAddService.addCourse(addCourseRequest);
+        Long id = openCourseService.addCourse(openCourseRequest);
 
         // then
         Assertions.assertEquals(id, 1L);
