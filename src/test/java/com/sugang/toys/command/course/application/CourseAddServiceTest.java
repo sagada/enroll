@@ -38,7 +38,7 @@ public class CourseAddServiceTest {
     DepartmentRepository departmentRepository;
 
     @Test
-    void init()
+    void 강좌_생성_테스트()
     {
         // given
         AddCourseRequest addCourseRequest = new AddCourseRequest()
@@ -61,12 +61,12 @@ public class CourseAddServiceTest {
         Mockito.when(departmentRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(new Department(1L, "부서", Division.IT, "2022-02-02", "202-0222")));
 
-
         Course course = Course.create(
                 1L,
-                Set.of(new CourseSchedule(DayOfWeek.FRIDAY
-                        , LocalDateTime.of(1922, Month.MARCH, 3, 3, 3)
-                        , LocalDateTime.of(1922, Month.MARCH, 3, 5, 3)
+                Set.of(new CourseSchedule(
+                        DayOfWeek.FRIDAY,
+                        LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
+                        LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3)
                         , "1234"
                 )),
                 null,
@@ -80,10 +80,12 @@ public class CourseAddServiceTest {
                 .thenReturn(course);
 
         // when
-        Long aLong = courseAddService.addCourse(addCourseRequest);
+        Long id = courseAddService.addCourse(addCourseRequest);
 
         // then
-        Assertions.assertEquals(aLong, 1L);
+        Assertions.assertEquals(id, 1L);
         Mockito.verify(courseRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(professorRepository, Mockito.times(1)).findById(Mockito.any());
+        Mockito.verify(departmentRepository, Mockito.times(1)).findById(Mockito.any());
     }
 }

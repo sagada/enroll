@@ -15,7 +15,7 @@ import java.util.Set;
 @Transactional
 @Sql(scripts = {"classpath:sql/init.sql"})
 @SpringBootTest
-public class CourseAddServiceDBTest {
+public class CourseAddServiceIntegrationTest {
 
     @Autowired
     CourseAddService courseAddService;
