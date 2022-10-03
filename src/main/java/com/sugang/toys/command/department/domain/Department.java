@@ -23,7 +23,6 @@ public class Department {
     @Embedded
     private DepartmentPhoneNumber phoneNumber;
 
-
     public Department(Long id, String name, Division division, String phoneNumber, String faxNumber)
     {
         this.id = id;

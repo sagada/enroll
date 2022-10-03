@@ -80,7 +80,7 @@ public class OpenCourseServiceTest {
                 .thenReturn(course);
 
         // when
-        Long id = openCourseService.addCourse(openCourseRequest);
+        Long id = openCourseService.openCourse(openCourseRequest);
 
         // then
         Assertions.assertEquals(id, 1L);

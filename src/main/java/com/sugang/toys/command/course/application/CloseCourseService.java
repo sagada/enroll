@@ -15,7 +15,7 @@ public class CloseCourseService {
     {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("없는 수업"));
-        // TODO 이메일 발송
+
         course.close();
     }
 }

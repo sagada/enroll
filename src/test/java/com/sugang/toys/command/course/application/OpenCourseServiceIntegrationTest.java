@@ -39,7 +39,7 @@ public class OpenCourseServiceIntegrationTest {
         )));
 
         // when
-        Long id = openCourseService.addCourse(openCourseRequest);
+        Long id = openCourseService.openCourse(openCourseRequest);
 
         // then
         Assertions.assertNotNull(id);

@@ -118,9 +118,14 @@ public class Course {
                 , maxStudentCount);
     }
 
+    public boolean isClosed()
+    {
+        return CourseStatus.CLOSE.equals(this.courseStatus);
+    }
+
     public void close()
     {
-        if (CourseStatus.CLOSE.equals(this.courseStatus))
+        if (isClosed())
         {
             throw new RuntimeException("잘못된 접근..");
         }
