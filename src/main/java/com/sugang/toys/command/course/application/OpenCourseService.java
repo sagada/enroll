@@ -6,7 +6,7 @@ import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.professor.domain.Professor;
-import com.sugang.toys.command.professor.domain.OpenCourseValidateService;
+import com.sugang.toys.command.professor.domain.OpenCourseScheduleValidateService;
 import com.sugang.toys.command.professor.domain.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class OpenCourseService {
     private final CourseRepository courseRepository;
     private final ProfessorRepository professorRepository;
     private final DepartmentRepository departmentRepository;
-    private final OpenCourseValidateService openCourseValidateService;
+    private final OpenCourseScheduleValidateService openCourseScheduleValidateService;
 
     @Transactional
     public Long openCourse(OpenCourseRequest openCourseRequest)
@@ -42,7 +42,7 @@ public class OpenCourseService {
                 , openCourseRequest.getCourseName()
                 , department
                 , openCourseRequest.getMaxCourseStudentCount()
-                , openCourseValidateService
+                , openCourseScheduleValidateService
         );
 
         return courseRepository.save(course).getId();

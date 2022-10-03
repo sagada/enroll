@@ -48,6 +48,11 @@ public class CourseSchedule {
             {
                 return true;
             }
+
+            if (this.getEnd().isAfter(courseSchedule.getEnd()) && this.getStart().isBefore(this.getEnd()))
+            {
+                return true;
+            }
         }
 
         return false;

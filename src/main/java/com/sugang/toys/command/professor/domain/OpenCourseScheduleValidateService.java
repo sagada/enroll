@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class OpenCourseValidateService {
+public class OpenCourseScheduleValidateService {
 
     private final CourseRepository courseRepository;
 

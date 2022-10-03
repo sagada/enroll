@@ -42,22 +42,22 @@ public class Professor {
             , String name
             , Department department
             , Integer maxStudentCount
-            , OpenCourseValidateService openCourseValidateService)
+            , OpenCourseScheduleValidateService openCourseScheduleValidateService)
     {
-        validateOpenCourse(openCourseValidateService, openCourseScheduleList);
+        validateOpenCourse(openCourseScheduleValidateService, openCourseScheduleList);
         return Course.open(openCourseScheduleList, this, name, department, maxStudentCount);
     }
 
     private void validateOpenCourse(
-            OpenCourseValidateService openCourseValidateService
+            OpenCourseScheduleValidateService openCourseScheduleValidateService
             , Set<CourseSchedule> courseScheduleList)
     {
-        openCourseValidateService.openCourseScheduleCheck(this, courseScheduleList);
-
         if (!professorStatus.equals(ProfessorStatus.WORK))
         {
             throw new IllegalStateException("NOT WORKING PROFESSOR!");
         }
+
+        openCourseScheduleValidateService.openCourseScheduleCheck(this, courseScheduleList);
     }
 
     public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)

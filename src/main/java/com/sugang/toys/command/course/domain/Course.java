@@ -117,4 +117,14 @@ public class Course {
                 , CourseStatus.OPEN
                 , maxStudentCount);
     }
+
+    public void close()
+    {
+        if (CourseStatus.CLOSE.equals(this.courseStatus))
+        {
+            throw new RuntimeException("잘못된 접근..");
+        }
+
+        this.courseStatus = CourseStatus.CLOSE;
+    }
 }
