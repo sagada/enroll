@@ -16,17 +16,11 @@ public class OpenCourseScheduleValidateService {
 
     public void openCourseScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
     {
-        Set<CourseSchedule> courseScheduleSet = courseRepository.findByProfessorId(professor.getId())
+        courseRepository.findByProfessorId(professor.getId())
                 .stream()
                 .flatMap(course -> course.getCourseSchedules().getCourseScheduleList().stream())
-                .collect(Collectors.toSet());
-
-        for (CourseSchedule courseSchedule : courseScheduleSet)
-        {
-            if (courseSchedule.contain(openCourseScheduleList))
-            {
-                throw new IllegalStateException("중복되는 시간표가 있습니다!");
-            }
-        }
+                .filter(courseSchedule -> courseSchedule.contain(openCourseScheduleList))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("중복되는 시간표가 있습니다!"));
     }
 }
