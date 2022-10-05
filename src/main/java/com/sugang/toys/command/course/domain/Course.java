@@ -129,7 +129,6 @@ public class Course {
         {
             throw new RuntimeException("잘못된 접근입니다.");
         }
-
         this.courseStatus = CourseStatus.CLOSE;
     }
 }

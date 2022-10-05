@@ -42,14 +42,14 @@ public class Professor {
             , String name
             , Department department
             , Integer maxStudentCount
-            , OpenCourseScheduleValidateService openCourseScheduleValidateService)
+            , OpenCourseScheduleValidator openCourseScheduleValidateService)
     {
         validateOpenCourse(openCourseScheduleValidateService, openCourseScheduleList);
         return Course.open(openCourseScheduleList, this, name, department, maxStudentCount);
     }
 
     private void validateOpenCourse(
-            OpenCourseScheduleValidateService openCourseScheduleValidateService
+            OpenCourseScheduleValidator openCourseScheduleValidateService
             , Set<CourseSchedule> courseScheduleList)
     {
         if (!professorStatus.equals(ProfessorStatus.WORK))
