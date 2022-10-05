@@ -127,7 +127,7 @@ public class Course {
     {
         if (isClosed())
         {
-            throw new RuntimeException("잘못된 접근..");
+            throw new RuntimeException("잘못된 접근입니다.");
         }
 
         this.courseStatus = CourseStatus.CLOSE;
