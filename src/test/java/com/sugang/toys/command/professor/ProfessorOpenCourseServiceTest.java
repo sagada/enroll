@@ -1,4 +1,4 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.professor;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
@@ -6,6 +6,9 @@ import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.department.domain.Division;
+import com.sugang.toys.command.professor.application.ProfessorCourseScheduleDto;
+import com.sugang.toys.command.professor.application.ProfessorOpenCourseRequest;
+import com.sugang.toys.command.professor.application.ProfessorOpenCourseService;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.professor.domain.ProfessorRepository;
 import org.junit.jupiter.api.Assertions;
@@ -23,10 +26,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
-public class OpenCourseServiceTest {
+public class ProfessorOpenCourseServiceTest {
 
     @InjectMocks
-    private OpenCourseService openCourseService;
+    private ProfessorOpenCourseService professorOpenCourseService;
 
     @Mock
     CourseRepository courseRepository;
@@ -41,14 +44,14 @@ public class OpenCourseServiceTest {
     void 강좌_생성_테스트()
     {
         // given
-        OpenCourseRequest openCourseRequest = new OpenCourseRequest()
+        ProfessorOpenCourseRequest professorOpenCourseRequest = new ProfessorOpenCourseRequest()
                 .setCourseName("course_name")
                 .setProfessorId(1111L)
                 .setDepartmentId(99999L)
                 .setMaxCourseStudentCount(10)
                 .setCourseScheduleSet(
                         Set.of(
-                                new OpenCourseRequest.CourseScheduleDto(
+                                new ProfessorCourseScheduleDto(
                                         DayOfWeek.FRIDAY,
                                         LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
                                         LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
@@ -80,7 +83,7 @@ public class OpenCourseServiceTest {
                 .thenReturn(course);
 
         // when
-        Long id = openCourseService.openCourse(openCourseRequest);
+        Long id = professorOpenCourseService.professorOpenCourse(professorOpenCourseRequest);
 
         // then
         Assertions.assertEquals(id, 1L);

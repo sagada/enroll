@@ -1,5 +1,8 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.professor;
 
+import com.sugang.toys.command.professor.application.ProfessorCourseScheduleDto;
+import com.sugang.toys.command.professor.application.ProfessorOpenCourseRequest;
+import com.sugang.toys.command.professor.application.ProfessorOpenCourseService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +18,23 @@ import java.util.Set;
 @Transactional
 @Sql(scripts = {"classpath:sql/init.sql"})
 @SpringBootTest
-public class OpenCourseServiceIntegrationTest {
+public class ProfessorOpenCourseServiceIntegrationTest {
 
     @Autowired
-    OpenCourseService openCourseService;
+    ProfessorOpenCourseService professorOpenCourseService;
 
     @Test
     void addCourseTest()
     {
         // given
-        OpenCourseRequest openCourseRequest = new OpenCourseRequest()
+        ProfessorOpenCourseRequest professorOpenCourseRequest = new ProfessorOpenCourseRequest()
                 .setCourseName("course_name")
                 .setProfessorId(1111L)
                 .setDepartmentId(99999L)
                 .setMaxCourseStudentCount(10)
                 .setCourseScheduleSet(
                         Set.of(
-                                new OpenCourseRequest.CourseScheduleDto(
+                                new ProfessorCourseScheduleDto(
                                     DayOfWeek.FRIDAY,
                                     LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
                                     LocalDateTime.of(2022, Month.DECEMBER, 11, 22, 3),
@@ -39,7 +42,7 @@ public class OpenCourseServiceIntegrationTest {
         )));
 
         // when
-        Long id = openCourseService.openCourse(openCourseRequest);
+        Long id = professorOpenCourseService.professorOpenCourse(professorOpenCourseRequest);
 
         // then
         Assertions.assertNotNull(id);

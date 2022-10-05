@@ -1,4 +1,4 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.professor.application;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class OpenCourseService {
+public class ProfessorOpenCourseService {
 
     private final CourseRepository courseRepository;
     private final ProfessorRepository professorRepository;
@@ -25,7 +25,7 @@ public class OpenCourseService {
     private final OpenCourseScheduleValidator openCourseScheduleValidator;
 
     @Autowired
-    public OpenCourseService(
+    public ProfessorOpenCourseService(
             CourseRepository courseRepository
             , ProfessorRepository professorRepository
             , DepartmentRepository departmentRepository
@@ -38,23 +38,23 @@ public class OpenCourseService {
     }
 
     @Transactional
-    public Long openCourse(OpenCourseRequest openCourseRequest)
+    public Long professorOpenCourse(ProfessorOpenCourseRequest professorOpenCourseRequest)
     {
-        Professor professor = professorRepository.findById(openCourseRequest.getProfessorId())
+        Professor professor = professorRepository.findById(professorOpenCourseRequest.getProfessorId())
                 .orElseThrow(() -> new RuntimeException("NOT EXISTS professor!"));
 
-        Department department = departmentRepository.findById(openCourseRequest.getDepartmentId())
+        Department department = departmentRepository.findById(professorOpenCourseRequest.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("NOT EXISTS Department!"));
 
-        Set<CourseSchedule> schedules = openCourseRequest.getCourseScheduleSet().stream()
-                .map(OpenCourseRequest.CourseScheduleDto::convert)
+        Set<CourseSchedule> schedules = professorOpenCourseRequest.getCourseScheduleSet().stream()
+                .map(ProfessorCourseScheduleDto::convert)
                 .collect(Collectors.toSet());
 
         Course course = professor.openCourse(
                 schedules
-                , openCourseRequest.getCourseName()
+                , professorOpenCourseRequest.getCourseName()
                 , department
-                , openCourseRequest.getMaxCourseStudentCount()
+                , professorOpenCourseRequest.getMaxCourseStudentCount()
                 , openCourseScheduleValidator
         );
 

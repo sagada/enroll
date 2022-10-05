@@ -7,8 +7,9 @@ import com.sugang.toys.command.professor.domain.Professor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,11 +19,16 @@ public class OpenCourseScheduleValidateService implements OpenCourseScheduleVali
 
     public void openCourseScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
     {
-        courseRepository.findByProfessorId(professor.getId())
-                .stream()
-                .flatMap(course -> course.getCourseSchedules().getCourseScheduleList().stream())
-                .filter(Predicate.not(courseSchedule -> courseSchedule.contain(openCourseScheduleList)))
-                .findAny()
-                .orElseThrow(() -> new IllegalStateException("중복되는 시간표가 있습니다!"));
+        List<CourseSchedule> courseScheduleList = courseRepository.findByProfessorId(professor.getId()).stream()
+                .flatMap(professorCourse -> professorCourse.getCourseSchedules().getCourseScheduleList().stream())
+                .collect(Collectors.toList());
+
+        for (CourseSchedule courseSchedule : courseScheduleList)
+        {
+            if (courseSchedule.contain(openCourseScheduleList))
+            {
+                throw new RuntimeException("중복되는 시간표가 있습니다!");
+            }
+        }
     }
 }

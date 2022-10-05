@@ -49,7 +49,7 @@ public class Professor {
     }
 
     private void validateOpenCourse(
-            OpenCourseScheduleValidator openCourseScheduleValidateService
+            OpenCourseScheduleValidator courseScheduleValidator
             , Set<CourseSchedule> courseScheduleList)
     {
         if (!professorStatus.equals(ProfessorStatus.WORK))
@@ -57,7 +57,7 @@ public class Professor {
             throw new IllegalStateException("NOT WORKING PROFESSOR!");
         }
 
-        openCourseScheduleValidateService.openCourseScheduleCheck(this, courseScheduleList);
+        courseScheduleValidator.openCourseScheduleCheck(this, courseScheduleList);
     }
 
     public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)
