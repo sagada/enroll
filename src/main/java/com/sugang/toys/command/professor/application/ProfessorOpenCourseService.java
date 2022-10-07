@@ -4,8 +4,8 @@ import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.professor.domain.ProfessorOpenCourseScheduleValidator;
-import com.sugang.toys.command.professor.infra.ProfessorOpenCourseScheduleValidateService;
+import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.course.infra.CreateCourseValidateService;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.professor.domain.Professor;
@@ -24,19 +24,19 @@ public class ProfessorOpenCourseService {
     private final CourseRepository courseRepository;
     private final ProfessorRepository professorRepository;
     private final DepartmentRepository departmentRepository;
-    private final ProfessorOpenCourseScheduleValidator professorOpenCourseScheduleValidator;
+    private final CreateCourseValidator createCourseValidator;
 
     @Autowired
     public ProfessorOpenCourseService(
             CourseRepository courseRepository
             , ProfessorRepository professorRepository
             , DepartmentRepository departmentRepository
-            , ProfessorOpenCourseScheduleValidateService openCourseScheduleValidateService)
+            , CreateCourseValidateService createCourseScheduleValidateService)
     {
         this.courseRepository = courseRepository;
         this.professorRepository = professorRepository;
         this.departmentRepository = departmentRepository;
-        this.professorOpenCourseScheduleValidator = openCourseScheduleValidateService;
+        this.createCourseValidator = createCourseScheduleValidateService;
     }
 
     @Transactional
@@ -57,7 +57,7 @@ public class ProfessorOpenCourseService {
                 , professorOpenCourseRequest.getCourseName()
                 , department
                 , professorOpenCourseRequest.getMaxCourseStudentCount()
-                , professorOpenCourseScheduleValidator
+                , createCourseValidator
         );
 
         return courseRepository.save(course).getId();

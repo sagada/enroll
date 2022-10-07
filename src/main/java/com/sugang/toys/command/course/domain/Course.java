@@ -40,76 +40,76 @@ public class Course {
     @Embedded
     private PreCourses preCourses;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prof_id")
-    @ToString.Exclude
-    private Professor professor; 
+    @Column(name = "professor_id")
+    private Long professorId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "depart_id")
-    @ToString.Exclude
-    private Department department;
+    @Column(name = "department_id")
+    private Long departmentId;
 
     @Column(name = "max_stu_cnt")
     private Integer maxStudentCount;
-
-    public void setDepartment(Department department) 
-    {
-        this.department = department;
-    }
-
-    public void setProfessor(Professor professor) 
-     {
-        this.professor = professor;
-    }
 
     protected Course(
             Long id
             , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
-            , Professor professor
+            , Long professorId
             , String name
-            , Department department
+            , Long departmentId
             , CourseStatus courseStatus
             , Integer maxStudentCount)
     {
         this.id = id;
-        this.professor = professor;
+        this.professorId = professorId;
         this.maxStudentCount = maxStudentCount;
         this.courseStatus = courseStatus;
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.preCourses = new PreCourses(preCourseIdSet);
         this.name = new CourseName(name);
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
-    public static Course create(
+    public static Course newCreate(
             Long id
             , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
-            , Professor professor
+            , Long professorId
             , String name
-            , Department department
+            , Long departmentId
             , Integer maxStudentCount)
     {
         return new Course(
                 id
                 , courseScheduleList
                 , preCourseIdSet
-                , professor
+                , professorId
                 , name
-                , department
+                , departmentId
                 , CourseStatus.OPEN
                 , maxStudentCount);
     }
 
-    public static Course open(
+    public static Course createCourse(
             Set<CourseSchedule> courseScheduleList
             , Professor professor
             , String name
             , Department department
-            , Integer maxStudentCount)
+            , Integer maxStudentCount
+            , CreateCourseValidator createCourseValidator)
     {
+        if (courseScheduleList.isEmpty())
+        {
+            throw new IllegalStateException("schedule is empty!");
+        }
+
+        if (!professor.isWorking())
+        {
+            throw new IllegalStateException("professor is not working!");
+        }
+
+        createCourseValidator.duplicateCourseName(name);
+        createCourseValidator.professorScheduleCheck(professor, courseScheduleList);
+
         return new Course(
                 null
                 , courseScheduleList
@@ -117,7 +117,7 @@ public class Course {
                 , professor
                 , name
                 , department
-                , CourseStatus.HOLD
+                 , CourseStatus.HOLD
                 , maxStudentCount);
     }
 
@@ -135,7 +135,7 @@ public class Course {
         this.courseStatus = CourseStatus.CLOSE;
     }
 
-    public void open()
+    public void createCourse()
     {
         if (isClosed())
         {

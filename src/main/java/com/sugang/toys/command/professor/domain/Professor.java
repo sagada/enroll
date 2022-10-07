@@ -3,6 +3,7 @@ package com.sugang.toys.command.professor.domain;
 import com.sugang.toys.command.common.domain.PhoneNumber;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseSchedule;
+import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.department.domain.Department;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -42,22 +43,14 @@ public class Professor {
             , String name
             , Department department
             , Integer maxStudentCount
-            , ProfessorOpenCourseScheduleValidator openCourseScheduleValidateService)
+            , CreateCourseValidator openCourseScheduleValidateService)
     {
-        validateOpenCourse(openCourseScheduleValidateService, openCourseScheduleList);
-        return Course.open(openCourseScheduleList, this, name, department, maxStudentCount);
+        return Course.createCourse(openCourseScheduleList, this, name, department, maxStudentCount, openCourseScheduleValidateService);
     }
 
-    private void validateOpenCourse(
-            ProfessorOpenCourseScheduleValidator courseScheduleValidator
-            , Set<CourseSchedule> courseScheduleList)
+    public boolean isWorking()
     {
-        if (!professorStatus.equals(ProfessorStatus.WORK))
-        {
-            throw new IllegalStateException("NOT WORKING PROFESSOR!");
-        }
-
-        courseScheduleValidator.openCourseScheduleCheck(this, courseScheduleList);
+        return ProfessorStatus.WORK.equals(this.professorStatus);
     }
 
     public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)

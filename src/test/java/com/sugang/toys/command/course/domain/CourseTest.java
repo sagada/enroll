@@ -22,7 +22,7 @@ class CourseTest {
         );
 
         // when
-        Course course = Course.create(
+        Course course = Course.newCreate(
                 null
                 , Set.of(courseSchedule)
                 , null
@@ -57,7 +57,7 @@ class CourseTest {
         // then
         Assertions.assertThrows(
                 RuntimeException.class,
-                () ->  Course.create(
+                () ->  Course.newCreate(
                         null
                         , Set.of(courseSchedule1, courseSchedule2)
                         , null

@@ -36,7 +36,7 @@ public class CourseJpaRepositoryTest {
                 "1234"
         );
 
-        Course course = Course.create(
+        Course course = Course.newCreate(
                 null,
                 Set.of(courseSchedule1, courseSchedule2)
                 , null
@@ -55,7 +55,7 @@ public class CourseJpaRepositoryTest {
 
         CourseSchedules courseSchedules = savedCourse.getCourseSchedules();
 
-        Assertions.assertThat(courseSchedules.getCourseScheduleList()).hasSize(2);
-        Assertions.assertThat(courseSchedules.getCourseScheduleList()).containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
+        Assertions.assertThat(courseSchedules.getCourseScheduleSet()).hasSize(2);
+        Assertions.assertThat(courseSchedules.getCourseScheduleSet()).containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
     }
 }

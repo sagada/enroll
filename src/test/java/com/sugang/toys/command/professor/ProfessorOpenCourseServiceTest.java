@@ -64,7 +64,7 @@ public class ProfessorOpenCourseServiceTest {
         Mockito.when(departmentRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(new Department(1L, "부서", Division.IT, "2022-02-02", "202-0222")));
 
-        Course course = Course.create(
+        Course course = Course.newCreate(
                 1L,
                 Set.of(new CourseSchedule(
                         DayOfWeek.FRIDAY,
