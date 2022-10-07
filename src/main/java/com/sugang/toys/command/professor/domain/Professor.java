@@ -3,7 +3,6 @@ package com.sugang.toys.command.professor.domain;
 import com.sugang.toys.command.common.domain.PhoneNumber;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.OpenCourseScheduleValidator;
 import com.sugang.toys.command.department.domain.Department;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,14 +42,14 @@ public class Professor {
             , String name
             , Department department
             , Integer maxStudentCount
-            , OpenCourseScheduleValidator openCourseScheduleValidateService)
+            , ProfessorOpenCourseScheduleValidator openCourseScheduleValidateService)
     {
         validateOpenCourse(openCourseScheduleValidateService, openCourseScheduleList);
         return Course.open(openCourseScheduleList, this, name, department, maxStudentCount);
     }
 
     private void validateOpenCourse(
-            OpenCourseScheduleValidator courseScheduleValidator
+            ProfessorOpenCourseScheduleValidator courseScheduleValidator
             , Set<CourseSchedule> courseScheduleList)
     {
         if (!professorStatus.equals(ProfessorStatus.WORK))

@@ -1,8 +1,8 @@
-package com.sugang.toys.command.course.infra;
+package com.sugang.toys.command.professor.infra;
 
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.OpenCourseScheduleValidator;
+import com.sugang.toys.command.professor.domain.ProfessorOpenCourseScheduleValidator;
 import com.sugang.toys.command.professor.domain.Professor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class OpenCourseScheduleValidateService implements OpenCourseScheduleValidator {
+public class ProfessorOpenCourseScheduleValidateService implements ProfessorOpenCourseScheduleValidator {
 
     private final CourseRepository courseRepository;
 

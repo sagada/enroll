@@ -26,6 +26,7 @@ public class Course {
     private CourseStatus courseStatus;
 
     @Embedded
+    @Column(unique = true)
     private CourseName name;
 
     public String getName()
@@ -42,7 +43,7 @@ public class Course {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prof_id")
     @ToString.Exclude
-    private Professor professor;
+    private Professor professor; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_id")
@@ -52,11 +53,13 @@ public class Course {
     @Column(name = "max_stu_cnt")
     private Integer maxStudentCount;
 
-    public void setDepartment(Department department) {
+    public void setDepartment(Department department) 
+    {
         this.department = department;
     }
 
-    public void setProfessor(Professor professor) {
+    public void setProfessor(Professor professor) 
+     {
         this.professor = professor;
     }
 
@@ -99,8 +102,6 @@ public class Course {
                 , CourseStatus.OPEN
                 , maxStudentCount);
     }
-
-    public static Course
 
     public static Course open(
             Set<CourseSchedule> courseScheduleList
