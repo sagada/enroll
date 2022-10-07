@@ -3,6 +3,7 @@ package com.sugang.toys.command.professor.domain;
 import com.sugang.toys.command.common.domain.PhoneNumber;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseSchedule;
+import com.sugang.toys.command.course.domain.OpenCourseScheduleValidator;
 import com.sugang.toys.command.department.domain.Department;
 import lombok.AccessLevel;
 import lombok.Getter;

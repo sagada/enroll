@@ -100,6 +100,8 @@ public class Course {
                 , maxStudentCount);
     }
 
+    public static Course
+
     public static Course open(
             Set<CourseSchedule> courseScheduleList
             , Professor professor
@@ -114,7 +116,7 @@ public class Course {
                 , professor
                 , name
                 , department
-                , CourseStatus.OPEN
+                , CourseStatus.HOLD
                 , maxStudentCount);
     }
 
@@ -130,5 +132,13 @@ public class Course {
             throw new RuntimeException("잘못된 접근입니다.");
         }
         this.courseStatus = CourseStatus.CLOSE;
+    }
+
+    public void open()
+    {
+        if (isClosed())
+        {
+            this.courseStatus = CourseStatus.OPEN;
+        }
     }
 }

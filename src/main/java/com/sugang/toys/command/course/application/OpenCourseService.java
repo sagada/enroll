@@ -1,15 +1,16 @@
-package com.sugang.toys.command.professor.application;
+package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.course.domain.OpenCourseScheduleValidator;
+import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.course.infra.OpenCourseScheduleValidateService;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
+import com.sugang.toys.command.professor.application.ProfessorCourseScheduleDto;
 import com.sugang.toys.command.professor.domain.Professor;
-import com.sugang.toys.command.professor.domain.ProfessorRepository;
 import com.sugang.toys.command.professor.domain.exception.ProfessorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,44 +20,48 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class ProfessorOpenCourseService {
+public class OpenCourseService {
 
     private final CourseRepository courseRepository;
-    private final ProfessorRepository professorRepository;
     private final DepartmentRepository departmentRepository;
     private final OpenCourseScheduleValidator openCourseScheduleValidator;
 
     @Autowired
-    public ProfessorOpenCourseService(
+    public OpenCourseService(
             CourseRepository courseRepository
-            , ProfessorRepository professorRepository
             , DepartmentRepository departmentRepository
             , OpenCourseScheduleValidateService openCourseScheduleValidateService)
     {
         this.courseRepository = courseRepository;
-        this.professorRepository = professorRepository;
         this.departmentRepository = departmentRepository;
         this.openCourseScheduleValidator = openCourseScheduleValidateService;
     }
 
     @Transactional
-    public Long professorOpenCourse(ProfessorOpenCourseRequest professorOpenCourseRequest)
+    public void openCourse(Long courseId)
     {
-        Professor professor = professorRepository.findById(professorOpenCourseRequest.getProfessorId())
-                .orElseThrow(() -> new ProfessorException(ErrorCode.NONE_PROFESSOR));
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseException(ErrorCode.NONE_COURSE));
 
-        Department department = departmentRepository.findById(professorOpenCourseRequest.getDepartmentId())
+        course.open();
+    }
+
+    @Transactional
+    public void createCourse(CourseCreateRequest courseCreateRequest)
+    {
+        Department department = departmentRepository.findById(courseCreateRequest.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("NOT EXISTS Department!"));
 
-        Set<CourseSchedule> schedules = professorOpenCourseRequest.getCourseScheduleSet().stream()
-                .map(ProfessorCourseScheduleDto::convert)
+        Set<CourseSchedule> schedules = courseCreateRequest.getCourseScheduleSet().stream()
+                .map(CourseScheduleDto::convert)
                 .collect(Collectors.toSet());
 
-        Course course = professor.openCourse(
+        Course course = Course.open(
                 schedules
-                , professorOpenCourseRequest.getCourseName()
+                , null
+                , courseCreateRequest.getCourseName()
                 , department
-                , professorOpenCourseRequest.getMaxCourseStudentCount()
+                , courseCreateRequest.getMaxCourseStudentCount()
                 , openCourseScheduleValidator
         );
 

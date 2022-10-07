@@ -1,8 +1,8 @@
-package com.sugang.toys.command.professor.infra;
+package com.sugang.toys.command.course.infra;
 
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.professor.domain.OpenCourseScheduleValidator;
+import com.sugang.toys.command.course.domain.OpenCourseScheduleValidator;
 import com.sugang.toys.command.professor.domain.Professor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

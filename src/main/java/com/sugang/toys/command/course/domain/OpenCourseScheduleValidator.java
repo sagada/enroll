@@ -1,6 +1,6 @@
-package com.sugang.toys.command.professor.domain;
+package com.sugang.toys.command.course.domain;
 
-import com.sugang.toys.command.course.domain.CourseSchedule;
+import com.sugang.toys.command.professor.domain.Professor;
 
 import java.util.Set;
 
