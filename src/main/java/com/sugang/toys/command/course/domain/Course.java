@@ -92,32 +92,21 @@ public class Course {
     public static Course createCourse(
             Set<CourseSchedule> courseScheduleList
             , Professor professor
-            , String name
+            , String courseName
             , Department department
             , Integer maxStudentCount
             , CreateCourseValidator createCourseValidator)
     {
-        if (courseScheduleList.isEmpty())
-        {
-            throw new IllegalStateException("schedule is empty!");
-        }
-
-        if (!professor.isWorking())
-        {
-            throw new IllegalStateException("professor is not working!");
-        }
-
-        createCourseValidator.duplicateCourseName(name);
-        createCourseValidator.professorScheduleCheck(professor, courseScheduleList);
+        createCourseValidator.validate(courseName, professor, courseScheduleList);
 
         return new Course(
                 null
                 , courseScheduleList
                 , null
-                , professor
-                , name
-                , department
-                 , CourseStatus.HOLD
+                , professor.getId()
+                , courseName
+                , department.getId()
+                , CourseStatus.HOLD
                 , maxStudentCount);
     }
 
@@ -135,11 +124,13 @@ public class Course {
         this.courseStatus = CourseStatus.CLOSE;
     }
 
-    public void createCourse()
+    public void open()
     {
-        if (isClosed())
+        if (!isClosed())
         {
-            this.courseStatus = CourseStatus.OPEN;
+            throw new RuntimeException("열린 수강!..");
         }
+
+        this.courseStatus = CourseStatus.OPEN;
     }
 }

@@ -8,7 +8,6 @@ import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.course.domain.exception.CourseException;
-import com.sugang.toys.command.course.infra.CreateCourseValidatorImpl;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.professor.domain.Professor;
@@ -26,7 +25,6 @@ public class OpenCourseService {
 
     private final CourseRepository courseRepository;
     private final DepartmentRepository departmentRepository;
-    private final com.sugang.toys.command.course.application.CreateCourseValidator openCourseValidator;
     private final ProfessorRepository professorRepository;
     private final CreateCourseValidator createCourseValidator;
 
@@ -34,13 +32,12 @@ public class OpenCourseService {
     public OpenCourseService(
             CourseRepository courseRepository
             , DepartmentRepository departmentRepository
-            , CreateCourseValidatorImpl createCourseValidatorImpl
             , ProfessorRepository professorRepository
-            , CreateCourseValidator createCourseValidator)
+            , CreateCourseValidator createCourseValidator
+    )
     {
         this.courseRepository = courseRepository;
         this.departmentRepository = departmentRepository;
-        this.openCourseValidator = createCourseValidatorImpl;
         this.professorRepository = professorRepository;
         this.createCourseValidator = createCourseValidator;
     }
@@ -51,7 +48,7 @@ public class OpenCourseService {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseException(ErrorCode.NONE_COURSE));
 
-        course.createCourse();
+        course.open();
     }
 
     @Transactional
@@ -63,12 +60,13 @@ public class OpenCourseService {
         Professor professor = professorRepository.findById(courseCreateCommand.getProfessorId())
                 .orElseThrow(() -> new ProfessorException(ErrorCode.NONE_PROFESSOR));
 
-        Set<CourseSchedule> schedules = courseCreateCommand.getCourseScheduleSet().stream()
+        Set<CourseSchedule> openCourseScheduleSet = courseCreateCommand.getCourseScheduleSet()
+                .stream()
                 .map(CourseScheduleRequest::convert)
                 .collect(Collectors.toSet());
 
         Course course = Course.createCourse(
-                schedules
+                openCourseScheduleSet
                 , professor
                 , courseCreateCommand.getCourseName()
                 , department

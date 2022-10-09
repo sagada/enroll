@@ -1,17 +1,12 @@
 package com.sugang.toys.command.professor.domain;
 
 import com.sugang.toys.command.common.domain.PhoneNumber;
-import com.sugang.toys.command.course.domain.Course;
-import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.CreateCourseValidator;
-import com.sugang.toys.command.department.domain.Department;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Table(name = "professor")
 @Getter
@@ -36,16 +31,6 @@ public class Professor {
     {
         this.id = id;
         this.name = name;
-    }
-
-    public Course openCourse(
-            Set<CourseSchedule> openCourseScheduleList
-            , String name
-            , Department department
-            , Integer maxStudentCount
-            , CreateCourseValidator openCourseScheduleValidateService)
-    {
-        return Course.createCourse(openCourseScheduleList, this, name, department, maxStudentCount, openCourseScheduleValidateService);
     }
 
     public boolean isWorking()

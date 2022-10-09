@@ -2,7 +2,6 @@ package com.sugang.toys.command.professor;
 
 import com.sugang.toys.command.professor.application.ProfessorCourseScheduleDto;
 import com.sugang.toys.command.professor.application.ProfessorOpenCourseRequest;
-import com.sugang.toys.command.professor.application.ProfessorOpenCourseService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

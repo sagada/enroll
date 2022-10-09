@@ -8,7 +8,6 @@ import com.sugang.toys.command.department.domain.DepartmentRepository;
 import com.sugang.toys.command.department.domain.Division;
 import com.sugang.toys.command.professor.application.ProfessorCourseScheduleDto;
 import com.sugang.toys.command.professor.application.ProfessorOpenCourseRequest;
-import com.sugang.toys.command.professor.application.ProfessorOpenCourseService;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.professor.domain.ProfessorRepository;
 import org.junit.jupiter.api.Assertions;
