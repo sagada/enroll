@@ -2,24 +2,32 @@ package com.sugang.toys.command.course.infra;
 
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
+import com.sugang.toys.command.course.domain.CourseScheduleOverlapCheckService;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.professor.domain.Professor;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
 public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private final CourseRepository courseRepository;
+    private final CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
+
+    @Autowired
+    public CreateCourseValidatorImpl(CourseRepository courseRepository)
+    {
+        this.courseRepository = courseRepository;
+        this.courseScheduleOverlapCheckService = new CourseScheduleOverlapCheckService();
+    }
 
     public void validate(
-            String courseName
-            , Professor professor
+            Professor professor
+            , String courseName
             , Set<CourseSchedule> openCourseScheduleList
     )
     {
@@ -38,11 +46,18 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
                 .flatMap(professorCourse -> professorCourse.getCourseSchedules().getCourseScheduleSet().stream())
                 .collect(Collectors.toList());
 
+        checkOverlapOpenScheduleSet(openCourseScheduleList, courseScheduleList);
+    }
+
+    private void checkOverlapOpenScheduleSet(Set<CourseSchedule> openCourseScheduleList, List<CourseSchedule> courseScheduleList) {
         for (CourseSchedule courseSchedule : courseScheduleList)
         {
-            if (courseSchedule.contain(openCourseScheduleList))
+            for (CourseSchedule openSchedule : openCourseScheduleList)
             {
-                throw new RuntimeException("중복되는 시간표가 있습니다!");
+                if (courseScheduleOverlapCheckService.isOverlap(courseSchedule, openSchedule))
+                {
+                    throw new RuntimeException("중복되는 시간표가 있습니다!");
+                }
             }
         }
     }

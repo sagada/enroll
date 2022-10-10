@@ -1,7 +1,5 @@
 package com.sugang.toys.command.course.domain;
 
-import com.sugang.toys.command.department.domain.Department;
-import com.sugang.toys.command.professor.domain.Professor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import java.util.Set;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-public class CourseJpaRepositoryTest {
+public class CourseJpaRepositoryTest  {
 
     @Autowired
     CourseRepository courseRepository;
@@ -40,9 +38,9 @@ public class CourseJpaRepositoryTest {
                 null,
                 Set.of(courseSchedule1, courseSchedule2)
                 , null
-                , new Professor()
+                , 1L
                 , "courseName1"
-                , new Department()
+                , 1L
                 , 100
         );
 

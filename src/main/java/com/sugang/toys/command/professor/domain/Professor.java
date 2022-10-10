@@ -33,11 +33,6 @@ public class Professor {
         this.name = name;
     }
 
-    public boolean isWorking()
-    {
-        return ProfessorStatus.WORK.equals(this.professorStatus);
-    }
-
     public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)
     {
         this.id = id;

@@ -5,5 +5,8 @@ import com.sugang.toys.command.professor.domain.Professor;
 import java.util.Set;
 
 public interface CreateCourseValidator {
-    void validate(String courseName, Professor professor, Set<CourseSchedule> openCourseScheduleList);
+    void validate(
+            Professor professor
+            , String courseName
+            , Set<CourseSchedule> openCourseScheduleSet);
 }
