@@ -2,6 +2,7 @@ package com.sugang.toys.command.course.infra;
 
 import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,21 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     public void validate(
             Professor professor
+            , Department department
             , String courseName
             , Set<CourseSchedule> openCourseScheduleList
     )
     {
+        if (professor == null)
+        {
+            throw new RuntimeException("professor is null");
+        }
+
+        if (department == null)
+        {
+            throw new RuntimeException("department is null");
+        }
+
         if (openCourseScheduleList.isEmpty())
         {
             throw new RuntimeException("스케줄이 비었습니다.");

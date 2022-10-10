@@ -97,17 +97,7 @@ public class Course {
             , Integer maxStudentCount
             , CreateCourseValidator createCourseValidator)
     {
-        if (professor == null)
-        {
-            throw new RuntimeException("professor is null");
-        }
-
-        if (department == null)
-        {
-            throw new RuntimeException("department is null");
-        }
-
-        createCourseValidator.validate(professor, courseName, courseScheduleList);
+        createCourseValidator.validate(professor, department, courseName, courseScheduleList);
 
         return new Course(
                 null
