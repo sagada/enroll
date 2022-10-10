@@ -26,7 +26,6 @@ public class Course {
     private CourseStatus courseStatus;
 
     @Embedded
-    @Column(unique = true)
     private CourseName name;
 
     public String getName()
@@ -40,8 +39,9 @@ public class Course {
     @Embedded
     private PreCourses preCourses;
 
-    @Column(name = "professor_id")
-    private Long professorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
     @Column(name = "department_id")
     private Long departmentId;
@@ -53,14 +53,14 @@ public class Course {
             Long id
             , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
-            , Long professorId
+            , Professor professor
             , String name
             , Long departmentId
             , CourseStatus courseStatus
             , Integer maxStudentCount)
     {
         this.id = id;
-        this.professorId = professorId;
+        this.professor = professor;
         this.maxStudentCount = maxStudentCount;
         this.courseStatus = courseStatus;
         this.courseSchedules = new CourseSchedules(courseScheduleList);
@@ -73,7 +73,7 @@ public class Course {
             Long id
             , Set<CourseSchedule> courseScheduleList
             , Set<Long> preCourseIdSet
-            , Long professorId
+            , Professor professor
             , String name
             , Long departmentId
             , Integer maxStudentCount)
@@ -82,7 +82,7 @@ public class Course {
                 id
                 , courseScheduleList
                 , preCourseIdSet
-                , professorId
+                , professor
                 , name
                 , departmentId
                 , CourseStatus.OPEN
@@ -113,7 +113,7 @@ public class Course {
                 null
                 , courseScheduleList
                 , null
-                , professor.getId()
+                , professor
                 , courseName
                 , department.getId()
                 , CourseStatus.HOLD

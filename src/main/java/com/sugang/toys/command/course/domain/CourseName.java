@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @NoArgsConstructor
@@ -11,6 +12,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 @EqualsAndHashCode(of = {"value"})
 public class CourseName {
+
+    @Column(name = "course_name")
     private String value;
 
     // TODO RuntimeException 제거

@@ -1,5 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.professor.domain.Professor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ class CourseTest {
                 null
                 , Set.of(courseSchedule)
                 , null
-                , 1L
+                , new Professor(1L, "ddd")
                 , "courseName1"
                 , 1L
                 , 100
@@ -59,7 +60,7 @@ class CourseTest {
                         null
                         , Set.of(courseSchedule1, courseSchedule2)
                         , null
-                        , 1L
+                        , new Professor(1L, "ddd")
                         , "courseName1"
                         , 1L
                         , 100

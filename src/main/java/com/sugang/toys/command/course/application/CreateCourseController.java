@@ -8,23 +8,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/course")
 public class CreateCourseController {
 
-    private final OpenCourseService openCourseService;
+    private final CreateCourseService createCourseService;
 
     @Autowired
-    public CreateCourseController(OpenCourseService openCourseService)
+    public CreateCourseController(CreateCourseService createCourseService)
     {
-        this.openCourseService = openCourseService;
+        this.createCourseService = createCourseService;
     }
 
     @PostMapping
     public Long createCourse(CourseCreateCommand courseCreateCommand)
     {
-        return openCourseService.createCourse(courseCreateCommand);
+        return createCourseService.createCourse(courseCreateCommand).getCourseId();
     }
 
     @PutMapping("/open/{courseId}")
     public void openCourse(@PathVariable Long courseId)
     {
-        openCourseService.openCourse(courseId);
+        createCourseService.openCourse(courseId);
     }
 }

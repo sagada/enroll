@@ -1,5 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.professor.domain.Professor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class CourseJpaRepositoryTest  {
                 null,
                 Set.of(courseSchedule1, courseSchedule2)
                 , null
-                , 1L
+                , new Professor(1L, "naaaa")
                 , "courseName1"
                 , 1L
                 , 100

@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class OpenCourseService {
+public class CreateCourseService {
 
     private final CourseRepository courseRepository;
     private final DepartmentRepository departmentRepository;
@@ -29,7 +29,7 @@ public class OpenCourseService {
     private final CreateCourseValidator createCourseValidator;
 
     @Autowired
-    public OpenCourseService(
+    public CreateCourseService(
             CourseRepository courseRepository
             , DepartmentRepository departmentRepository
             , ProfessorRepository professorRepository
@@ -52,7 +52,7 @@ public class OpenCourseService {
     }
 
     @Transactional
-    public Long createCourse(CourseCreateCommand courseCreateCommand)
+    public CreatedCourseResult createCourse(CourseCreateCommand courseCreateCommand)
     {
         Department department = departmentRepository.findById(courseCreateCommand.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("NOT EXISTS Department!"));
@@ -74,6 +74,8 @@ public class OpenCourseService {
                 , createCourseValidator
         );
 
-        return courseRepository.save(course).getId();
+        Course save = courseRepository.save(course);
+
+        return CreatedCourseResult.from(save);
     }
 }

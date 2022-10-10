@@ -1,8 +1,6 @@
 package com.sugang.toys.command.course.infra;
 
-import com.sugang.toys.command.course.domain.CourseRepository;
-import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.CourseScheduleOverlapCheckService;
+import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.professor.domain.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +62,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private void duplicateCourseName(String courseName)
     {
-        if (courseRepository.existsByName(courseName))
+        if (courseRepository.existsByName(new CourseName(courseName)))
         {
             throw new IllegalStateException("중복되는 수업 이름이 있습니다.");
         }
