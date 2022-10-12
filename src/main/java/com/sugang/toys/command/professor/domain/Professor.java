@@ -24,6 +24,7 @@ public class Professor {
 
     private String name;
 
+    @Column(name = "professor_status")
     @Enumerated(EnumType.STRING)
     private ProfessorStatus professorStatus;
 

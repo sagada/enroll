@@ -16,6 +16,11 @@ public class CourseSchedules {
     @CollectionTable(name = "course_scheduler", joinColumns = @JoinColumn(name = "course_id"))
     private Set<CourseSchedule> courseScheduleSet;
 
+    public Set<CourseSchedule> courseScheduleSet()
+    {
+        return this.courseScheduleSet;
+    }
+
     public CourseSchedules(Set<CourseSchedule> courseScheduleSet)
     {
         if (CollectionUtils.isEmpty(courseScheduleSet))

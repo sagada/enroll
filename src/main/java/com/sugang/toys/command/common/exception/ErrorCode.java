@@ -15,7 +15,8 @@ public enum ErrorCode {
     NONE_PROFESSOR("없는 교수입니다.", 200),
 
     // ################### COURSE ###################
-    NONE_COURSE("없는 코스입니다.", 300)
+    NONE_COURSE("없는 코스입니다.", 300),
+    DUPLICATE_COURSE_NAME("중복되는 수업 이름이 있습니다.", 301)
     ;
     private final String message;
     private final Integer code;

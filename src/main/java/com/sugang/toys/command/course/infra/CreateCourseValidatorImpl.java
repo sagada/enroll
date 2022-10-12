@@ -1,7 +1,9 @@
 package com.sugang.toys.command.course.infra;
 
+import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
             Professor professor
             , Department department
             , String courseName
-            , Set<CourseSchedule> openCourseScheduleList
+            , Set<CourseSchedule> openCourseScheduleSet
     )
     {
         if (professor == null)
@@ -41,13 +43,13 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
             throw new RuntimeException("department is null");
         }
 
-        if (openCourseScheduleList.isEmpty())
+        if (openCourseScheduleSet.isEmpty())
         {
             throw new RuntimeException("스케줄이 비었습니다.");
         }
 
         duplicateCourseName(courseName);
-        professorScheduleCheck(professor, openCourseScheduleList);
+        professorScheduleCheck(professor, openCourseScheduleSet);
     }
 
     private void professorScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
@@ -76,7 +78,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
     {
         if (courseRepository.existsByName(new CourseName(courseName)))
         {
-            throw new IllegalStateException("중복되는 수업 이름이 있습니다.");
+            throw new CourseException(ErrorCode.DUPLICATE_COURSE_NAME);
         }
     }
 }

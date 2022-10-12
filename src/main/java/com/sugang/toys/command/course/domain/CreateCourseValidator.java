@@ -10,5 +10,6 @@ public interface CreateCourseValidator {
             Professor professor
             , Department department
             , String courseName
-            , Set<CourseSchedule> openCourseScheduleSet);
+            , Set<CourseSchedule> openCourseScheduleSet
+         );
 }

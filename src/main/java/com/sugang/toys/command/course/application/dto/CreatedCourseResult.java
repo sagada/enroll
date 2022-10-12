@@ -1,4 +1,4 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.course.application.dto;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseSchedule;
@@ -20,20 +20,17 @@ public class CreatedCourseResult {
     private final Long courseId;
     private final Set<CourseScheduleResult> courseScheduleResultSet;
     private final Long professorId;
-    private final String professorName;
 
     public CreatedCourseResult(
             String courseName
             , Long courseId
             , Set<CourseScheduleResult> courseScheduleResultSet
-            , Long professorId
-            , String professorName)
+            , Long professorId)
     {
         this.courseName = courseName;
         this.courseId = courseId;
         this.courseScheduleResultSet = courseScheduleResultSet;
         this.professorId = professorId;
-        this.professorName = professorName;
     }
 
     @Getter
@@ -57,8 +54,7 @@ public class CreatedCourseResult {
                 save.getName()
                 , save.getId()
                 , courseScheduleResultSet
-                , save.getProfessor().getId()
-                , save.getProfessor().getName()
+                , save.getId()
         );
 
     }

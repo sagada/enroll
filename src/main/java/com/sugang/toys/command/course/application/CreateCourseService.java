@@ -3,6 +3,7 @@ package com.sugang.toys.command.course.application;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
+import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;

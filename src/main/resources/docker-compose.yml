@@ -1,0 +1,24 @@
+version: '3.2'
+
+services:
+  wsin-mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_HOST: 'localhost'
+      MYSQL_DATABASE: 'enroll'
+      MYSQL_USER: 'root'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+    ports:
+      - '3306:3306'
+
+
+    command: ['default-character-set=utf8',
+              '--character-set-server=utf8mb4',
+              '--character-set-system=utf8',
+              '--character-set-client=utf8mb4',
+              '--character-set-connection=utf8mb4',
+              '--character-set-filesystem=utf8mb4',
+              '--character-set-results=utf8mb4',
+              '--character-set-database=utf8mb4',
+              '--collation-server=utf8mb4_unicode_ci',
+              '--skip-character-set-client-handshake']

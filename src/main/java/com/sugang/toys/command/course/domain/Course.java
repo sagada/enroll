@@ -22,6 +22,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "course_status")
     @Enumerated(EnumType.STRING)
     private CourseStatus courseStatus;
 
@@ -39,9 +40,8 @@ public class Course {
     @Embedded
     private PreCourses preCourses;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
+    @Column(name = "professor_id")
+    private Long professorId;
 
     @Column(name = "department_id")
     private Long departmentId;
@@ -60,7 +60,7 @@ public class Course {
             , Integer maxStudentCount)
     {
         this.id = id;
-        this.professor = professor;
+        this.professorId = professor.getId();
         this.maxStudentCount = maxStudentCount;
         this.courseStatus = courseStatus;
         this.courseSchedules = new CourseSchedules(courseScheduleList);
@@ -90,18 +90,18 @@ public class Course {
     }
 
     public static Course createCourse(
-            Set<CourseSchedule> courseScheduleList
+            Set<CourseSchedule> openCourseScheduleSet
             , Professor professor
             , String courseName
             , Department department
             , Integer maxStudentCount
             , CreateCourseValidator createCourseValidator)
     {
-        createCourseValidator.validate(professor, department, courseName, courseScheduleList);
+        createCourseValidator.validate(professor, department, courseName, openCourseScheduleSet);
 
         return new Course(
                 null
-                , courseScheduleList
+                , openCourseScheduleSet
                 , null
                 , professor
                 , courseName

@@ -2,6 +2,7 @@ package com.sugang.toys.command.common.domain;
 
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class PhoneNumber {
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     public PhoneNumber(String phoneNumber)
