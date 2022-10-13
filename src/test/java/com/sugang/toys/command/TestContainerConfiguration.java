@@ -14,7 +14,6 @@ import java.io.File;
 public class TestContainerConfiguration {
 
     @ClassRule
-    static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/main/resources/docker-compose.yml"))
-            ;
+    static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/main/resources/docker-compose.yml"));
 
 }

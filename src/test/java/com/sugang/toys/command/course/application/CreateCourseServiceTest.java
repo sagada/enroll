@@ -68,13 +68,13 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
         // then
         Assertions.assertThat(course).isNotNull();
         BDDMockito.then(departmentRepository).should(Mockito.times(1)).findById(1L);
-        Assertions.assertThat(course.getCourseName()).isEqualTo("sss");
+        Assertions.assertThat(course.getCourseName()).isEqualTo("course_name");
         Assertions.assertThat(course.getCourseScheduleResultSet()).hasSize(1);
     }
 
     @Test
     @DisplayName("course 생성시에 중복된 이름이면 에러")
-    void duplicateNameCourseTest()
+    void duplicateNameCreateCourseErrorTest()
     {
         // given
         Professor professor = new Professor(null, "1234");
@@ -94,7 +94,7 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
                 .setDepartmentId(1L)
                 .setProfessorId(1L);
 
-        // when
+        // then
         Assertions.assertThatThrownBy(
                 () -> createCourseService.createCourse(courseCreateCommand)
         ).hasMessage(ErrorCode.DUPLICATE_COURSE_NAME.getMessage());

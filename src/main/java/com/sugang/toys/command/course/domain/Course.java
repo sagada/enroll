@@ -126,9 +126,9 @@ public class Course {
 
     public void open()
     {
-        if (!isClosed())
+        if (!isClosed() || CourseStatus.OPEN.equals(this.courseStatus))
         {
-            throw new RuntimeException("열린 수강!..");
+            throw new RuntimeException("잘못된 접근입니다.");
         }
 
         this.courseStatus = CourseStatus.OPEN;
