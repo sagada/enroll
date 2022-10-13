@@ -1,10 +1,10 @@
-package com.sugang.toys.command.registercourse.domain;
+package com.sugang.toys.command.enroll.domain;
 
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.professor.domain.Professor;
 
 import javax.persistence.*;
-
+@Table(name = "enroll")
 @Entity
 public class Enroll {
 
