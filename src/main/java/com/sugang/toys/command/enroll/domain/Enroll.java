@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 
 @Table(name = "enroll")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SecondaryTable(
+        name = "course_credit",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "enroll_id")
+)
 @Entity
 public class Enroll {
 
@@ -36,7 +40,7 @@ public class Enroll {
     private EnrollStatus enrollStatus;
 
     @Embedded
-    private Credit credit;
+    private CourseCredit courseCredit;
 
     @Embedded
     private EnrollInfo enrollInfo;
@@ -47,11 +51,4 @@ public class Enroll {
         this.professor = professor;
         this.studentId = studentId;
     }
-
-//    public static Enroll enroll(Course course, Long studentId)
-//    {
-//
-//    }
-
-
 }

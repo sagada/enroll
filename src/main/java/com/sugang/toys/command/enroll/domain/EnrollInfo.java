@@ -8,9 +8,4 @@ public class EnrollInfo {
 
     @Column(name = "score")
     private Integer score;
-
-    private Integer attendance;
-
-    private Credit credit;
-
 }
