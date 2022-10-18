@@ -4,9 +4,12 @@ spring:
     init:
       mode: always
       platform: mysql
-  datasource:
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:mysql:5.7://localhost/enroll
+  master:
+    datasource:
+      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+      jdbc-url: jdbc:tc:mysql:5.7://localhost/enroll
+      username:
+      password:
   jpa:
     open-in-view: true
     hibernate:

@@ -28,7 +28,6 @@ class CourseTest {
                 , new Professor(1L, "ddd")
                 , "courseName1"
                 , 1L
-                , 100
         );
 
         // then
@@ -63,7 +62,6 @@ class CourseTest {
                         , new Professor(1L, "ddd")
                         , "courseName1"
                         , 1L
-                        , 100
                 )
         );
     }

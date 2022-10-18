@@ -7,13 +7,13 @@ import java.util.Set;
 
 @NoArgsConstructor
 @Embeddable
-public class PreCourses {
+public class Prerequisite {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "pre_course", joinColumns = @JoinColumn(name = "course_id"))
     private Set<Long> preCourseSeqList;
 
-    public PreCourses(Set<Long> preCourseSeqList)
+    public Prerequisite(Set<Long> preCourseSeqList)
     {
         if (preCourseSeqList == null)
         {

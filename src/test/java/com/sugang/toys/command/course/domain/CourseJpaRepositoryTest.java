@@ -42,7 +42,6 @@ public class CourseJpaRepositoryTest  {
                 , new Professor(1L, "naaaa")
                 , "courseName1"
                 , 1L
-                , 100
         );
 
         // when

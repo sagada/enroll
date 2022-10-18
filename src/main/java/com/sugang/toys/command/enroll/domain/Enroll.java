@@ -6,9 +6,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Table(name = "enroll")
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Enroll {
 
@@ -27,6 +28,19 @@ public class Enroll {
     @Column(name = "student_id")
     private Long studentId;
 
+    @Column(name = "reg_dt")
+    private LocalDateTime registerTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "enroll_status")
+    private EnrollStatus enrollStatus;
+
+    @Embedded
+    private Credit credit;
+
+    @Embedded
+    private EnrollInfo enrollInfo;
+
     private Enroll(Course course, Professor professor, Long studentId)
     {
         this.course = course;
@@ -34,10 +48,10 @@ public class Enroll {
         this.studentId = studentId;
     }
 
-    public static Enroll enroll(Course course, Long studentId)
-    {
-        return null;
-    }
+//    public static Enroll enroll(Course course, Long studentId)
+//    {
+//
+//    }
 
 
 }

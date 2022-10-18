@@ -71,7 +71,6 @@ public class CreateCourseService {
                 , professor
                 , courseCreateCommand.getCourseName()
                 , department
-                , courseCreateCommand.getMaxCourseStudentCount()
                 , createCourseValidator
         );
 

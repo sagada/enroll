@@ -58,7 +58,6 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
                             new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
                 )
-                .setMaxCourseStudentCount(10)
                 .setDepartmentId(1L)
                 .setProfessorId(1L);
 
@@ -90,7 +89,6 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
                                 new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
                 )
-                .setMaxCourseStudentCount(10)
                 .setDepartmentId(1L)
                 .setProfessorId(1L);
 

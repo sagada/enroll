@@ -38,16 +38,13 @@ public class Course {
     private CourseSchedules courseSchedules;
 
     @Embedded
-    private PreCourses preCourses;
+    private Prerequisite prerequisite;
 
     @Column(name = "professor_id")
     private Long professorId;
 
     @Column(name = "department_id")
     private Long departmentId;
-
-    @Column(name = "max_stu_cnt")
-    private Integer maxStudentCount;
 
     protected Course(
             Long id
@@ -56,15 +53,13 @@ public class Course {
             , Professor professor
             , String name
             , Long departmentId
-            , CourseStatus courseStatus
-            , Integer maxStudentCount)
+            , CourseStatus courseStatus)
     {
         this.id = id;
         this.professorId = professor.getId();
-        this.maxStudentCount = maxStudentCount;
         this.courseStatus = courseStatus;
         this.courseSchedules = new CourseSchedules(courseScheduleList);
-        this.preCourses = new PreCourses(preCourseIdSet);
+        this.prerequisite = new Prerequisite(preCourseIdSet);
         this.name = new CourseName(name);
         this.departmentId = departmentId;
     }
@@ -76,7 +71,7 @@ public class Course {
             , Professor professor
             , String name
             , Long departmentId
-            , Integer maxStudentCount)
+         )
     {
         return new Course(
                 id
@@ -85,8 +80,7 @@ public class Course {
                 , professor
                 , name
                 , departmentId
-                , CourseStatus.OPEN
-                , maxStudentCount);
+                , CourseStatus.OPEN);
     }
 
     public static Course createCourse(
@@ -94,7 +88,6 @@ public class Course {
             , Professor professor
             , String courseName
             , Department department
-            , Integer maxStudentCount
             , CreateCourseValidator createCourseValidator)
     {
         createCourseValidator.validate(professor, department, courseName, openCourseScheduleSet);
@@ -106,8 +99,7 @@ public class Course {
                 , professor
                 , courseName
                 , department.getId()
-                , CourseStatus.HOLD
-                , maxStudentCount);
+                , CourseStatus.HOLD);
     }
 
     public boolean isClosed()

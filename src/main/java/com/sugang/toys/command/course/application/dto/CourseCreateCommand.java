@@ -14,14 +14,17 @@ public class CourseCreateCommand {
     private Long departmentId;
     private Long professorId;
     private Set<CourseScheduleRequest> courseScheduleSet;
-    private Integer maxCourseStudentCount;
 
 
-    public CourseCreateCommand(String courseName, Long departmentId, Long professorId, Set<CourseScheduleRequest> courseScheduleSet, Integer maxCourseStudentCount) {
+    public CourseCreateCommand(
+            String courseName
+            , Long departmentId
+            , Long professorId
+            , Set<CourseScheduleRequest> courseScheduleSet
+    ) {
         this.courseName = courseName;
         this.departmentId = departmentId;
         this.professorId = professorId;
         this.courseScheduleSet = courseScheduleSet;
-        this.maxCourseStudentCount = maxCourseStudentCount;
     }
 }
