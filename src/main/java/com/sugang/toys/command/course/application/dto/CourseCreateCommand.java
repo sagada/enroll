@@ -15,7 +15,6 @@ public class CourseCreateCommand {
     private Long professorId;
     private Set<CourseScheduleRequest> courseScheduleSet;
 
-
     public CourseCreateCommand(
             String courseName
             , Long departmentId
