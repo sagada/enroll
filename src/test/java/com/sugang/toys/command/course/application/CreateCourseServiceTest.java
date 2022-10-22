@@ -4,6 +4,7 @@ import com.sugang.toys.command.TestContainerConfiguration;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
+import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.department.domain.Department;
@@ -58,6 +59,12 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
                             new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
                 )
+                .setCourseSummaryRequestSet(
+                        Set.of(
+                            new CourseSummaryRequest(1, "content1", "title1"),
+                            new CourseSummaryRequest(2, "content2", "title2")
+                        )
+                )
                 .setDepartmentId(1L)
                 .setProfessorId(1L);
 
@@ -87,6 +94,12 @@ public class CreateCourseServiceTest extends TestContainerConfiguration
                 .setCourseScheduleSet(
                         Set.of(
                                 new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
+                        )
+                )
+                .setCourseSummaryRequestSet(
+                        Set.of(
+                                new CourseSummaryRequest(1, "content1", "title1"),
+                                new CourseSummaryRequest(2, "content2", "title2")
                         )
                 )
                 .setDepartmentId(1L)

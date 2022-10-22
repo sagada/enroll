@@ -1,11 +1,10 @@
 
 spring:
   datasource:
-    master:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3308/enroll
-      username: root
-      password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/enroll
+    username: root
+    password: root1234
 
     slave:
       driver-class-name: com.mysql.cj.jdbc.Driver

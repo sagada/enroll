@@ -10,20 +10,25 @@ import java.util.Set;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class CourseCreateCommand {
+
     private String courseName;
     private Long departmentId;
     private Long professorId;
     private Set<CourseScheduleRequest> courseScheduleSet;
+    private Set<CourseSummaryRequest> courseSummaryRequestSet;
 
     public CourseCreateCommand(
             String courseName
             , Long departmentId
             , Long professorId
             , Set<CourseScheduleRequest> courseScheduleSet
-    ) {
+            , Set<CourseSummaryRequest> courseSummaryRequestSet
+    )
+    {
         this.courseName = courseName;
         this.departmentId = departmentId;
         this.professorId = professorId;
         this.courseScheduleSet = courseScheduleSet;
+        this.courseSummaryRequestSet = courseSummaryRequestSet;
     }
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "enroll_id")
 )
 @Entity
-public class Enrolment {
+public class Enrollment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,9 @@ public class Enrolment {
     private EnrolmentStudent enrolmentStudent;
 
     @Embedded
+    private Examination examination;
+
+    @Embedded
     private EnrolmentInfo enrolmentInfo;
 
     @Column(name = "register_time")
@@ -35,16 +38,12 @@ public class Enrolment {
     @Column(name = "enroll_status")
     private EnrolmentStatus enrolmentStatus;
 
-    public void enroll(Long courseId, Long studentId)
-    {
-        Enrolment enrolment = new Enrolment(
-
-        );
-    }
-
-    public Enrolment(
+    public Enrollment(
             Long courseId
             , Long studentId
+            , Integer score
+            , LocalDateTime midTermExamDate
+            , LocalDateTime finalExamDate
             )
     {
         this.enrolmentCourse = enrolmentCourse;

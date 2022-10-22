@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CourseScheduleRequest {
-    private DayOfWeek day;
-    private LocalDateTime from;
-    private LocalDateTime to;
-    private String roomNumber;
+    private final DayOfWeek day;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+    private final String roomNumber;
 
     public CourseScheduleRequest(DayOfWeek day, LocalDateTime from, LocalDateTime to, String roomNumber)
     {
@@ -21,7 +21,7 @@ public class CourseScheduleRequest {
         this.roomNumber = roomNumber;
     }
 
-    public static CourseSchedule convert(CourseScheduleRequest courseScheduleDto)
+    public static CourseSchedule from(CourseScheduleRequest courseScheduleDto)
     {
         return new CourseSchedule(
                 courseScheduleDto.getDay()

@@ -3,11 +3,9 @@ package com.sugang.toys.command.course.application;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
+import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
-import com.sugang.toys.command.course.domain.Course;
-import com.sugang.toys.command.course.domain.CourseRepository;
-import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.DepartmentRepository;
@@ -63,15 +61,19 @@ public class CreateCourseService {
 
         Set<CourseSchedule> openCourseScheduleSet = courseCreateCommand.getCourseScheduleSet()
                 .stream()
-                .map(CourseScheduleRequest::convert)
+                .map(CourseScheduleRequest::from)
+                .collect(Collectors.toSet());
+
+        Set<CourseSummary> courseSummarySet = courseCreateCommand.getCourseSummaryRequestSet()
+                .stream()
+                .map(CourseSummaryRequest::from)
                 .collect(Collectors.toSet());
 
         Course course = Course.createCourse(
                 openCourseScheduleSet
-                , professor
+                , courseSummarySet, professor
                 , courseCreateCommand.getCourseName()
-                , department
-                , createCourseValidator
+                , department, createCourseValidator
         );
 
         Course save = courseRepository.save(course);

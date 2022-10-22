@@ -14,6 +14,4 @@ public class EnrolmentCourse {
 
     @Column(name = "course_name")
     private String courseName;
-
-    private Integer score;
 }

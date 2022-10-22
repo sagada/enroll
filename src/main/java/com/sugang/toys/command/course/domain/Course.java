@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,6 +22,10 @@ public class Course {
     @Column(name = "course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "subject_id")
+//    private Subject subject;
 
     @Column(name = "course_status")
     @Enumerated(EnumType.STRING)
@@ -37,6 +42,14 @@ public class Course {
     @Embedded
     private CourseSchedules courseSchedules;
 
+    private String bookName;
+
+    @Column(name = "is_pre_requisite")
+    private boolean isPrerequisite;
+
+    @Embedded
+    private List<CourseSummary> courseSummarys;
+
     @Embedded
     private Prerequisite prerequisite;
 
@@ -49,6 +62,7 @@ public class Course {
     protected Course(
             Long id
             , Set<CourseSchedule> courseScheduleList
+            , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
             , Professor professor
             , String name
@@ -64,27 +78,9 @@ public class Course {
         this.departmentId = departmentId;
     }
 
-    public static Course newCreate(
-            Long id
-            , Set<CourseSchedule> courseScheduleList
-            , Set<Long> preCourseIdSet
-            , Professor professor
-            , String name
-            , Long departmentId
-         )
-    {
-        return new Course(
-                id
-                , courseScheduleList
-                , preCourseIdSet
-                , professor
-                , name
-                , departmentId
-                , CourseStatus.OPEN);
-    }
-
     public static Course createCourse(
             Set<CourseSchedule> openCourseScheduleSet
+            , Set<CourseSummary> courseSummaries
             , Professor professor
             , String courseName
             , Department department
@@ -95,6 +91,7 @@ public class Course {
         return new Course(
                 null
                 , openCourseScheduleSet
+                , courseSummaries
                 , null
                 , professor
                 , courseName

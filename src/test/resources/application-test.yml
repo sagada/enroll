@@ -4,16 +4,17 @@ spring:
     init:
       mode: always
       platform: mysql
-  master:
-    datasource:
-      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-      jdbc-url: jdbc:tc:mysql:5.7://localhost/enroll
-      username:
-      password:
+
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:5.7://localhost/enroll
+    username:
+    password:
   jpa:
+    database: mysql
     open-in-view: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
       use-new-id-generator-mappings: false
     show-sql: true
     properties:
