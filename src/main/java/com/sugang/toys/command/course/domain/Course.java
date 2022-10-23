@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -47,8 +46,12 @@ public class Course {
     @Column(name = "is_pre_requisite")
     private boolean isPrerequisite;
 
-    @Embedded
-    private List<CourseSummary> courseSummarys;
+    @ElementCollection
+    @CollectionTable(
+            name = "course_summary"
+            , joinColumns = @JoinColumn(name="course_id")
+    )
+    private Set<CourseSummary> courseSummaries;
 
     @Embedded
     private Prerequisite prerequisite;
@@ -72,6 +75,7 @@ public class Course {
         this.id = id;
         this.professorId = professor.getId();
         this.courseStatus = courseStatus;
+        this.courseSummaries = courseSummaries;
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisite = new Prerequisite(preCourseIdSet);
         this.name = new CourseName(name);
