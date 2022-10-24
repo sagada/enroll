@@ -73,7 +73,9 @@ public class CreateCourseService {
                 openCourseScheduleSet
                 , courseSummarySet, professor
                 , courseCreateCommand.getCourseName()
-                , department, createCourseValidator
+                , department
+                , courseCreateCommand.getBookName()
+                , createCourseValidator
         );
 
         Course save = courseRepository.save(course);

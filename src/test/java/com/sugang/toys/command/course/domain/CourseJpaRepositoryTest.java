@@ -47,6 +47,7 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
                 , new Professor(1L, "professorName")
                 , "courseName1"
                 , new Department(1L, "it", Division.IT, "1022", "2022")
+                , "bookName1 "
                 , createCourseValidator
         );
 
@@ -58,10 +59,10 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
         Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName1");
         CourseSchedules courseSchedules = savedCourse.getCourseSchedules();
 
-        Set<CourseSummary> courseSummaries = savedCourse.getCourseSummaries();
+        CourseSummaries courseSummaries = savedCourse.getCourseSummaries();
 
         Assertions.assertThat(courseSchedules.getCourseScheduleSet()).hasSize(2);
-        Assertions.assertThat(courseSummaries).hasSize(1);
+        Assertions.assertThat(courseSummaries.getCourseSummaries()).hasSize(1);
         Assertions.assertThat(courseSchedules.getCourseScheduleSet()).containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
     }
 }

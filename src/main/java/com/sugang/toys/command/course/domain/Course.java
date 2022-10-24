@@ -2,6 +2,7 @@ package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
+import com.sugang.toys.command.subject.domain.Subject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "subject_id")
-//    private Subject subject;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 
     @Column(name = "course_status")
     @Enumerated(EnumType.STRING)
@@ -43,15 +44,8 @@ public class Course {
 
     private String bookName;
 
-    @Column(name = "is_pre_requisite")
-    private boolean isPrerequisite;
-
-    @ElementCollection
-    @CollectionTable(
-            name = "course_summary"
-            , joinColumns = @JoinColumn(name="course_id")
-    )
-    private Set<CourseSummary> courseSummaries;
+    @Embedded
+    private CourseSummaries courseSummaries;
 
     @Embedded
     private Prerequisite prerequisite;
@@ -67,6 +61,7 @@ public class Course {
             , Set<CourseSchedule> courseScheduleList
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
+            , String bookName
             , Professor professor
             , String name
             , Long departmentId
@@ -75,7 +70,8 @@ public class Course {
         this.id = id;
         this.professorId = professor.getId();
         this.courseStatus = courseStatus;
-        this.courseSummaries = courseSummaries;
+        this.bookName = bookName;
+        this.courseSummaries = new CourseSummaries(courseSummaries);
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisite = new Prerequisite(preCourseIdSet);
         this.name = new CourseName(name);
@@ -88,6 +84,7 @@ public class Course {
             , Professor professor
             , String courseName
             , Department department
+            , String bookName
             , CreateCourseValidator createCourseValidator)
     {
         createCourseValidator.validate(professor, department, courseName, openCourseScheduleSet);
@@ -97,6 +94,7 @@ public class Course {
                 , openCourseScheduleSet
                 , courseSummaries
                 , null
+                , bookName
                 , professor
                 , courseName
                 , department.getId()
