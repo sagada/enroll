@@ -1,10 +1,12 @@
 package com.sugang.toys.command.course.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@Getter
 @Embeddable
 @NoArgsConstructor
 public class CourseSummary {

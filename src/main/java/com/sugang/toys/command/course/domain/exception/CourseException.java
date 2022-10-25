@@ -6,4 +6,9 @@ public class CourseException extends RuntimeException{
     public CourseException(ErrorCode errorCode) {
         super(errorCode.getMessage());
     }
+
+    public CourseException(String message)
+    {
+        super(message);
+    }
 }

@@ -1,5 +1,7 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.common.exception.ErrorCode;
+import com.sugang.toys.command.course.domain.exception.CourseException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,7 @@ public class CourseName {
     {
         if (value == null || value.isBlank())
         {
-            throw new RuntimeException("과목 이름 에러");
+            throw new CourseException(ErrorCode.COURSE_NAME_BLANK);
         }
 
         this.value = value;
