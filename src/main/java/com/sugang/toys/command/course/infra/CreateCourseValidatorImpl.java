@@ -4,6 +4,7 @@ import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.course.domain.exception.CourseException;
+import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import org.springframework.beans.factory.annotation.Autowired;

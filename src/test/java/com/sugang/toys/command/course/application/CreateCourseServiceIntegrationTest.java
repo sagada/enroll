@@ -15,7 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class CreateCourseServiceTest extends TestContainerConfiguration
+public class CreateCourseServiceIntegrationTest extends TestContainerConfiguration
 {
     @Autowired
     CreateCourseService createCourseService;

@@ -1,4 +1,6 @@
-package com.sugang.toys.command.course.domain;
+package com.sugang.toys.command.course.domain.service;
+
+import com.sugang.toys.command.course.domain.CourseSchedule;
 
 public class CourseScheduleOverlapCheckService {
 
