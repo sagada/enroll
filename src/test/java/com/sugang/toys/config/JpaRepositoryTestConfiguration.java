@@ -1,4 +1,4 @@
-package com.sugang.toys.command;
+package com.sugang.toys.config;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

@@ -11,7 +11,6 @@ spring:
       jdbc-url: jdbc:mysql://localhost:3307/enroll
       username: root
       password: password
-
   jpa:
     database: mysql
     open-in-view: true

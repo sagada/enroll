@@ -1,6 +1,6 @@
 package com.sugang.toys.command.course.application;
 
-import com.sugang.toys.command.TestContainerConfiguration;
+import com.sugang.toys.config.TestContainerConfiguration;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
@@ -10,15 +10,24 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@ContextConfiguration(initializers = CreateCourseServiceIntegrationTest.ContainerPropertyInitializer.class)
 public class CreateCourseServiceIntegrationTest extends TestContainerConfiguration
 {
     @Autowired
     CreateCourseService createCourseService;
+
+    @Autowired
+    Environment environment;
 
     @Test
     @DisplayName("course 생성 테스트")
@@ -75,5 +84,14 @@ public class CreateCourseServiceIntegrationTest extends TestContainerConfigurati
         Assertions.assertThatThrownBy(
                 () -> createCourseService.createCourse(courseCreateCommand)
         ).hasMessage(ErrorCode.DUPLICATE_COURSE_NAME.getMessage());
+    }
+
+    static class ContainerPropertyInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext>
+    {
+        @Override
+        public void initialize(ConfigurableApplicationContext applicationContext)
+        {
+            TestPropertyValues.of("container.port="+123).applyTo(applicationContext.getEnvironment());
+        }
     }
 }

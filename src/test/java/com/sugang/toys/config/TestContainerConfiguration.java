@@ -1,4 +1,4 @@
-package com.sugang.toys.command;
+package com.sugang.toys.config;
 
 import org.junit.ClassRule;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,5 +17,4 @@ public class TestContainerConfiguration {
 
     @ClassRule
     static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/main/resources/docker-compose.yml"));
-
 }
