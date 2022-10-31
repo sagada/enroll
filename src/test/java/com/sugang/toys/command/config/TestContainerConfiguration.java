@@ -1,4 +1,4 @@
-package com.sugang.toys.config;
+package com.sugang.toys.command.config;
 
 import org.junit.ClassRule;
 import org.springframework.boot.test.context.SpringBootTest;

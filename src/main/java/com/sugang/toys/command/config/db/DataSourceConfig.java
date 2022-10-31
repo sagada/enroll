@@ -44,7 +44,6 @@ public class DataSourceConfig {
                 .build();
     }
 
-    @Profile("dev")
     @Bean
     public DataSource routingDataSource(
             @Qualifier("masterDataSource") DataSource masterDataSource,
