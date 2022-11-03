@@ -1,5 +1,7 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.common.exception.ErrorCode;
+import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.subject.domain.Subject;
@@ -123,5 +125,15 @@ public class Course {
         }
 
         this.courseStatus = CourseStatus.OPEN;
+    }
+
+    public void assign(Set<CourseSchedule> professorCourseSchedule, Professor professor)
+    {
+        if (this.professorId != null)
+        {
+            throw new CourseException(ErrorCode.INTERNAL_LOGIC_ERROR);
+        }
+
+
     }
 }
