@@ -1,4 +1,4 @@
-//package com.sugang.toys.command.config.db;
+//package com.sugang.toys.config.db;
 //
 //public class WriteJpaConfiguration {
 //}

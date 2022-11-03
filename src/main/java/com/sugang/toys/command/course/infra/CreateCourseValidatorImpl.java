@@ -36,7 +36,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
     {
         if (professor == null)
         {
-            throw new RuntimeException("professor is null");
+            return ;
         }
 
         if (department == null)
@@ -53,7 +53,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
         professorScheduleCheck(professor, openCourseScheduleSet);
     }
 
-    private void professorScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
+    public void professorScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
     {
         List<CourseSchedule> courseScheduleList = courseRepository.findByProfessorId(professor.getId()).stream()
                 .flatMap(professorCourse -> professorCourse.getCourseSchedules().getCourseScheduleSet().stream())

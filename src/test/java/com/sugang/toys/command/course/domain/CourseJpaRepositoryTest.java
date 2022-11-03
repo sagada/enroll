@@ -1,6 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
-import com.sugang.toys.command.config.JpaRepositoryTestConfiguration;
+import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.department.domain.Division;
 import com.sugang.toys.command.professor.domain.Professor;

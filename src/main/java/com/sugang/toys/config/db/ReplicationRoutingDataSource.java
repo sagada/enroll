@@ -1,4 +1,4 @@
-package com.sugang.toys.command.config.db;
+package com.sugang.toys.config.db;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;

@@ -1,7 +1,7 @@
 package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.config.TestContainerConfiguration;
+import com.sugang.toys.config.TestContainerConfiguration;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
 import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;

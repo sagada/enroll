@@ -1,4 +1,4 @@
-package com.sugang.toys.command.config;
+package com.sugang.toys.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

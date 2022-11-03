@@ -71,7 +71,8 @@ public class CreateCourseService {
 
         Course course = Course.createCourse(
                 openCourseScheduleSet
-                , courseSummarySet, professor
+                , courseSummarySet
+                , professor
                 , courseCreateCommand.getCourseName()
                 , department
                 , courseCreateCommand.getBookName()

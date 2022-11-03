@@ -1,4 +1,4 @@
-package com.sugang.toys.command.config.db;
+package com.sugang.toys.config.db;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
