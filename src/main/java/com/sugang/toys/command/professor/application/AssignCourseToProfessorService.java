@@ -1,4 +1,4 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.professor.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.Course;
@@ -42,7 +42,6 @@ public class AssignCourseToProfessorService {
         Set<CourseSchedule> professorCourseSchedule = courseRepository.findByProfessorId(professorId)
                 .stream().flatMap(s -> s.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
-
         course.assign(professorCourseSchedule, professor);
     }
 }

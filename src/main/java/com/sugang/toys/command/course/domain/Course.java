@@ -1,6 +1,5 @@
 package com.sugang.toys.command.course.domain;
 
-import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
@@ -131,9 +130,7 @@ public class Course {
     {
         if (this.professorId != null)
         {
-            throw new CourseException(ErrorCode.INTERNAL_LOGIC_ERROR);
+            throw new CourseException("이미 할당 된 교수가 있습니다.");
         }
-
-
     }
 }
