@@ -132,5 +132,10 @@ public class Course {
         {
             throw new CourseException("이미 할당 된 교수가 있습니다.");
         }
+
+        CourseSchedules courseSchedules = this.getCourseSchedules();
+
+        Set<CourseSchedule> courseScheduleSet = courseSchedules.getCourseScheduleSet();
+
     }
 }
