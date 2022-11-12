@@ -45,8 +45,13 @@ public class Course {
 
     private String bookName;
 
+    private int score;
+
     @Embedded
     private CourseSummaries courseSummaries;
+
+    @Embedded
+    private CourseExamination courseExamination;
 
     @Embedded
     private Prerequisite prerequisite;
@@ -66,7 +71,8 @@ public class Course {
             , Professor professor
             , String name
             , Long departmentId
-            , CourseStatus courseStatus)
+            , CourseStatus courseStatus
+            , int score)
     {
         this.id = id;
         this.professorId = professor.getId();
@@ -77,6 +83,7 @@ public class Course {
         this.prerequisite = new Prerequisite(preCourseIdSet);
         this.name = new CourseName(name);
         this.departmentId = departmentId;
+        this.score = score;
     }
 
     public static Course createCourse(
@@ -86,6 +93,7 @@ public class Course {
             , String courseName
             , Department department
             , String bookName
+            , int score
             , CreateCourseValidator createCourseValidator)
     {
         createCourseValidator.validate(professor, department, courseName, openCourseScheduleSet);
@@ -99,7 +107,8 @@ public class Course {
                 , professor
                 , courseName
                 , department.getId()
-                , CourseStatus.HOLD);
+                , CourseStatus.HOLD
+                , score);
     }
 
     public boolean isClosed()

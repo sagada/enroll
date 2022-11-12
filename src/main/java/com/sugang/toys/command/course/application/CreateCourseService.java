@@ -76,6 +76,7 @@ public class CreateCourseService {
                 , courseCreateCommand.getCourseName()
                 , department
                 , courseCreateCommand.getBookName()
+                , courseCreateCommand.getScore()
                 , createCourseValidator
         );
 

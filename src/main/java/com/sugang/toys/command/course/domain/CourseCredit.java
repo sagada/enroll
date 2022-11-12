@@ -1,8 +1,11 @@
-package com.sugang.toys.command.enroll.domain;
+package com.sugang.toys.command.course.domain;
+
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@NoArgsConstructor
 @Embeddable
 public class CourseCredit {
 
@@ -20,4 +23,5 @@ public class CourseCredit {
 
     @Column(name = "course_grade")
     private String courseGrade;
+
 }

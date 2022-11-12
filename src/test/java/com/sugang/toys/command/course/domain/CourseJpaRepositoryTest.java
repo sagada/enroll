@@ -48,6 +48,7 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
                 , "courseName1"
                 , new Department(1L, "it", Division.IT, "1022", "2022")
                 , "bookName1"
+                , 1
                 , createCourseValidator
         );
 

@@ -11,11 +11,6 @@ public class CourseScheduleOverlapCheckService {
             return true;
         }
 
-        if (courseSchedule2.getEnd().isAfter(courseSchedule1.getEnd()) && courseSchedule2.getStart().isBefore(courseSchedule1.getEnd()))
-        {
-            return true;
-        }
-
-        return false;
+        return courseSchedule2.getEnd().isAfter(courseSchedule1.getEnd()) && courseSchedule2.getStart().isBefore(courseSchedule1.getEnd());
     }
 }

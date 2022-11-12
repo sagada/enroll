@@ -17,7 +17,7 @@ public class CourseCreateCommand {
     private String bookName;
     private Set<CourseScheduleRequest> courseScheduleSet;
     private Set<CourseSummaryRequest> courseSummaryRequestSet;
-
+    private int score;
     public CourseCreateCommand(
             String courseName
             , Long departmentId
