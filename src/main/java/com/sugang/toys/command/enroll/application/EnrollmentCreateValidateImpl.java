@@ -41,7 +41,7 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
         Set<CourseSchedule> semesterStudentCourseScheduleSets = enrollmentListByStudentId.stream()
                 .filter(Predicate.not(enrollment -> enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END)))
                 .map(Enrollment::getCourse)
-                .flatMap(s -> s.getCourseSchedules().courseScheduleSet().stream())
+                .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
         if (semesterStudentCourseScheduleSets
