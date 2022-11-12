@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EnrollService {
+public class EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
     private final StudentRepository studentRepository;
@@ -18,7 +18,7 @@ public class EnrollService {
     private final EnrollmentCreateValidate enrollmentCreateValidate;
 
     @Autowired
-    public EnrollService(
+    public EnrollmentService(
             EnrollmentRepository enrollmentRepository
             , StudentRepository studentRepository
             , CourseRepository courseRepository

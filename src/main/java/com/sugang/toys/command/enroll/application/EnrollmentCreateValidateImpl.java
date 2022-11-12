@@ -37,18 +37,17 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
         List<Enrollment> enrollmentListByStudentId = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
 
         Set<CourseSchedule> courseSchedules = course.getCourseSchedules().courseScheduleSet();
-
-        Set<CourseSchedule> semesterStudentCourseScheduleSets = enrollmentListByStudentId.stream()
+        Set<CourseSchedule> semesterCourseScheduleSets = enrollmentListByStudentId.stream()
                 .filter(Predicate.not(enrollment -> enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END)))
                 .map(Enrollment::getCourse)
                 .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
-        if (semesterStudentCourseScheduleSets
+        if (semesterCourseScheduleSets
                 .stream()
                 .anyMatch(courseSchedule -> courseSchedule.contain(courseSchedules)))
         {
-            throw new RuntimeException("겹치는 수업이 있습니다.");
+            throw new RuntimeException("중복 되는 시간표가 있습니다.");
         }
     }
 }
