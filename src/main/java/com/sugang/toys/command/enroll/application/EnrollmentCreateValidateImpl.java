@@ -34,11 +34,12 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
             throw new RuntimeException("강좌 닫힘");
         }
 
-        List<Enrollment> enrollmentListByStudentId = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
+        List<Enrollment> studentEnrollmentList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
 
         Set<CourseSchedule> courseSchedules = course.getCourseSchedules().courseScheduleSet();
-        Set<CourseSchedule> semesterCourseScheduleSets = enrollmentListByStudentId.stream()
-                .filter(Predicate.not(enrollment -> enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END)))
+
+        Set<CourseSchedule> semesterCourseScheduleSets = studentEnrollmentList.stream()
+                .filter(Predicate.not(this::endCourse))
                 .map(Enrollment::getCourse)
                 .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
@@ -49,5 +50,10 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
         {
             throw new RuntimeException("중복 되는 시간표가 있습니다.");
         }
+    }
+
+    private boolean endCourse(Enrollment enrollment)
+    {
+        return enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END);
     }
 }

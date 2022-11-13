@@ -11,23 +11,18 @@ import org.springframework.stereotype.Service;
 public class OpenCourseService {
 
     private final CourseRepository courseRepository;
-    private final KafkaProducerService kafkaProducerService;
 
     @Autowired
     public OpenCourseService(
-            CourseRepository courseRepository
-            , KafkaProducerService kafkaProducerService)
+            CourseRepository courseRepository)
     {
         this.courseRepository = courseRepository;
-        this.kafkaProducerService = kafkaProducerService;
     }
 
     public void openCourse(Long courseId)
     {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseException(ErrorCode.NONE_COURSE));
-
-        kafkaProducerService.send(course);
         course.open();
     }
 }

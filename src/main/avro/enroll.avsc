@@ -1,0 +1,12 @@
+{
+    "namespace": "com.enroll.domain",
+    "type": "record",
+    "name": "EnrollmentLog",
+    "fields": [
+        { "name": "course_id", "type": "long", "default": 0 },
+        { "name": "student_id", "type": "long", "default": 0 },
+        {"name": "course_name", "type": "string"},
+        { "name": "student_name", "type": "string"},
+        { "name": "request_date", "type": "string"}
+    ]
+}
