@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String bootStrapServer;
 
-    @Value("${spring.kafka.producer.properties.schema.registry.url")
+    @Value("${spring.kafka.properties.schema.registry.url")
     private String schemaRegistryUrl;
 
     public ProducerFactory<Long, EnrollmentLog> producerFactory()
