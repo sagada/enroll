@@ -14,4 +14,12 @@ public class Student {
     private Long id;
 
     private String name;
+
+    public static Student create(String name)
+    {
+        Student student = new Student();
+        student.name = name;
+
+        return student;
+    }
 }
