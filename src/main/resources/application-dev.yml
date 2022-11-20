@@ -32,7 +32,6 @@ spring:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   main:
     allow-bean-definition-overriding: true
-
 logging:
   level:
     org.hibernate.SQL: INFO

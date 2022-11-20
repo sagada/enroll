@@ -13,10 +13,14 @@ public class StudentRepositoryTest extends JpaRepositoryTestConfiguration {
     @Test
     void studentCreateTest()
     {
+        // given
         Student student = Student.create("name");
 
+        // when
         Student save = studentRepository.save(student);
 
+        // then
         Assertions.assertThat(save).isNotNull();
+        Assertions.assertThat(save.getName()).isEqualTo("name");
     }
 }
