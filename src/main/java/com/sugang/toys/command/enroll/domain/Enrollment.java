@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Table(name = "enrolment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,7 +31,6 @@ public class Enrollment {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    private LocalDate semester;
     private int score;
 
     @Enumerated(EnumType.STRING)

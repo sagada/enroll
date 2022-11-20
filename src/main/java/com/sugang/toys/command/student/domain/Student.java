@@ -1,11 +1,13 @@
 package com.sugang.toys.command.student.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Student {
 
     @Id
@@ -15,11 +17,17 @@ public class Student {
 
     private String name;
 
+    public Student(String name)
+    {
+        if (name.isBlank())
+        {
+            throw new RuntimeException("학생 이름 누락");
+        }
+        this.name = name;
+    }
+
     public static Student create(String name)
     {
-        Student student = new Student();
-        student.name = name;
-
-        return student;
+        return new Student(name);
     }
 }

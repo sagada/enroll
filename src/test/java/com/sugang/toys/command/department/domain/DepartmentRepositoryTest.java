@@ -1,14 +1,11 @@
 package com.sugang.toys.command.department.domain;
 
+import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@DataJpaTest
-public class DepartmentRepositoryTest {
+public class DepartmentRepositoryTest extends JpaRepositoryTestConfiguration {
 
     @Autowired
     DepartmentRepository departmentRepository;

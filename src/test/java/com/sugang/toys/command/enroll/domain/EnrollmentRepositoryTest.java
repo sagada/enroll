@@ -42,7 +42,7 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     @Test
     void createTest()
     {
-        Student student = new Student();
+        Student student = new Student("name");
         Course course = Course.createCourse(
                 Set.of(new CourseSchedule(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1004"))
                 , Set.of(new CourseSummary(1, "content", "title"))
@@ -65,7 +65,16 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
 
         Enrollment save = enrollmentRepository.save(enrollment);
 
-
         Assertions.assertThat(save).isNotNull();
+        Assertions.assertThat(save.getEnrolmentStatus()).isEqualTo(EnrolmentStatus.PROPOSE);
+        Assertions.assertThat(save.getCourse()).isNotNull();
+        Assertions.assertThat(save.getStudent()).isNotNull();
+        Assertions.assertThat(save.getScore()).isEqualTo(1);
+    }
+
+    @Test
+    void enrollFindTest()
+    {
+
     }
 }
