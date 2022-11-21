@@ -33,6 +33,9 @@ public class Enrollment {
 
     private int score;
 
+    @Embedded
+    private EnrollStudent enrollStudent;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "enroll_status")
     private EnrolmentStatus enrolmentStatus;

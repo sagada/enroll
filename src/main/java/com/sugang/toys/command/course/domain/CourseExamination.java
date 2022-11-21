@@ -10,7 +10,8 @@ public class CourseExamination {
     private String midTermDate;
     private String finalTermDate;
 
-    public CourseExamination(String midTermDate, String finalTermDate) {
+    public CourseExamination(String midTermDate, String finalTermDate)
+    {
         this.midTermDate = midTermDate;
         this.finalTermDate = finalTermDate;
     }
