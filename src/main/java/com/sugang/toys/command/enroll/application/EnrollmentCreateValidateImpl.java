@@ -3,9 +3,7 @@ package com.sugang.toys.command.enroll.application;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.enroll.domain.Enrollment;
 import com.sugang.toys.command.enroll.domain.EnrollmentRepository;
-import com.sugang.toys.command.enroll.domain.EnrolmentStatus;
 import com.sugang.toys.command.student.domain.Student;
 import com.sugang.toys.command.student.domain.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,31 +31,25 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
         this.courseRepository = courseRepository;
     }
 
-    public Student getStudent(Enrollment enrollment)
+    public Student getStudent(Long studentId)
     {
-        return studentRepository.findById(enrollment.getEnrollStudent().getStudentId())
+        return studentRepository.findById(studentId)
                 .orElseThrow(()-> new RuntimeException("없는 학생 ID"));
     }
 
-    public void validate(Enrollment enrollment, Course course, Student student)
+    public void validate(Course course, Student student)
     {
         if (course.isClosed())
         {
             throw new RuntimeException("강좌 닫힘");
         }
 
-        if (enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END))
-        {
-            throw new RuntimeException("등록 에러");
-        }
-
-        List<Enrollment> studentEnrollmentList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
-
+        // TODO : 조회 전용 쿼리 추가후 수정
+        List<Long> studentCourseIdList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
+        List<Course> studentCourseList = courseRepository.findAllByIds(studentCourseIdList);
         Set<CourseSchedule> courseSchedules = course.getCourseSchedules().courseScheduleSet();
 
-        Set<CourseSchedule> semesterCourseScheduleSets = studentEnrollmentList.stream()
-                .filter(Predicate.not(this::endCourse))
-                .map(Enrollment::getCourseId)
+        Set<CourseSchedule> semesterCourseScheduleSets = studentCourseList.stream()
                 .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
@@ -71,19 +62,14 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
     }
 
     @Override
-    public void validate(Enrollment enrollment)
+    public void validate(Long courseId, Long studentId)
     {
-        validate(enrollment, getCourse(enrollment), getStudent(enrollment));
+        validate(getCourse(courseId), getStudent(studentId));
     }
 
-    private Course getCourse(Enrollment enrollment)
+    private Course getCourse(Long courseId)
     {
-        return courseRepository.findById(enrollment.getCourseId())
+        return courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("없는 수업입니다."));
-    }
-
-    private boolean endCourse(Enrollment enrollment)
-    {
-        return enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END);
     }
 }

@@ -42,12 +42,12 @@ public class Enrollment {
         this.enrolmentStatus = enrolmentStatus;
     }
 
-    public Enrollment enroll(
+    public static Enrollment enroll(
             Long courseId,
             Long studentId,
             EnrollmentCreateValidate enrollmentCreateValidate)
     {
-        enrollmentCreateValidate.validate(this);
+        enrollmentCreateValidate.validate(courseId, studentId);
 
         return new Enrollment(
                 courseId

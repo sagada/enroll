@@ -23,4 +23,5 @@ public class StudentRepositoryTest extends JpaRepositoryTestConfiguration {
         Assertions.assertThat(save).isNotNull();
         Assertions.assertThat(save.getName()).isEqualTo("name");
     }
+
 }
