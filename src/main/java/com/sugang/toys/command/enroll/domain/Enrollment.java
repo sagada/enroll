@@ -1,8 +1,6 @@
 package com.sugang.toys.command.enroll.domain;
 
-import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.enroll.application.EnrollmentCreateValidate;
-import com.sugang.toys.command.student.domain.Student;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,15 +21,8 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    private int score;
+    @Column(name = "course_id")
+    private Long courseId;
 
     @Embedded
     private EnrollStudent enrollStudent;
@@ -41,30 +32,28 @@ public class Enrollment {
     private EnrolmentStatus enrolmentStatus;
 
     public Enrollment(
-            Course course
-            , Student student
-            , Integer score
+            Long courseId
+            , Long studentId
             , EnrolmentStatus enrolmentStatus
             )
     {
-        this.score = score;
-        this.course = course;
-        this.student = student;
+        this.courseId = courseId;
+        this.enrollStudent = new EnrollStudent(studentId);
         this.enrolmentStatus = enrolmentStatus;
     }
 
-    public static Enrollment enroll(
-            Course course
-            , Student student
-            , EnrollmentCreateValidate enrollmentCreateValidate)
+    public Enrollment enroll(
+            Long courseId,
+            Long studentId,
+            EnrollmentCreateValidate enrollmentCreateValidate)
     {
-        enrollmentCreateValidate.validate(course, student);
+        enrollmentCreateValidate.validate(this);
 
         return new Enrollment(
-                course
-                , student
-                , course.getScore()
+                courseId
+                , studentId
                 , EnrolmentStatus.PROPOSE
         );
     }
+
 }

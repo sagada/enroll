@@ -1,11 +1,13 @@
 package com.sugang.toys.command.enroll.application;
 
 import com.sugang.toys.command.course.domain.Course;
+import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.enroll.domain.Enrollment;
 import com.sugang.toys.command.enroll.domain.EnrollmentRepository;
 import com.sugang.toys.command.enroll.domain.EnrolmentStatus;
 import com.sugang.toys.command.student.domain.Student;
+import com.sugang.toys.command.student.domain.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +20,36 @@ import java.util.stream.Collectors;
 public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
 
     private final EnrollmentRepository enrollmentRepository;
+    private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
     public EnrollmentCreateValidateImpl(
-            EnrollmentRepository enrollmentRepository)
+            EnrollmentRepository enrollmentRepository
+            , StudentRepository studentRepository
+            , CourseRepository courseRepository)
     {
         this.enrollmentRepository = enrollmentRepository;
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
-    @Override
-    public void validate(Course course, Student student)
+    public Student getStudent(Enrollment enrollment)
+    {
+        return studentRepository.findById(enrollment.getEnrollStudent().getStudentId())
+                .orElseThrow(()-> new RuntimeException("없는 학생 ID"));
+    }
+
+    public void validate(Enrollment enrollment, Course course, Student student)
     {
         if (course.isClosed())
         {
             throw new RuntimeException("강좌 닫힘");
+        }
+
+        if (enrollment.getEnrolmentStatus().equals(EnrolmentStatus.END))
+        {
+            throw new RuntimeException("등록 에러");
         }
 
         List<Enrollment> studentEnrollmentList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
@@ -40,7 +58,7 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
 
         Set<CourseSchedule> semesterCourseScheduleSets = studentEnrollmentList.stream()
                 .filter(Predicate.not(this::endCourse))
-                .map(Enrollment::getCourse)
+                .map(Enrollment::getCourseId)
                 .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
@@ -50,6 +68,18 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
         {
             throw new RuntimeException("중복 되는 시간표가 있습니다.");
         }
+    }
+
+    @Override
+    public void validate(Enrollment enrollment)
+    {
+        validate(enrollment, getCourse(enrollment), getStudent(enrollment));
+    }
+
+    private Course getCourse(Enrollment enrollment)
+    {
+        return courseRepository.findById(enrollment.getCourseId())
+                .orElseThrow(() -> new RuntimeException("없는 수업입니다."));
     }
 
     private boolean endCourse(Enrollment enrollment)

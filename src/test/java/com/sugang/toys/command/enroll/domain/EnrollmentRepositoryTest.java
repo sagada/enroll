@@ -67,9 +67,8 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
 
         Assertions.assertThat(save).isNotNull();
         Assertions.assertThat(save.getEnrolmentStatus()).isEqualTo(EnrolmentStatus.PROPOSE);
-        Assertions.assertThat(save.getCourse()).isNotNull();
-        Assertions.assertThat(save.getStudent()).isNotNull();
-        Assertions.assertThat(save.getScore()).isEqualTo(1);
+        Assertions.assertThat(save.getCourseId()).isNotNull();
+        Assertions.assertThat(save.getEnrollStudent()).isNotNull();
     }
 
     @Test

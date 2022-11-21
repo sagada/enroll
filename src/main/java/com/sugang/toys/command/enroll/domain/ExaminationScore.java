@@ -8,4 +8,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ExaminationScore {
 
+    private Double midTermTotalScore;
+    private Double finalTotalScore;
+    private Double midtermScore;
+    private Double finalScore;
+
 }
