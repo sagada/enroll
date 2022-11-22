@@ -14,9 +14,20 @@ public class EnrollStudent {
     private Long studentId;
 
     @Embedded
-    private ExaminationScore examinationInfo;
+    private ExaminationScore examinationScore;
 
-    public EnrollStudent(Long studentId) {
+    public ExaminationScore getExaminationScore()
+    {
+        return examinationScore;
+    }
+
+    public EnrollStudent(Long studentId)
+    {
         this.studentId = studentId;
+    }
+
+    public void calculateScore(ExaminationScore examinationScore)
+    {
+        this.examinationScore = examinationScore;
     }
 }

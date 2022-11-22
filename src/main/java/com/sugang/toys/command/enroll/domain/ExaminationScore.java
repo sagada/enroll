@@ -12,5 +12,6 @@ public class ExaminationScore {
     private Double finalTotalScore;
     private Double midtermScore;
     private Double finalScore;
-
+    private String midExtraCredit;
+    private String finalExtraCredit;
 }

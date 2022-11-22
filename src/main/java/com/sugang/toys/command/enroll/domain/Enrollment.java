@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table(name = "enrolment")
+@Table(name = "enrollment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SecondaryTable(
         name = "course_credit",
@@ -28,14 +28,14 @@ public class Enrollment {
     private EnrollStudent enrollStudent;
 
     @Enumerated(EnumType.STRING)
+
     @Column(name = "enroll_status")
     private EnrolmentStatus enrolmentStatus;
 
     public Enrollment(
             Long courseId
             , Long studentId
-            , EnrolmentStatus enrolmentStatus
-            )
+            , EnrolmentStatus enrolmentStatus)
     {
         this.courseId = courseId;
         this.enrollStudent = new EnrollStudent(studentId);
@@ -43,9 +43,9 @@ public class Enrollment {
     }
 
     public static Enrollment enroll(
-            Long courseId,
-            Long studentId,
-            EnrollmentCreateValidate enrollmentCreateValidate)
+            Long courseId
+            , Long studentId
+            , EnrollmentCreateValidate enrollmentCreateValidate)
     {
         enrollmentCreateValidate.validate(courseId, studentId);
 
@@ -56,4 +56,17 @@ public class Enrollment {
         );
     }
 
+    public void calculateScore(ExaminationScore examinationScore)
+    {
+        verifyEndEnrollment();
+        enrollStudent.calculateScore(examinationScore);
+    }
+
+    private void verifyEndEnrollment()
+    {
+        if(enrolmentStatus.equals(EnrolmentStatus.END))
+        {
+            throw new IllegalStateException("종료된 강의");
+        }
+    }
 }
