@@ -62,6 +62,9 @@ public class Course {
     @Column(name = "department_id")
     private Long departmentId;
 
+    @Embedded
+    private StudentCount studentCount;
+
     protected Course(
             Long id
             , Set<CourseSchedule> courseScheduleList
@@ -141,7 +144,20 @@ public class Course {
         {
             throw new CourseException("이미 할당 된 교수가 있습니다.");
         }
+
         CourseSchedules courseSchedules = this.getCourseSchedules();
         Set<CourseSchedule> courseScheduleSet = courseSchedules.getCourseScheduleSet();
+    }
+
+    public void addStudent()
+    {
+        int enrollStudentCount = this.studentCount.getEnrollStudentCount();
+        int studentMaxCount = this.studentCount.getStudentMaxCount();
+        this.studentCount = new StudentCount(studentMaxCount, enrollStudentCount + 1);
+    }
+
+    public boolean enrollFinished()
+    {
+        return this.studentCount.overStudentCount() || this.close();
     }
 }

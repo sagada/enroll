@@ -45,7 +45,8 @@ public class Enrollment {
     public static Enrollment enroll(
             Long courseId
             , Long studentId
-            , EnrollmentCreateValidate enrollmentCreateValidate)
+            , EnrollmentCreateValidate enrollmentCreateValidate
+    )
     {
         enrollmentCreateValidate.validate(courseId, studentId);
 

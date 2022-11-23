@@ -1,11 +1,13 @@
 package com.sugang.toys.command.enroll.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
 @NoArgsConstructor
 @Embeddable
+@Getter
 public class ExaminationScore {
 
     private Double midTermTotalScore;

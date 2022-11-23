@@ -44,6 +44,11 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
             throw new RuntimeException("강좌 닫힘");
         }
 
+        if (course.enrollFinished())
+        {
+            throw new RuntimeException("수강생 초과");
+        }
+
         // TODO : 조회 전용 쿼리 추가후 수정
         List<Long> studentCourseIdList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
         List<Course> studentCourseList = courseRepository.findAllByIds(studentCourseIdList);
