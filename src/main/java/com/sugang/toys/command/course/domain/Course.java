@@ -158,6 +158,6 @@ public class Course {
 
     public boolean enrollFinished()
     {
-        return this.studentCount.overStudentCount() || this.close();
+        return this.studentCount.overStudentCount();
     }
 }
