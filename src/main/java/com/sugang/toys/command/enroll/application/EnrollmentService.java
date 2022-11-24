@@ -36,7 +36,6 @@ public class EnrollmentService {
         Long enrollId = save.getId();
 
         publisher.publishEvent(new EnrollRegisteredEvent(courseId, studentId, enrollId));
-
         return enrollId;
     }
 
