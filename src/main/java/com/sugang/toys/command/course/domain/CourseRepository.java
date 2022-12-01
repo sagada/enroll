@@ -11,10 +11,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByProfessorId(Long professorId);
     boolean existsByName(CourseName courseName);
 
-    // 학생 -> 수강 신청 <- 수강
     @Query(nativeQuery = true, value = "select course_id from enrollment e where student_id = :studentId")
     List<Enrollment> findEnrollmentListByStudentId(@Param("studentId") Long studentId);
 
-    @Query("select c from Course c where c.id IN :studentCourseIdList")
-    List<Course> findAllByIds(List<Long> studentCourseIdList);
+    @Query("select c from Course c where c.id IN :studentCourseIdList and c.semester = :semester")
+    List<Course> findAllByIds(List<Long> studentCourseIdList, String semester);
 }

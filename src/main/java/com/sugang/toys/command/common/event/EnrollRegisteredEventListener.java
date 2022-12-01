@@ -22,7 +22,6 @@ public class EnrollRegisteredEventListener {
     {
         Course course = courseRepository.findById(event.getCourseId())
                 .orElseThrow(() -> new RuntimeException("Not Found Course"));
-
         course.addStudent();
     }
 }

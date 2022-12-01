@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "student")
 @NoArgsConstructor
 public class Student {
 
@@ -16,6 +17,9 @@ public class Student {
     private Long id;
 
     private String name;
+
+    @Column(name = "semester_max_score")
+    private int semeseterMaxScore;
 
     public Student(String name)
     {

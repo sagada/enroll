@@ -1,20 +1,21 @@
 package com.sugang.toys.config;
 
 import org.junit.ClassRule;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 
 @Testcontainers
-@SpringBootTest
-@Transactional
-@ActiveProfiles("test")
-public class TestContainerConfiguration {
+public class TestContainerConfiguration extends ApplicationIntegrationTestConfiguration{
 
     @ClassRule
-    static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/main/resources/docker-compose.yml"));
+    static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"));
+
+    {
+        dockerComposeContainer.start();
+    }
 }
+
+
+

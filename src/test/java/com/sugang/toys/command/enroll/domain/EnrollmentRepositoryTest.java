@@ -77,6 +77,5 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     void enrollFindTest()
     {
         List<Long> enrollmentListByStudentId = enrollmentRepository.findEnrollmentListByStudentId(1L);
-        System.out.println("fined :" + enrollmentListByStudentId);
     }
 }

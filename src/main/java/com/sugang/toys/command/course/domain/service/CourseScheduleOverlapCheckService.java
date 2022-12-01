@@ -1,7 +1,9 @@
 package com.sugang.toys.command.course.domain.service;
 
 import com.sugang.toys.command.course.domain.CourseSchedule;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CourseScheduleOverlapCheckService {
 
     public boolean isOverlap(CourseSchedule courseSchedule1, CourseSchedule courseSchedule2)

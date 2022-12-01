@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 public class StudentCount {
+
     @Column(name = "student_max_count")
     private int studentMaxCount;
 
@@ -23,14 +24,15 @@ public class StudentCount {
     {
         if (studentMaxCount == 0)
         {
-            throw new IllegalStateException("수강생 제한 0명");
+            throw new IllegalStateException("student Count zero");
         }
 
         this.studentMaxCount = studentMaxCount;
         this.enrollStudentCount = 0;
     }
 
-    public StudentCount(int studentMaxCount, int enrollStudentCount) {
+    public StudentCount(int studentMaxCount, int enrollStudentCount)
+    {
         this.studentMaxCount = studentMaxCount;
         this.enrollStudentCount = enrollStudentCount;
     }

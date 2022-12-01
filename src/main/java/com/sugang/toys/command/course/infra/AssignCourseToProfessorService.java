@@ -40,7 +40,8 @@ public class AssignCourseToProfessorService {
                 .orElseThrow(() -> new ProfessorException(ErrorCode.NONE_PROFESSOR));
 
         Set<CourseSchedule> professorCourseSchedule = courseRepository.findByProfessorId(professorId)
-                .stream().flatMap(s -> s.getCourseSchedules().courseScheduleSet().stream())
+                .stream()
+                .flatMap(professorCourse -> professorCourse.getCourseSchedules().courseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
         course.assign(professorCourseSchedule, professor);

@@ -41,17 +41,27 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
     {
         if (course.isClosed())
         {
-            throw new RuntimeException("강좌 닫힘");
+            throw new RuntimeException("Course CLosed");
         }
 
         if (course.enrollFinished())
         {
-            throw new RuntimeException("수강생 초과");
+            throw new RuntimeException("Full Student");
         }
 
         // TODO : 조회 전용 쿼리 추가후 수정
         List<Long> studentCourseIdList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
-        List<Course> studentCourseList = courseRepository.findAllByIds(studentCourseIdList);
+        List<Course> studentCourseList = courseRepository.findAllByIds(studentCourseIdList, course.getSemester());
+
+        int scoreSum = studentCourseList.stream()
+                .mapToInt(Course::getScore)
+                .sum();
+
+        if (scoreSum + course.getScore() > student.getSemeseterMaxScore())
+        {
+            throw new RuntimeException("학기 수강 학점 초과");
+        }
+
         Set<CourseSchedule> courseSchedules = course.getCourseSchedules().courseScheduleSet();
 
         Set<CourseSchedule> semesterCourseScheduleSets = studentCourseList.stream()

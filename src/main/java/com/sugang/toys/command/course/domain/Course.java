@@ -33,6 +33,14 @@ public class Course {
     private CourseStatus courseStatus;
 
     @Embedded
+    private Semester semester;
+
+    public String getSemester()
+    {
+        return semester.getSemeseter();
+    }
+
+    @Embedded
     private CourseName name;
 
     public String getName()
@@ -117,6 +125,11 @@ public class Course {
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);
+    }
+
+    public boolean isEnd()
+    {
+        return CourseStatus.END.equals(this.courseStatus);
     }
 
     public void close()
