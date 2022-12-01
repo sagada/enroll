@@ -1,11 +1,11 @@
 package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.config.TestContainerConfiguration;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
 import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
+import com.sugang.toys.config.ApplicationIntegrationTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class CreateCourseServiceIntegrationTest extends TestContainerConfiguration
+public class CreateCourseServiceIntegrationTest extends ApplicationIntegrationTestConfiguration
 {
     @Autowired
     CreateCourseService createCourseService;

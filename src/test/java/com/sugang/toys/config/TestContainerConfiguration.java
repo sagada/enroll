@@ -7,7 +7,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.File;
 
 @Testcontainers
-public class TestContainerConfiguration extends ApplicationIntegrationTestConfiguration{
+public class TestContainerConfiguration{
 
     @ClassRule
     static DockerComposeContainer dockerComposeContainer = new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"));

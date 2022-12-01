@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 
 @TestConfiguration
-public class TestDataSourceConfiguration {
+public class TestCustomConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")

@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @TestPropertySource(locations = "classpath:application-integration.yml")
-@ContextConfiguration(classes = TestDataSourceConfiguration.class)
+@ContextConfiguration(classes = TestCustomConfiguration.class)
 @SpringBootTest
 @ActiveProfiles("integration")
-public class ApplicationIntegrationTestConfiguration {
+public class ApplicationIntegrationTestConfiguration extends TestContainerConfiguration {
 }
