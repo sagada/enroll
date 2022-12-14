@@ -5,10 +5,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EnrollmentServiceIntegrationTest extends TestContainerConfiguration {
+public class EnrollmentServiceImplIntegrationTest extends TestContainerConfiguration {
 
     @Autowired
-    EnrollmentService enrollmentService;
+    EnrollmentServiceImpl enrollmentServiceImpl;
 
     @Test
     void enrollTest()
@@ -18,7 +18,7 @@ public class EnrollmentServiceIntegrationTest extends TestContainerConfiguration
         long courseId = 1L;
 
         // when
-        Long enroll = enrollmentService.enroll(courseId, studentId);
+        Long enroll = enrollmentServiceImpl.enroll(courseId, studentId);
 
         // then
         Assertions.assertThat(enroll).isNotNull();

@@ -22,9 +22,9 @@ public class CreateCourseController {
         return createCourseService.createCourse(courseCreateCommand).getCourseId();
     }
 
-    @PutMapping("/open/{courseId}")
-    public void openCourse(@PathVariable Long courseId)
-    {
-        createCourseService.openCourse(courseId);
-    }
+//    @PutMapping("/open/{courseId}")
+//    public void openCourse(@PathVariable Long courseId)
+//    {
+//        createCourseServiceImpl.openCourse(courseId);
+//    }
 }
