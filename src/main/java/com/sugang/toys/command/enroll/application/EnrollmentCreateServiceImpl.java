@@ -10,20 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public class EnrollmentServiceImpl implements EnrollmentService{
+public class EnrollmentCreateServiceImpl implements EnrollmentCreateService {
 
     private final EnrollmentRepository enrollmentRepository;
-    private final EnrollmentCreateValidate enrollmentCreateValidate;
+    private final EnrollmentCreateValidator enrollmentCreateValidator;
     private final ApplicationEventPublisher publisher;
 
     @Autowired
-    public EnrollmentServiceImpl(
+    public EnrollmentCreateServiceImpl(
             EnrollmentRepository enrollmentRepository
-            , EnrollmentCreateValidate enrollmentCreateValidate
+            , EnrollmentCreateValidator enrollmentCreateValidator
             , ApplicationEventPublisher publisher)
     {
         this.enrollmentRepository = enrollmentRepository;
-        this.enrollmentCreateValidate = enrollmentCreateValidate;
+        this.enrollmentCreateValidator = enrollmentCreateValidator;
         this.publisher = publisher;
     }
 
@@ -31,7 +31,7 @@ public class EnrollmentServiceImpl implements EnrollmentService{
     @Transactional
     public Long enroll(long courseId, long studentId)
     {
-        Enrollment enroll = Enrollment.enroll(courseId, studentId, enrollmentCreateValidate);
+        Enrollment enroll = Enrollment.enroll(courseId, studentId, enrollmentCreateValidator);
         Enrollment save = enrollmentRepository.save(enroll);
 
         Long enrollId = save.getId();

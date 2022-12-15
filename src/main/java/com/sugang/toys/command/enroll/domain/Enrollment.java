@@ -1,6 +1,6 @@
 package com.sugang.toys.command.enroll.domain;
 
-import com.sugang.toys.command.enroll.application.EnrollmentCreateValidate;
+import com.sugang.toys.command.enroll.application.EnrollmentCreateValidator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,10 +45,10 @@ public class Enrollment {
     public static Enrollment enroll(
             Long courseId
             , Long studentId
-            , EnrollmentCreateValidate enrollmentCreateValidate
+            , EnrollmentCreateValidator enrollmentCreateValidator
     )
     {
-        enrollmentCreateValidate.validate(courseId, studentId);
+        enrollmentCreateValidator.validate(courseId, studentId);
 
         return new Enrollment(
                 courseId

@@ -14,14 +14,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
+public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator {
 
     private final EnrollmentRepository enrollmentRepository;
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
 
     @Autowired
-    public EnrollmentCreateValidateImpl(
+    public EnrollmentCreateValidatorImpl(
             EnrollmentRepository enrollmentRepository
             , StudentRepository studentRepository
             , CourseRepository courseRepository)
@@ -41,7 +41,7 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
     {
         if (course.isClosed())
         {
-            throw new RuntimeException("Course CLosed");
+            throw new RuntimeException("Closed Course");
         }
 
         if (course.enrollFinished())
@@ -62,10 +62,10 @@ public class EnrollmentCreateValidateImpl implements EnrollmentCreateValidate{
             throw new RuntimeException("학기 수강 학점 초과");
         }
 
-        Set<CourseSchedule> courseSchedules = course.getCourseSchedules().courseScheduleSet();
+        Set<CourseSchedule> courseSchedules = course.getCourseSchedules().getCourseScheduleSet();
 
         Set<CourseSchedule> semesterCourseScheduleSets = studentCourseList.stream()
-                .flatMap(studentCourse -> studentCourse.getCourseSchedules().courseScheduleSet().stream())
+                .flatMap(studentCourse -> studentCourse.getCourseSchedules().getCourseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
         if (semesterCourseScheduleSets

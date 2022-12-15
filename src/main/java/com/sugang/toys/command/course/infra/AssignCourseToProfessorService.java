@@ -41,7 +41,7 @@ public class AssignCourseToProfessorService {
 
         Set<CourseSchedule> professorCourseSchedule = courseRepository.findByProfessorId(professorId)
                 .stream()
-                .flatMap(professorCourse -> professorCourse.getCourseSchedules().courseScheduleSet().stream())
+                .flatMap(professorCourse -> professorCourse.getCourseSchedules().getCourseScheduleSet().stream())
                 .collect(Collectors.toSet());
 
         course.assign(professorCourseSchedule, professor);

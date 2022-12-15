@@ -73,11 +73,9 @@ public class CreateCourseServiceImpl implements CreateCourseService {
         );
 
         Course save = courseRepository.save(course);
-
         return CreatedCourseResult.from(save);
     }
 
-    @Transactional
     public void openCourse(Long courseId)
     {
         Course course = courseRepository.findById(courseId)

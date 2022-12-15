@@ -1,11 +1,15 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.course.controller;
 
+import com.sugang.toys.command.course.application.CreateCourseService;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
+import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CreateCourseController {
 
     private final CreateCourseService createCourseService;
@@ -19,12 +23,11 @@ public class CreateCourseController {
     @PostMapping
     public Long createCourse(CourseCreateCommand courseCreateCommand)
     {
-        return createCourseService.createCourse(courseCreateCommand).getCourseId();
-    }
+        CreatedCourseResult course = createCourseService.createCourse(courseCreateCommand);
 
-//    @PutMapping("/open/{courseId}")
-//    public void openCourse(@PathVariable Long courseId)
-//    {
-//        createCourseServiceImpl.openCourse(courseId);
-//    }
+        Long courseId = course.getCourseId();
+        log.info("created CourseId : {}", course.getCourseId());
+
+        return course.getCourseId();
+    }
 }

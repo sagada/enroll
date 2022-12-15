@@ -25,4 +25,5 @@ public class CourseSchedules {
 
         this.courseScheduleSet = courseScheduleSet;
     }
+
 }

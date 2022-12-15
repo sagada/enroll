@@ -5,10 +5,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EnrollmentServiceImplIntegrationTest extends TestContainerConfiguration {
+public class EnrollmentCreateServiceImplIntegrationTest extends TestContainerConfiguration {
 
     @Autowired
-    EnrollmentServiceImpl enrollmentServiceImpl;
+    EnrollmentCreateServiceImpl enrollmentServiceImpl;
 
     @Test
     void enrollTest()

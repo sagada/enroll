@@ -9,10 +9,4 @@ public class EnrolmentInfo {
 
     @Column(name = "score")
     private Integer score;
-//
-//    @Column(name = "mid_term_exam_date")
-//    private LocalDateTime midTermExamDate;
-//
-//    @Column(name = "final_exam_date")
-//    private LocalDateTime finalExamDate;
 }

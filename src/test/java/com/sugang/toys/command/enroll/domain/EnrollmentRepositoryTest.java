@@ -2,7 +2,7 @@ package com.sugang.toys.command.enroll.domain;
 
 import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.department.domain.Department;
-import com.sugang.toys.command.enroll.application.EnrollmentCreateValidate;
+import com.sugang.toys.command.enroll.application.EnrollmentCreateValidator;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.student.domain.Student;
 import com.sugang.toys.command.student.domain.StudentRepository;
@@ -38,7 +38,7 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     Professor professor;
 
     @Mock
-    EnrollmentCreateValidate enrollmentCreateValidate;
+    EnrollmentCreateValidator enrollmentCreateValidator;
 
     @Test
     void createTest()
@@ -62,7 +62,7 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
         Enrollment enrollment = Enrollment.enroll(
                 course.getId()
                 , student.getId()
-                , enrollmentCreateValidate
+                , enrollmentCreateValidator
         );
 
         Enrollment save = enrollmentRepository.save(enrollment);
