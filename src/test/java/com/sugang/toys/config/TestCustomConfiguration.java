@@ -1,7 +1,7 @@
 package com.sugang.toys.config;
 
+import com.sugang.toys.config.db.DataSourceProperty;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +11,22 @@ import javax.sql.DataSource;
 @TestConfiguration
 public class TestCustomConfiguration {
 
+    private final DataSourceProperty dataSourceProperty;
+
+    public TestCustomConfiguration(DataSourceProperty dataSourceProperty)
+    {
+        this.dataSourceProperty = dataSourceProperty;
+    }
+
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource()
     {
+        System.out.println("테스트 데이터 소스 :" + dataSourceProperty);
         return DataSourceBuilder.create()
+                .driverClassName(dataSourceProperty.getDriverClassName())
+                .url(dataSourceProperty.getUrl())
+                .username(dataSourceProperty.getUsername())
+                .password(dataSourceProperty.getPassword())
                 .type(HikariDataSource.class)
                 .build();
     }

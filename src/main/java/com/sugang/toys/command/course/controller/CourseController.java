@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api/course")
-public class CreateCourseController {
+public class CourseController {
 
     private final CreateCourseService createCourseService;
 
     @Autowired
-    public CreateCourseController(CreateCourseService createCourseService)
+    public CourseController(CreateCourseService createCourseService)
     {
         this.createCourseService = createCourseService;
     }
@@ -26,8 +26,8 @@ public class CreateCourseController {
         CreatedCourseResult course = createCourseService.createCourse(courseCreateCommand);
 
         Long courseId = course.getCourseId();
-        log.info("created CourseId : {}", course.getCourseId());
+        log.info("created CourseId : {}", courseId);
 
-        return course.getCourseId();
+        return courseId;
     }
 }

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 public class CreatedCourseResult {
 
     private final String courseName;

@@ -6,7 +6,7 @@ spring:
       platform: mysql
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    jdbc-url: jdbc:tc:mysql:5.7://localhost/enroll
+    url: jdbc:tc:mysql:5.7://localhost/enroll
     username: root
     password:
   jpa:
