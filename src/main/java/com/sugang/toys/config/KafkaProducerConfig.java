@@ -26,6 +26,7 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.producer.properties.schema.registry.url")
     private String schemaRegistryUrl;
 
+    @Bean
     public ProducerFactory<Long, EnrollmentLog> producerFactory()
     {
         Map<String, Object> configProps = new HashMap<>();

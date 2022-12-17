@@ -2,6 +2,7 @@ package com.sugang.toys.config;
 
 import org.junit.ClassRule;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,9 @@ import java.io.File;
 @Transactional
 @ContextConfiguration(classes = TestCustomConfiguration.class)
 @TestPropertySource(locations = "classpath:application-integration.yml")
+@ActiveProfiles("integration")
 @Testcontainers
-public class TestContainerConfiguration{
+public class IntegrationTestConfiguration {
 
     @ClassRule
     public static DockerComposeContainer dockerComposeContainer

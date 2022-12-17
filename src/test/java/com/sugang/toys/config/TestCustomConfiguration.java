@@ -21,7 +21,6 @@ public class TestCustomConfiguration {
     @Bean
     public DataSource dataSource()
     {
-        System.out.println("테스트 데이터 소스 :" + dataSourceProperty);
         return DataSourceBuilder.create()
                 .driverClassName(dataSourceProperty.getDriverClassName())
                 .url(dataSourceProperty.getUrl())

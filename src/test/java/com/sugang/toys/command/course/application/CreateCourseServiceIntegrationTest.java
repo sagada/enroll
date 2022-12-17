@@ -5,7 +5,7 @@ import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
 import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
-import com.sugang.toys.config.ApplicationIntegrationTestConfiguration;
+import com.sugang.toys.config.IntegrationTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class CreateCourseServiceImplIntegrationTest extends ApplicationIntegrationTestConfiguration
+public class CreateCourseServiceIntegrationTest extends IntegrationTestConfiguration
 {
     @Autowired
     CreateCourseService createCourseService;
@@ -25,21 +25,22 @@ public class CreateCourseServiceImplIntegrationTest extends ApplicationIntegrati
     void createCourseTest()
     {
         // given
-        CourseCreateCommand courseCreateCommand = new CourseCreateCommand()
-                .setCourseName("course_name")
-                .setCourseScheduleSet(
+        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
+
+        courseCreateCommand.setCourseName("course_name");
+        courseCreateCommand.setCourseScheduleSet(
                         Set.of(
                             new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
-                )
-                .setCourseSummaryRequestSet(
+                );
+        courseCreateCommand.setCourseSummaryRequestSet(
                         Set.of(
                             new CourseSummaryRequest(1, "content1", "title1"),
                             new CourseSummaryRequest(2, "content2", "title2")
                         )
-                )
-                .setDepartmentId(1L)
-                .setProfessorId(1L);
+                );
+        courseCreateCommand.setDepartmentId(1L);
+        courseCreateCommand.setProfessorId(1L);
 
         // when
         CreatedCourseResult course = createCourseService.createCourse(courseCreateCommand);
@@ -55,21 +56,21 @@ public class CreateCourseServiceImplIntegrationTest extends ApplicationIntegrati
     void duplicateNameCreateCourseErrorTest()
     {
         // given
-        CourseCreateCommand courseCreateCommand = new CourseCreateCommand()
-                .setCourseName("course1")
-                .setCourseScheduleSet(
+        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
+        courseCreateCommand.setCourseName("course1");
+        courseCreateCommand.setCourseScheduleSet(
                         Set.of(
                                 new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
-                )
-                .setCourseSummaryRequestSet(
+                );
+        courseCreateCommand.setCourseSummaryRequestSet(
                         Set.of(
                                 new CourseSummaryRequest(1, "content1", "title1"),
                                 new CourseSummaryRequest(2, "content2", "title2")
                         )
-                )
-                .setDepartmentId(1L)
-                .setProfessorId(1L);
+                );
+        courseCreateCommand.setDepartmentId(1L);
+        courseCreateCommand.setProfessorId(1L);
 
         // then
         Assertions.assertThatThrownBy(

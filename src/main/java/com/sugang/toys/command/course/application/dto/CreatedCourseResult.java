@@ -6,7 +6,6 @@ import com.sugang.toys.command.course.domain.CourseSchedules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,6 +54,5 @@ public class CreatedCourseResult {
                 , courseScheduleResultSet
                 , save.getId()
         );
-
     }
 }

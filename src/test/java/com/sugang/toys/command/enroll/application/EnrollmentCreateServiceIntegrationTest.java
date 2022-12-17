@@ -1,11 +1,11 @@
 package com.sugang.toys.command.enroll.application;
 
-import com.sugang.toys.config.TestContainerConfiguration;
+import com.sugang.toys.config.IntegrationTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EnrollmentCreateServiceImplIntegrationTest extends TestContainerConfiguration {
+public class EnrollmentCreateServiceIntegrationTest extends IntegrationTestConfiguration {
 
     @Autowired
     EnrollmentCreateServiceImpl enrollmentServiceImpl;
