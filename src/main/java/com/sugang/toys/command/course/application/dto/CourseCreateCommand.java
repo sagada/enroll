@@ -22,14 +22,14 @@ public class CourseCreateCommand {
     private Set<CourseSummaryRequest> courseSummaryRequestSet;
     private int score;
 
-    public Set<CourseSchedule> convertRequestIntoCourseSchedules()
+    public Set<CourseSchedule> convertCourseSchedules()
     {
         return courseScheduleRequestSet.stream()
                 .map(CourseScheduleRequest::from)
                 .collect(Collectors.toSet());
     }
 
-    public Set<CourseSummary> convertRequestIntoCourseSummary()
+    public Set<CourseSummary> convertCourseSummary()
     {
         return courseSummaryRequestSet.stream()
                 .map(CourseSummaryRequest::from)

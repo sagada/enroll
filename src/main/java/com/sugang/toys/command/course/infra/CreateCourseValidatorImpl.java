@@ -46,6 +46,4 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
             throw new CourseException(ErrorCode.DUPLICATE_COURSE_NAME);
         }
     }
-
-
 }

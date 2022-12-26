@@ -2,12 +2,12 @@ package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
-import com.sugang.toys.command.course.domain.*;
+import com.sugang.toys.command.course.domain.Course;
+import com.sugang.toys.command.course.domain.CourseRepository;
+import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Transactional
@@ -19,12 +19,9 @@ public class CreateCourseServiceImpl implements CreateCourseService{
 
     public CreatedCourseResult createCourse(CourseCreateCommand command)
     {
-        Set<CourseSchedule> openCourseScheduleSet = command.convertRequestIntoCourseSchedules();
-        Set<CourseSummary> courseSummarySet = command.convertRequestIntoCourseSummary();
-
         Course course = Course.createCourse(
-                openCourseScheduleSet
-                , courseSummarySet
+                command.convertCourseSchedules()
+                , command.convertCourseSummary()
                 , command.getProfessorId()
                 , command.getCourseName()
                 , command.getDepartmentId()
