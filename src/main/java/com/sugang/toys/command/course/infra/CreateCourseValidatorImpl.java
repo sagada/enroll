@@ -1,64 +1,51 @@
 package com.sugang.toys.command.course.infra;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.course.domain.CourseName;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import com.sugang.toys.command.course.domain.exception.CourseException;
-import com.sugang.toys.command.department.domain.Department;
-import com.sugang.toys.command.professor.domain.Professor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
+/**
+ * course 생성 validator
+ * 1. 교수 수업하고 추가된 과목의 수업 시간 겹치는 거
+ * 2. 수업 이름 중복인지 확인
+ */
+@RequiredArgsConstructor
 @Service
 public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private final CourseRepository courseRepository;
-    private final ProfessorScheduleCheckService professorScheduleCheckService;
-
-    @Autowired
-    public CreateCourseValidatorImpl(
-            CourseRepository courseRepository
-            , ProfessorScheduleCheckService professorScheduleCheckService)
-    {
-        this.courseRepository = courseRepository;
-        this.professorScheduleCheckService = professorScheduleCheckService;
-    }
+    private final CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
 
     public void validate(
-            Professor professor
-            , Department department
+            Long professorId
             , String courseName
-            , Set<CourseSchedule> openCourseScheduleSet
-    )
+            , Set<CourseSchedule> openCourseScheduleSet)
     {
-        if (professor == null)
-        {
-            return ;
-        }
+        duplicateCourseNameCheck(courseName);
 
-        if (department == null)
-        {
-            throw new RuntimeException("department is null");
-        }
+        Set<CourseSchedule> professorCourseSchedules = courseRepository.findProfessorCourseSchedules(professorId)
+                .stream()
+                .flatMap(courseSchedules -> courseSchedules.getCourseScheduleSet().stream())
+                .collect(Collectors.toSet());
 
-        if (openCourseScheduleSet.isEmpty())
-        {
-            throw new RuntimeException("스케줄이 비었습니다.");
-        }
-
-        duplicateCourseName(courseName);
-        professorScheduleCheckService.professorScheduleCheck(professor, openCourseScheduleSet);
+        courseScheduleOverlapCheckService.isOverlap(professorCourseSchedules, openCourseScheduleSet);
     }
 
-    private void duplicateCourseName(String courseName)
+    private void duplicateCourseNameCheck(String courseName)
     {
-        if (courseRepository.existsByName(new CourseName(courseName)))
+        if (courseRepository.existsByName(courseName))
         {
             throw new CourseException(ErrorCode.DUPLICATE_COURSE_NAME);
         }
     }
+
+
 }

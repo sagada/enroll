@@ -2,17 +2,25 @@ package com.sugang.toys.command.course.domain.service;
 
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Set;
 
 @Service
 public class CourseScheduleOverlapCheckService {
 
-    public boolean isOverlap(CourseSchedule courseSchedule1, CourseSchedule courseSchedule2)
+    public boolean isOverlap(CourseSchedule c1, CourseSchedule c2)
     {
-        if (courseSchedule1.getEnd().isAfter(courseSchedule2.getEnd()) && courseSchedule1.getStart().isBefore(courseSchedule2.getEnd()))
-        {
-            return true;
-        }
-
-        return courseSchedule2.getEnd().isAfter(courseSchedule1.getEnd()) && courseSchedule2.getStart().isBefore(courseSchedule1.getEnd());
+        return true;
     }
+
+    public void isOverlap(Set<CourseSchedule> courseScheduleSet1, Set<CourseSchedule> courseScheduleSet2)
+    {
+        if (CollectionUtils.isEmpty(courseScheduleSet1) || CollectionUtils.isEmpty(courseScheduleSet2))
+        {
+            return ;
+        }
+        // TODO 구현
+    }
+
 }

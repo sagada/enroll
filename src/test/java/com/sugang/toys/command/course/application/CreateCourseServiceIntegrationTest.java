@@ -28,7 +28,7 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
         CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
 
         courseCreateCommand.setCourseName("course_name");
-        courseCreateCommand.setCourseScheduleSet(
+        courseCreateCommand.setCourseScheduleRequestSet(
                         Set.of(
                             new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )
@@ -58,7 +58,7 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
         // given
         CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
         courseCreateCommand.setCourseName("course1");
-        courseCreateCommand.setCourseScheduleSet(
+        courseCreateCommand.setCourseScheduleRequestSet(
                         Set.of(
                                 new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
                         )

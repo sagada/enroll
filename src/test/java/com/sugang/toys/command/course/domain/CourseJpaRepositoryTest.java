@@ -1,9 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
-import com.sugang.toys.command.department.domain.Department;
-import com.sugang.toys.command.department.domain.Division;
-import com.sugang.toys.command.professor.domain.Professor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,9 +41,9 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
         Course course = Course.createCourse(
                 Set.of(courseSchedule1, courseSchedule2)
                 , Set.of(new CourseSummary(1, "content", "title"))
-                , new Professor(1L, "professorName")
+                ,1L
                 , "courseName1"
-                , new Department(1L, "it", Division.IT, "1022", "2022")
+                , 1L
                 , "bookName1"
                 , 1
                 , createCourseValidator

@@ -1,11 +1,16 @@
 package com.sugang.toys.command.course.application.dto;
 
-import lombok.Data;
+import com.sugang.toys.command.course.domain.CourseSchedule;
+import com.sugang.toys.command.course.domain.CourseSummary;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class CourseCreateCommand {
 
@@ -13,24 +18,21 @@ public class CourseCreateCommand {
     private Long departmentId;
     private Long professorId;
     private String bookName;
-    private Set<CourseScheduleRequest> courseScheduleSet;
+    private Set<CourseScheduleRequest> courseScheduleRequestSet;
     private Set<CourseSummaryRequest> courseSummaryRequestSet;
     private int score;
 
-    public CourseCreateCommand(
-            String courseName
-            , Long departmentId
-            , Long professorId
-            , String bookName
-            , Set<CourseScheduleRequest> courseScheduleSet
-            , Set<CourseSummaryRequest> courseSummaryRequestSet
-    )
+    public Set<CourseSchedule> convertRequestIntoCourseSchedules()
     {
-        this.courseName = courseName;
-        this.departmentId = departmentId;
-        this.bookName = bookName;
-        this.professorId = professorId;
-        this.courseScheduleSet = courseScheduleSet;
-        this.courseSummaryRequestSet = courseSummaryRequestSet;
+        return courseScheduleRequestSet.stream()
+                .map(CourseScheduleRequest::from)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<CourseSummary> convertRequestIntoCourseSummary()
+    {
+        return courseSummaryRequestSet.stream()
+                .map(CourseSummaryRequest::from)
+                .collect(Collectors.toSet());
     }
 }

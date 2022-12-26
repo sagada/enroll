@@ -57,4 +57,10 @@ public class CourseSchedule {
 
         return false;
     }
+
+    public boolean equalDay(CourseSchedule c1, CourseSchedule c2)
+    {
+        return c1.getDay().equals(c2.getDay());
+    }
+
 }

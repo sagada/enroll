@@ -1,9 +1,7 @@
 package com.sugang.toys.command.enroll.domain;
 
 import com.sugang.toys.command.course.domain.*;
-import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.enroll.application.EnrollmentCreateValidator;
-import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.student.domain.Student;
 import com.sugang.toys.command.student.domain.StudentRepository;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
@@ -32,12 +29,6 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     CreateCourseValidator createCourseValidator;
 
     @Mock
-    Department department;
-
-    @Mock
-    Professor professor;
-
-    @Mock
     EnrollmentCreateValidator enrollmentCreateValidator;
 
     @Test
@@ -48,9 +39,9 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
         Course course = Course.createCourse(
                 Set.of(new CourseSchedule(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1004"))
                 , Set.of(new CourseSummary(1, "content", "title"))
-                , professor
+                , 1L
                 ,"courseName"
-                , department
+                , 1L
                 , "bookName"
                 , 1
                 , createCourseValidator
@@ -71,11 +62,5 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
         Assertions.assertThat(save.getEnrolmentStatus()).isEqualTo(EnrolmentStatus.PROPOSE);
         Assertions.assertThat(save.getCourseId()).isNotNull();
         Assertions.assertThat(save.getEnrollStudent()).isNotNull();
-    }
-
-    @Test
-    void enrollFindTest()
-    {
-        List<Long> enrollmentListByStudentId = enrollmentRepository.findEnrollmentListByStudentId(1L);
     }
 }

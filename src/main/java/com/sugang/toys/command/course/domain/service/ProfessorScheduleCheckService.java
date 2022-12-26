@@ -1,9 +1,7 @@
-package com.sugang.toys.command.course.infra;
+package com.sugang.toys.command.course.domain.service;
 
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
-import com.sugang.toys.command.professor.domain.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +24,9 @@ public class ProfessorScheduleCheckService {
         this.courseScheduleOverlapCheckService = courseScheduleOverlapCheckService;
     }
 
-    public void professorScheduleCheck(Professor professor, Set<CourseSchedule> openCourseScheduleList)
+    public void professorScheduleCheck(Long professorId, Set<CourseSchedule> openCourseScheduleList)
     {
-        List<CourseSchedule> courseScheduleList = courseRepository.findByProfessorId(professor.getId()).stream()
+        List<CourseSchedule> courseScheduleList = courseRepository.findByProfessorId(professorId).stream()
                 .flatMap(professorCourse -> professorCourse.getCourseSchedules().getCourseScheduleSet().stream())
                 .collect(Collectors.toList());
 

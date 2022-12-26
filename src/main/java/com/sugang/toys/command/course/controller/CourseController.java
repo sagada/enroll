@@ -21,13 +21,12 @@ public class CourseController {
     }
 
     @PostMapping
-    public Long createCourse(CourseCreateCommand courseCreateCommand)
+    public Long createCourse(@RequestBody CourseCreateCommand courseCreateCommand)
     {
         CreatedCourseResult course = createCourseService.createCourse(courseCreateCommand);
 
         Long courseId = course.getCourseId();
         log.info("created CourseId : {}", courseId);
-
         return courseId;
     }
 }

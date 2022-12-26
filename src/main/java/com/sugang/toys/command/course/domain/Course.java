@@ -1,7 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.command.course.domain.exception.CourseException;
-import com.sugang.toys.command.department.domain.Department;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.subject.domain.Subject;
 import lombok.AccessLevel;
@@ -79,14 +78,14 @@ public class Course {
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
             , String bookName
-            , Professor professor
+            , Long professorId
             , String name
             , Long departmentId
             , CourseStatus courseStatus
             , int score)
     {
         this.id = id;
-        this.professorId = professor.getId();
+        this.professorId = professorId;
         this.courseStatus = courseStatus;
         this.bookName = bookName;
         this.courseSummaries = new CourseSummaries(courseSummaries);
@@ -100,14 +99,14 @@ public class Course {
     public static Course createCourse(
             Set<CourseSchedule> openCourseScheduleSet
             , Set<CourseSummary> courseSummaries
-            , Professor professor
+            , Long professorId
             , String courseName
-            , Department department
+            , Long departmentId
             , String bookName
             , int score
             , CreateCourseValidator createCourseValidator)
     {
-        createCourseValidator.validate(professor, department, courseName, openCourseScheduleSet);
+        createCourseValidator.validate(professorId, courseName, openCourseScheduleSet);
 
         return new Course(
                 null
@@ -115,9 +114,9 @@ public class Course {
                 , courseSummaries
                 , null
                 , bookName
-                , professor
+                , professorId
                 , courseName
-                , department.getId()
+                , departmentId
                 , CourseStatus.HOLD
                 , score);
     }
