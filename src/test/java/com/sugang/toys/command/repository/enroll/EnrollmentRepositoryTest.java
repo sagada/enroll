@@ -1,7 +1,10 @@
-package com.sugang.toys.command.enroll.domain;
+package com.sugang.toys.command.repository.enroll;
 
 import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.enroll.application.EnrollmentCreateValidator;
+import com.sugang.toys.command.enroll.domain.Enrollment;
+import com.sugang.toys.command.enroll.domain.EnrollmentRepository;
+import com.sugang.toys.command.enroll.domain.EnrolmentStatus;
 import com.sugang.toys.command.student.domain.Student;
 import com.sugang.toys.command.student.domain.StudentRepository;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
@@ -40,8 +43,8 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
                 Set.of(new CourseSchedule(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1004"))
                 , Set.of(new CourseSummary(1, "content", "title"))
                 , 1L
-                ,"courseName"
                 , 1L
+                ,"courseName"
                 , "bookName"
                 , 1
                 , createCourseValidator

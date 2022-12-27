@@ -1,29 +1,27 @@
-package com.sugang.toys.command.course.domain;
+package com.sugang.toys.command.repository.course;
 
+import com.google.common.collect.Sets;
+import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.*;
 import java.util.Set;
 
+@DisplayName("Course Repository Test")
 @ExtendWith(MockitoExtension.class)
 public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
 
     @Autowired
     CourseRepository courseRepository;
 
-    @MockBean
-    CreateCourseValidator createCourseValidator;
-
-    @Test
-    void create()
+    static Set<CourseSchedule> givenCourseSchedules()
     {
-        // given
         CourseSchedule courseSchedule1 = new CourseSchedule(
                 DayOfWeek.MONDAY,
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
@@ -38,15 +36,24 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
                 "1234"
         );
 
-        Course course = Course.createCourse(
-                Set.of(courseSchedule1, courseSchedule2)
+        return Sets.newHashSet(courseSchedule1, courseSchedule2);
+    }
+
+    @DisplayName("Course 생성 테스트")
+    @Test
+    void create()
+    {
+        // given
+        Set<CourseSchedule> courseSchedules = givenCourseSchedules();
+        Course course = Course.Create(
+                courseSchedules
                 , Set.of(new CourseSummary(1, "content", "title"))
-                ,1L
-                , "courseName1"
+                ,null
+                , "bookName"
                 , 1L
-                , "bookName1"
-                , 1
-                , createCourseValidator
+                , "courseName"
+                , CourseStatus.OPEN
+                , 10
         );
 
         // when
@@ -54,20 +61,15 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
 
         // then
         Assertions.assertThat(savedCourse).isNotNull();
-        Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName1");
-        CourseSchedules courseSchedules = savedCourse.getCourseSchedules();
+        Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName");
+        Assertions.assertThat(savedCourse.getBookName()).isEqualTo("bookName");
+        Assertions.assertThat(savedCourse.getScore()).isEqualTo(10);
 
+        CourseSchedules savedCourseSchedules = savedCourse.getCourseSchedules();
         Set<CourseSummary> courseSummaries = savedCourse.getCourseSummaries().getCourseSummaries();
         Assertions.assertThat(courseSummaries).hasSize(1);
         Assertions.assertThat(courseSummaries).isEqualTo(Set.of(new CourseSummary(1, "content", "title")));
-        Assertions.assertThat(courseSchedules.getCourseScheduleSet()).hasSize(2);
-        Assertions.assertThat(courseSchedules.getCourseScheduleSet()).containsExactlyInAnyOrder(courseSchedule1, courseSchedule2);
+        Assertions.assertThat(savedCourseSchedules.getCourseScheduleSet()).hasSize(2);
+        Assertions.assertThat(savedCourseSchedules.getCourseScheduleSet()).isEqualTo(courseSchedules);
     }
-
-    @Test
-    void update()
-    {
-
-    }
-
 }

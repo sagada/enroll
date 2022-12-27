@@ -66,9 +66,6 @@ public class Course {
     @Column(name = "professor_id")
     private Long professorId;
 
-    @Column(name = "department_id")
-    private Long departmentId;
-
     @Embedded
     private StudentCount studentCount;
 
@@ -80,7 +77,6 @@ public class Course {
             , String bookName
             , Long professorId
             , String name
-            , Long departmentId
             , CourseStatus courseStatus
             , int score)
     {
@@ -92,21 +88,43 @@ public class Course {
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisite = new Prerequisite(preCourseIdSet);
         this.name = new CourseName(name);
-        this.departmentId = departmentId;
         this.score = score;
+    }
+
+    public static Course Create(
+            Set<CourseSchedule> courseScheduleSet
+            , Set<CourseSummary> courseSummaries
+            , Set<Long> preCourseIdSet
+            , String bookName
+            , Long professorId
+            , String name
+            , CourseStatus courseStatus
+            , int score)
+    {
+        return new Course(
+                null,
+                courseScheduleSet
+                , courseSummaries
+                ,preCourseIdSet
+                , bookName
+                , professorId
+                , name
+                , courseStatus
+                , score
+        );
     }
 
     public static Course createCourse(
             Set<CourseSchedule> openCourseScheduleSet
             , Set<CourseSummary> courseSummaries
             , Long professorId
+            , Long subjectId
             , String courseName
-            , Long departmentId
             , String bookName
             , int score
             , CreateCourseValidator createCourseValidator)
     {
-        createCourseValidator.validate(professorId, courseName, openCourseScheduleSet);
+        createCourseValidator.validate(subjectId, professorId, courseName, openCourseScheduleSet);
 
         return new Course(
                 null
@@ -116,7 +134,6 @@ public class Course {
                 , bookName
                 , professorId
                 , courseName
-                , departmentId
                 , CourseStatus.HOLD
                 , score);
     }
@@ -124,11 +141,6 @@ public class Course {
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);
-    }
-
-    public boolean isEnd()
-    {
-        return CourseStatus.END.equals(this.courseStatus);
     }
 
     public void close()

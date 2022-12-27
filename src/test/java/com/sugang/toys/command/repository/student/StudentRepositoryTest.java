@@ -1,5 +1,7 @@
-package com.sugang.toys.command.student.domain;
+package com.sugang.toys.command.repository.student;
 
+import com.sugang.toys.command.student.domain.Student;
+import com.sugang.toys.command.student.domain.StudentRepository;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

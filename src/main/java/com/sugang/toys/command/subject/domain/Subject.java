@@ -1,9 +1,13 @@
 package com.sugang.toys.command.subject.domain;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Table(name = "subject")
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Subject {
 
     @Id

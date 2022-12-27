@@ -23,8 +23,8 @@ public class CreateCourseServiceImpl implements CreateCourseService{
                 command.convertCourseSchedules()
                 , command.convertCourseSummary()
                 , command.getProfessorId()
+                , command.getSubjectId()
                 , command.getCourseName()
-                , command.getDepartmentId()
                 , command.getBookName()
                 , command.getScore()
                 , createCourseValidator

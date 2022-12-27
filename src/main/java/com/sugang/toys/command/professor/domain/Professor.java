@@ -51,4 +51,9 @@ public class Professor {
     {
         return new Professor(id, phoneNumber, name, professorStatus);
     }
+
+    public boolean working()
+    {
+        return this.getProfessorStatus().equals(ProfessorStatus.WORK);
+    }
 }

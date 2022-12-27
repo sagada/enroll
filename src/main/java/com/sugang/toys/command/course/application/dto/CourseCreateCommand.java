@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 public class CourseCreateCommand {
 
     private String courseName;
-    private Long departmentId;
     private Long professorId;
     private String bookName;
+    private Long subjectId;
     private Set<CourseScheduleRequest> courseScheduleRequestSet;
     private Set<CourseSummaryRequest> courseSummaryRequestSet;
     private int score;

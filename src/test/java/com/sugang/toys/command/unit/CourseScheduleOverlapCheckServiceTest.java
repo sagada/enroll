@@ -1,5 +1,6 @@
-package com.sugang.toys.command.course.domain;
+package com.sugang.toys.command.unit;
 
+import com.sugang.toys.command.course.domain.CourseSchedule;
 import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
 import org.junit.Test;
 

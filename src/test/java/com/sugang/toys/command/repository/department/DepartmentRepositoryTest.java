@@ -1,5 +1,9 @@
-package com.sugang.toys.command.department.domain;
+package com.sugang.toys.command.repository.department;
 
+import com.sugang.toys.command.department.domain.Department;
+import com.sugang.toys.command.department.domain.DepartmentPhoneNumber;
+import com.sugang.toys.command.department.domain.DepartmentRepository;
+import com.sugang.toys.command.department.domain.Division;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

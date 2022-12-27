@@ -1,5 +1,6 @@
-package com.sugang.toys.command.enroll.application;
+package com.sugang.toys.command.integration.enroll;
 
+import com.sugang.toys.command.enroll.application.EnrollmentCreateServiceImpl;
 import com.sugang.toys.config.IntegrationTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

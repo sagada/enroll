@@ -17,4 +17,5 @@ public class DepartmentServiceImpl implements DepartmentService{
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("없는 아이디입니다."));
     }
+
 }

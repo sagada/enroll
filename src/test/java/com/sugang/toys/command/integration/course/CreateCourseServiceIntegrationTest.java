@@ -1,6 +1,7 @@
-package com.sugang.toys.command.course.application;
+package com.sugang.toys.command.integration.course;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
+import com.sugang.toys.command.course.application.CreateCourseService;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
 import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
@@ -39,7 +40,6 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
                             new CourseSummaryRequest(2, "content2", "title2")
                         )
                 );
-        courseCreateCommand.setDepartmentId(1L);
         courseCreateCommand.setProfessorId(1L);
 
         // when
@@ -69,7 +69,6 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
                                 new CourseSummaryRequest(2, "content2", "title2")
                         )
                 );
-        courseCreateCommand.setDepartmentId(1L);
         courseCreateCommand.setProfessorId(1L);
 
         // then
