@@ -26,21 +26,7 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
     void createCourseTest()
     {
         // given
-        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
-
-        courseCreateCommand.setCourseName("course_name");
-        courseCreateCommand.setCourseScheduleRequestSet(
-                        Set.of(
-                            new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
-                        )
-                );
-        courseCreateCommand.setCourseSummaryRequestSet(
-                        Set.of(
-                            new CourseSummaryRequest(1, "content1", "title1"),
-                            new CourseSummaryRequest(2, "content2", "title2")
-                        )
-                );
-        courseCreateCommand.setProfessorId(1L);
+        CourseCreateCommand courseCreateCommand = given("course_name");
 
         // when
         CreatedCourseResult course = createCourseService.createCourse(courseCreateCommand);
@@ -56,24 +42,31 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
     void duplicateNameCreateCourseErrorTest()
     {
         // given
-        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
-        courseCreateCommand.setCourseName("course1");
-        courseCreateCommand.setCourseScheduleRequestSet(
-                        Set.of(
-                                new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
-                        )
-                );
-        courseCreateCommand.setCourseSummaryRequestSet(
-                        Set.of(
-                                new CourseSummaryRequest(1, "content1", "title1"),
-                                new CourseSummaryRequest(2, "content2", "title2")
-                        )
-                );
-        courseCreateCommand.setProfessorId(1L);
+        CourseCreateCommand courseCreateCommand = given("course1");
 
         // then
         Assertions.assertThatThrownBy(
                 () -> createCourseService.createCourse(courseCreateCommand)
         ).hasMessage(ErrorCode.DUPLICATE_COURSE_NAME.getMessage());
+    }
+
+    private static CourseCreateCommand given(String courseName)
+    {
+        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
+        courseCreateCommand.setCourseName(courseName);
+        courseCreateCommand.setSubjectId(1L);
+        courseCreateCommand.setCourseScheduleRequestSet(
+                Set.of(
+                        new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
+                )
+        );
+        courseCreateCommand.setCourseSummaryRequestSet(
+                Set.of(
+                        new CourseSummaryRequest(1, "content1", "title1"),
+                        new CourseSummaryRequest(2, "content2", "title2")
+                )
+        );
+        courseCreateCommand.setProfessorId(1L);
+        return courseCreateCommand;
     }
 }
