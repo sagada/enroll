@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -40,7 +39,7 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
         Student student = new Student("name");
 
         Course course = Course.createCourse(
-                Set.of(new CourseSchedule(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1004"))
+                Set.of(new CourseSchedule(LocalDateTime.now(), LocalDateTime.now(), "1004"))
                 , Set.of(new CourseSummary(1, "content", "title"))
                 , 1L
                 , 1L

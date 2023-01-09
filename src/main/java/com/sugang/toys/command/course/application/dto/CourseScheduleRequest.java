@@ -24,8 +24,7 @@ public class CourseScheduleRequest {
     public static CourseSchedule from(CourseScheduleRequest courseScheduleDto)
     {
         return new CourseSchedule(
-                courseScheduleDto.getDay()
-                , courseScheduleDto.getFrom()
+                 courseScheduleDto.getFrom()
                 , courseScheduleDto.getTo()
                 , courseScheduleDto.getRoomNumber()
         );

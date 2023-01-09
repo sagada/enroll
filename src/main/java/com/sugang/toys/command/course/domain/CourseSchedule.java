@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,10 +16,10 @@ import java.util.Set;
 @Getter
 @Embeddable
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"day", "start", "end", "roomNumber"})
+@EqualsAndHashCode(of = {"start", "end", "roomNumber"})
 public class CourseSchedule {
 
-    private DayOfWeek day;
+    // TODO 시간 타입 변경
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -29,12 +28,10 @@ public class CourseSchedule {
     private RoomNumber roomNumber;
 
     public CourseSchedule(
-            DayOfWeek day
-            , LocalDateTime start
+            LocalDateTime start
             , LocalDateTime end
             , String roomNumber)
     {
-        this.day = day;
         this.start = start;
         this.end = end;
         this.roomNumber = new RoomNumber(roomNumber);
@@ -58,9 +55,5 @@ public class CourseSchedule {
         return false;
     }
 
-    public boolean equalDay(CourseSchedule c1, CourseSchedule c2)
-    {
-        return c1.getDay().equals(c2.getDay());
-    }
 
 }

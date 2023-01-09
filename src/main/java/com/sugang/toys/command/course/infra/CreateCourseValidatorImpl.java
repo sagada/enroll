@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * 1. 수업 이름 중복인지 확인
  * 2. 교수 상태 확인
  * 3. 교수 중복 과목 확인
- * 3. 교수 기존 수업 스케줄 중복 확인
+ * 4. 교수 기존 수업 스케줄 중복 확인
  */
 @RequiredArgsConstructor
 @Service

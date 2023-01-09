@@ -50,8 +50,6 @@ public class Course {
     @Embedded
     private CourseSchedules courseSchedules;
 
-    private String bookName;
-
     private int score;
 
     @Embedded
@@ -74,7 +72,6 @@ public class Course {
             , Set<CourseSchedule> courseScheduleList
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
-            , String bookName
             , Long professorId
             , String name
             , CourseStatus courseStatus
@@ -83,7 +80,6 @@ public class Course {
         this.id = id;
         this.professorId = professorId;
         this.courseStatus = courseStatus;
-        this.bookName = bookName;
         this.courseSummaries = new CourseSummaries(courseSummaries);
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisite = new Prerequisite(preCourseIdSet);
@@ -95,7 +91,6 @@ public class Course {
             Set<CourseSchedule> courseScheduleSet
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
-            , String bookName
             , Long professorId
             , String name
             , CourseStatus courseStatus
@@ -106,7 +101,6 @@ public class Course {
                 courseScheduleSet
                 , courseSummaries
                 ,preCourseIdSet
-                , bookName
                 , professorId
                 , name
                 , courseStatus
@@ -131,7 +125,6 @@ public class Course {
                 , openCourseScheduleSet
                 , courseSummaries
                 , null
-                , bookName
                 , professorId
                 , courseName
                 , CourseStatus.HOLD

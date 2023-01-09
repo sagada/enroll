@@ -2,25 +2,45 @@ package com.sugang.toys.command.course.domain.service;
 
 import com.sugang.toys.command.course.domain.CourseSchedule;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseScheduleOverlapCheckService {
 
-    public boolean isOverlap(CourseSchedule c1, CourseSchedule c2)
+    public boolean isOverlap(Set<CourseSchedule> c1, Set<CourseSchedule> c2)
     {
-        return true;
+        List<CourseSchedule> c1List = sortCourseSchedules(c1);
+        List<CourseSchedule> c2List = sortCourseSchedules(c2);
+        return isOverlap(c1List, c2List);
     }
 
-    public void isOverlap(Set<CourseSchedule> courseScheduleSet1, Set<CourseSchedule> courseScheduleSet2)
+    private boolean isOverlap(List<CourseSchedule> c1List, List<CourseSchedule> c2List)
     {
-        if (CollectionUtils.isEmpty(courseScheduleSet1) || CollectionUtils.isEmpty(courseScheduleSet2))
+        for (CourseSchedule courseSchedule1 : c1List)
         {
-            return ;
+            for (CourseSchedule courseSchedule2 : c2List)
+            {
+                if (courseSchedule1.getEnd().isAfter(courseSchedule2.getStart())
+                    && courseSchedule2.getStart().isAfter(courseSchedule1.getStart()))
+                    return true;
+
+                if (courseSchedule2.getEnd().isAfter(courseSchedule1.getStart())
+                        && courseSchedule1.getStart().isAfter(courseSchedule2.getStart()))
+                    return true;
+            }
         }
-        // TODO 구현
+
+        return false;
     }
 
+    private static List<CourseSchedule> sortCourseSchedules(Set<CourseSchedule> list)
+    {
+        return list.stream()
+                .sorted(Comparator.comparing(CourseSchedule::getStart))
+                .collect(Collectors.toList());
+    }
 }

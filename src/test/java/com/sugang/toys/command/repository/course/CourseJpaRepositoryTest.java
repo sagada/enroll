@@ -6,15 +6,12 @@ import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.*;
 import java.util.Set;
 
 @DisplayName("Course Repository Test")
-@ExtendWith(MockitoExtension.class)
 public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
 
     @Autowired
@@ -23,14 +20,12 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
     static Set<CourseSchedule> givenCourseSchedules()
     {
         CourseSchedule courseSchedule1 = new CourseSchedule(
-                DayOfWeek.MONDAY,
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "4567"
         );
 
         CourseSchedule courseSchedule2 = new CourseSchedule(
-                DayOfWeek.WEDNESDAY,
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "1234"
@@ -49,7 +44,6 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
                 courseSchedules
                 , Set.of(new CourseSummary(1, "content", "title"))
                 ,null
-                , "bookName"
                 , 1L
                 , "courseName"
                 , CourseStatus.OPEN
@@ -62,7 +56,6 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
         // then
         Assertions.assertThat(savedCourse).isNotNull();
         Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName");
-        Assertions.assertThat(savedCourse.getBookName()).isEqualTo("bookName");
         Assertions.assertThat(savedCourse.getScore()).isEqualTo(10);
 
         CourseSchedules savedCourseSchedules = savedCourse.getCourseSchedules();

@@ -24,6 +24,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.*;
+import java.util.List;
 import java.util.Set;
 
 import static com.sugang.toys.command.common.exception.ErrorCode.DUPLICATE_COURSE_NAME;
@@ -49,16 +50,14 @@ public class CreateCourseTest {
     static Set<CourseSchedule> givenCourseSchedules()
     {
         CourseSchedule courseSchedule1 = new CourseSchedule(
-                DayOfWeek.MONDAY,
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
                 LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
                 "4567"
         );
 
         CourseSchedule courseSchedule2 = new CourseSchedule(
-                DayOfWeek.WEDNESDAY,
-                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(11, 20)),
-                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 23), LocalTime.of(20, 30)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 24), LocalTime.of(11, 20)),
+                LocalDateTime.of(LocalDate.of(2022, Month.MARCH, 24), LocalTime.of(20, 30)),
                 "1234"
         );
 
@@ -67,7 +66,7 @@ public class CreateCourseTest {
 
     @DisplayName("중복된 수업 이름으로 생성시 에러")
     @Test
-    void duplicateCourseNameErrorTest()
+    void duplicateCourseNameValidatorTest()
     {
         // given
         Mockito.when(courseRepository.existsByName(Mockito.any())).thenReturn("dddd");
@@ -92,7 +91,7 @@ public class CreateCourseTest {
 
     @DisplayName("교수 상태가 working 아닐 경우 Error")
     @Test
-    void professorStatusErrorTest()
+    void professorStatusValidatorTest()
     {
         // given
         Professor professor = Mockito.mock(Professor.class);
@@ -118,19 +117,22 @@ public class CreateCourseTest {
     }
 
 
-    @DisplayName("Course 생성시에 교수 status not working 일 경우 Error")
+    @DisplayName("중복된 과목 수업을 가졌으면 에러")
     @Test
-    void duplicateSubjectErrorTest()
+    void duplicateSubjectValidatorTest()
     {
         // given
         Subject subject = Mockito.mock(Subject.class);
         Course course = Mockito.mock(Course.class);
+        List<Course> courseList = Lists.newArrayList(course);
+
         Mockito.when(course.getSubject()).thenReturn(subject);
-        Professor professor = Mockito.mock(Professor.class);
-        Mockito.when(professor.working()).thenReturn(true);
         Mockito.when(subjectService.findById(Mockito.any())).thenReturn(subject);
+        Mockito.when(courseRepository.findByProfessorId(Mockito.any())).thenReturn(courseList);
+
+        Professor professor = Mockito.mock(Professor.class);
         Mockito.when(professorService.findById(Mockito.any())).thenReturn(professor);
-        Mockito.when(courseRepository.findByProfessorId(Mockito.any())).thenReturn(Lists.newArrayList(course));
+        Mockito.when(professor.working()).thenReturn(true);
 
         // when
         CourseException courseException = Assertions.assertThrows(CourseException.class,

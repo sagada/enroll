@@ -19,8 +19,7 @@ public class ProfessorCourseScheduleDto {
     public static CourseSchedule convert(ProfessorCourseScheduleDto professorCourseScheduleDto)
     {
         return new CourseSchedule(
-                professorCourseScheduleDto.getDay()
-                , professorCourseScheduleDto.getFrom()
+                professorCourseScheduleDto.getFrom()
                 , professorCourseScheduleDto.getTo()
                 , professorCourseScheduleDto.getRoomNumber()
         );
