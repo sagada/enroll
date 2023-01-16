@@ -21,6 +21,26 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
     @Autowired
     CreateCourseService createCourseService;
 
+    private static CourseCreateCommand given(String courseName)
+    {
+        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
+        courseCreateCommand.setCourseName(courseName);
+        courseCreateCommand.setSubjectId(1L);
+        courseCreateCommand.setCourseScheduleRequestSet(
+                Set.of(
+                        new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
+                )
+        );
+        courseCreateCommand.setCourseSummaryRequestSet(
+                Set.of(
+                        new CourseSummaryRequest(1, "content1", "title1"),
+                        new CourseSummaryRequest(2, "content2", "title2")
+                )
+        );
+        courseCreateCommand.setProfessorId(1L);
+        return courseCreateCommand;
+    }
+
     @Test
     @DisplayName("course 생성 테스트")
     void createCourseTest()
@@ -48,25 +68,5 @@ public class CreateCourseServiceIntegrationTest extends IntegrationTestConfigura
         Assertions.assertThatThrownBy(
                 () -> createCourseService.createCourse(courseCreateCommand)
         ).hasMessage(ErrorCode.DUPLICATE_COURSE_NAME.getMessage());
-    }
-
-    private static CourseCreateCommand given(String courseName)
-    {
-        CourseCreateCommand courseCreateCommand = new CourseCreateCommand();
-        courseCreateCommand.setCourseName(courseName);
-        courseCreateCommand.setSubjectId(1L);
-        courseCreateCommand.setCourseScheduleRequestSet(
-                Set.of(
-                        new CourseScheduleRequest(DayOfWeek.FRIDAY, LocalDateTime.now(), LocalDateTime.now(), "1234")
-                )
-        );
-        courseCreateCommand.setCourseSummaryRequestSet(
-                Set.of(
-                        new CourseSummaryRequest(1, "content1", "title1"),
-                        new CourseSummaryRequest(2, "content2", "title2")
-                )
-        );
-        courseCreateCommand.setProfessorId(1L);
-        return courseCreateCommand;
     }
 }

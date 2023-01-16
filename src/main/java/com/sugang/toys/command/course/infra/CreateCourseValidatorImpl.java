@@ -35,7 +35,8 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
     public void validate(
             Long subjectId
             , Long professorId
-            , String courseName
+            , Set<Long> preCourseIdSet
+            , CourseName courseName
             , Set<CourseSchedule> openCourseScheduleSet)
     {
         checkDuplicateCourseName(courseName);
@@ -83,9 +84,9 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
         }
     }
 
-    private void checkDuplicateCourseName(String courseName)
+    private void checkDuplicateCourseName(CourseName courseName)
     {
-        if (courseRepository.existsByName(courseName) != null)
+        if (courseRepository.existsByName(courseName))
         {
             throw new CourseException(ErrorCode.DUPLICATE_COURSE_NAME);
         }

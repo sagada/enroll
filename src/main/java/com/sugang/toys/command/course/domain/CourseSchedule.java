@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 
 @Setter
@@ -36,24 +35,4 @@ public class CourseSchedule {
         this.end = end;
         this.roomNumber = new RoomNumber(roomNumber);
     }
-
-    public boolean contain(Set<CourseSchedule> addCourseSchedules)
-    {
-        for (CourseSchedule courseSchedule : addCourseSchedules)
-        {
-            if (courseSchedule.getEnd().isAfter(this.getEnd()) && courseSchedule.getStart().isBefore(this.getEnd()))
-            {
-                return true;
-            }
-
-            if (this.getEnd().isAfter(courseSchedule.getEnd()) && this.getStart().isBefore(this.getEnd()))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
 }

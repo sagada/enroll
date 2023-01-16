@@ -21,7 +21,8 @@ public enum ErrorCode {
     COURSE_SUMMARY_ERROR("수업 요약 에러", 303)
     , INTERNAL_LOGIC_ERROR("로직 에러", 304),
     DUPLICATE_COURSE("중복되는 수업", 305),
-    PROFESSOR_STATUS("교수 상태 에러", 306)
+    PROFESSOR_STATUS("교수 상태 에러", 306),
+    INVALID_COURSE_SCORE("학점 에러", 307)
     ;
     private final String message;
     private final Integer code;

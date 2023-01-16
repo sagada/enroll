@@ -3,10 +3,7 @@ package com.sugang.toys.command.unit;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.course.domain.Course;
-import com.sugang.toys.command.course.domain.CourseRepository;
-import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.CourseSummary;
+import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.toys.command.course.infra.CreateCourseValidatorImpl;
@@ -76,6 +73,7 @@ public class CreateCourseTest {
                 () -> Course.createCourse(
                         givenCourseSchedules()
                         , Set.of(new CourseSummary(1, "content", "title"))
+                        , new CourseExamination(LocalDateTime.now(), LocalDateTime.now())
                         , 1L
                         , 1L
                         , "course"
@@ -103,6 +101,7 @@ public class CreateCourseTest {
                 () -> Course.createCourse(
                         givenCourseSchedules()
                         , Set.of(new CourseSummary(1, "content", "title"))
+                        ,
                         , 1L
                         , 1L
                         , "course"

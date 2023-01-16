@@ -1,14 +1,16 @@
-package com.sugang.toys.command.repository.course;
+package com.sugang.toys.command.course.domain;
 
 import com.google.common.collect.Sets;
-import com.sugang.toys.command.course.domain.*;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Set;
 
 @DisplayName("Course Repository Test")
@@ -40,14 +42,14 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
     {
         // given
         Set<CourseSchedule> courseSchedules = givenCourseSchedules();
-        Course course = Course.Create(
-                courseSchedules
+        Course course = new Course(
+                null,
+                10, courseSchedules
                 , Set.of(new CourseSummary(1, "content", "title"))
                 ,null
                 , 1L
                 , "courseName"
                 , CourseStatus.OPEN
-                , 10
         );
 
         // when
@@ -55,7 +57,7 @@ public class CourseJpaRepositoryTest extends JpaRepositoryTestConfiguration {
 
         // then
         Assertions.assertThat(savedCourse).isNotNull();
-        Assertions.assertThat(savedCourse.getName()).isEqualTo("courseName");
+        Assertions.assertThat(savedCourse.getCourseName()).isEqualTo("courseName");
         Assertions.assertThat(savedCourse.getScore()).isEqualTo(10);
 
         CourseSchedules savedCourseSchedules = savedCourse.getCourseSchedules();

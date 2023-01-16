@@ -44,36 +44,9 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
             throw new RuntimeException("Closed Course");
         }
 
-        if (course.enrollFinished())
-        {
-            throw new RuntimeException("Full Student");
-        }
-
         // TODO : 조회 전용 쿼리 추가후 수정
         List<Long> studentCourseIdList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
-        List<Course> studentCourseList = courseRepository.findAllByIds(studentCourseIdList, course.getSemester());
-
-        int scoreSum = studentCourseList.stream()
-                .mapToInt(Course::getScore)
-                .sum();
-
-        if (scoreSum + course.getScore() > student.getSemeseterMaxScore())
-        {
-            throw new RuntimeException("학기 수강 학점 초과");
-        }
-
         Set<CourseSchedule> courseSchedules = course.getCourseSchedules().getCourseScheduleSet();
-
-        Set<CourseSchedule> semesterCourseScheduleSets = studentCourseList.stream()
-                .flatMap(studentCourse -> studentCourse.getCourseSchedules().getCourseScheduleSet().stream())
-                .collect(Collectors.toSet());
-
-        if (semesterCourseScheduleSets
-                .stream()
-                .anyMatch(courseSchedule -> courseSchedule.contain(courseSchedules)))
-        {
-            throw new RuntimeException("중복 되는 시간표가 있습니다.");
-        }
     }
 
     @Override

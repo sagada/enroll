@@ -6,10 +6,9 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import java.util.Set;
 
-@Setter
+@Getter
 @NoArgsConstructor
 @Embeddable
-@Getter
 public class CourseSchedules {
 
     @ElementCollection(fetch = FetchType.EAGER)

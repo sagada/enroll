@@ -1,12 +1,11 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.professor.domain.Professor;
-import com.sugang.toys.command.subject.domain.Subject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,7 +14,6 @@ import java.util.Set;
 @Table(name = "course")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@ToString
 public class Course {
 
     @Id
@@ -23,33 +21,25 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @Column(name = "subject_id")
+    private Long subjectId;
 
     @Column(name = "course_status")
     @Enumerated(EnumType.STRING)
     private CourseStatus courseStatus;
 
     @Embedded
-    private Semester semester;
+    private CourseName courseName;
 
-    public String getSemester()
+    public String getCourseName()
     {
-        return semester.getSemeseter();
-    }
-
-    @Embedded
-    private CourseName name;
-
-    public String getName()
-    {
-        return name.getValue();
+        return courseName.getValue();
     }
 
     @Embedded
     private CourseSchedules courseSchedules;
 
+    @Column(name = "course_score")
     private int score;
 
     @Embedded
@@ -59,78 +49,99 @@ public class Course {
     private CourseExamination courseExamination;
 
     @Embedded
-    private Prerequisite prerequisite;
+    private PrerequisiteCourse prerequisiteCourse;
 
     @Column(name = "professor_id")
     private Long professorId;
 
-    @Embedded
-    private StudentCount studentCount;
-
     protected Course(
-            Long id
-            , Set<CourseSchedule> courseScheduleList
+            Set<CourseSchedule> courseScheduleList
+            , CourseExamination courseExamination
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
             , Long professorId
-            , String name
+            , Long subjectId
+            , CourseName courseName
             , CourseStatus courseStatus
             , int score)
     {
-        this.id = id;
         this.professorId = professorId;
+        setSubjectId(subjectId);
+        setCourseName(courseName);
+        setScore(score);
+        setCourseExamination(courseExamination);
         this.courseStatus = courseStatus;
         this.courseSummaries = new CourseSummaries(courseSummaries);
         this.courseSchedules = new CourseSchedules(courseScheduleList);
-        this.prerequisite = new Prerequisite(preCourseIdSet);
-        this.name = new CourseName(name);
+        this.prerequisiteCourse = new PrerequisiteCourse(preCourseIdSet);
+    }
+
+    private void setSubjectId(Long subjectId)
+    {
+        if (subjectId == null)
+        {
+            throw new CourseException("subjectId is null");
+        }
+
+        this.subjectId = subjectId;
+    }
+
+    private void setCourseExamination(CourseExamination courseExamination)
+    {
+        if (courseExamination == null)
+        {
+            throw new CourseException("courseExamination is null");
+        }
+
+        this.courseExamination = courseExamination;
+    }
+
+    private void setScore(int score)
+    {
+        if (score <= 0 || score > 4)
+        {
+            throw new CourseException(ErrorCode.INVALID_COURSE_SCORE);
+        }
+
         this.score = score;
     }
 
-    public static Course Create(
-            Set<CourseSchedule> courseScheduleSet
-            , Set<CourseSummary> courseSummaries
-            , Set<Long> preCourseIdSet
-            , Long professorId
-            , String name
-            , CourseStatus courseStatus
-            , int score)
+    private void setCourseName(CourseName courseName)
     {
-        return new Course(
-                null,
-                courseScheduleSet
-                , courseSummaries
-                ,preCourseIdSet
-                , professorId
-                , name
-                , courseStatus
-                , score
-        );
+        if (courseName == null)
+        {
+            throw new CourseException("courseName is null");
+        }
+
+        this.courseName = courseName;
     }
 
     public static Course createCourse(
             Set<CourseSchedule> openCourseScheduleSet
             , Set<CourseSummary> courseSummaries
+            , CourseExamination courseExamination
+            , Set<Long> preCourseIdSet
             , Long professorId
             , Long subjectId
-            , String courseName
-            , String bookName
+            , CourseName courseName
             , int score
             , CreateCourseValidator createCourseValidator)
     {
-        createCourseValidator.validate(subjectId, professorId, courseName, openCourseScheduleSet);
+        createCourseValidator.validate(subjectId, professorId, preCourseIdSet, courseName, openCourseScheduleSet);
 
         return new Course(
-                null
-                , openCourseScheduleSet
+                openCourseScheduleSet
+                , courseExamination
                 , courseSummaries
-                , null
+                , preCourseIdSet
                 , professorId
+                , subjectId
                 , courseName
                 , CourseStatus.HOLD
-                , score);
+                , score
+        );
     }
-
+    
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);
@@ -140,41 +151,25 @@ public class Course {
     {
         if (isClosed())
         {
-            throw new RuntimeException("잘못된 접근입니다.");
+            throw new CourseException("already closed");
         }
+
         this.courseStatus = CourseStatus.CLOSE;
     }
 
     public void open()
     {
-        if (!isClosed() || CourseStatus.OPEN.equals(this.courseStatus))
+        if (CourseStatus.OPEN.equals(this.courseStatus))
         {
-            throw new RuntimeException("잘못된 접근입니다.");
+            throw new CourseException("already open");
         }
 
         this.courseStatus = CourseStatus.OPEN;
     }
 
-    public void assign(Set<CourseSchedule> professorCourseSchedule, Professor professor)
+    public void assign(ProfessorCourseValidator professorCourseSchedule, Professor professor)
     {
-        if (this.professorId != null)
-        {
-            throw new CourseException("이미 할당 된 교수가 있습니다.");
-        }
-
-        CourseSchedules courseSchedules = this.getCourseSchedules();
-        Set<CourseSchedule> courseScheduleSet = courseSchedules.getCourseScheduleSet();
-    }
-
-    public void addStudent()
-    {
-        int enrollStudentCount = this.studentCount.getEnrollStudentCount();
-        int studentMaxCount = this.studentCount.getStudentMaxCount();
-        this.studentCount = new StudentCount(studentMaxCount, enrollStudentCount + 1);
-    }
-
-    public boolean enrollFinished()
-    {
-        return this.studentCount.overStudentCount();
+        professorCourseSchedule.validate(this, professor);
+        this.professorId = professor.getId();
     }
 }

@@ -6,7 +6,8 @@ public interface CreateCourseValidator {
     void validate(
             Long subjectId
             , Long professorId
-            , String courseName
+            , Set<Long> preCourseIdSet
+            , CourseName courseName
             , Set<CourseSchedule> openCourseScheduleSet
     );
 }

@@ -18,10 +18,9 @@ public class CourseName {
     @Column(name = "course_name")
     private String value;
 
-    // TODO RuntimeException 제거
     public CourseName(String value)
     {
-        if (value == null || value.isBlank())
+        if (value.isBlank())
         {
             throw new CourseException(ErrorCode.COURSE_NAME_BLANK);
         }

@@ -3,6 +3,7 @@ package com.sugang.toys.command.course.application;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
 import com.sugang.toys.command.course.domain.Course;
+import com.sugang.toys.command.course.domain.CourseName;
 import com.sugang.toys.command.course.domain.CourseRepository;
 import com.sugang.toys.command.course.domain.CreateCourseValidator;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,11 @@ public class CreateCourseServiceImpl implements CreateCourseService{
         Course course = Course.createCourse(
                 command.convertCourseSchedules()
                 , command.convertCourseSummary()
+                , command.convertExamination()
+                , command.getPreCourseIdSet()
                 , command.getProfessorId()
                 , command.getSubjectId()
-                , command.getCourseName()
-                , command.getBookName()
+                , new CourseName(command.getCourseName())
                 , command.getScore()
                 , createCourseValidator
         );
