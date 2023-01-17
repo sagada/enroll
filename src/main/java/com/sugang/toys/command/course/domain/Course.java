@@ -2,6 +2,8 @@ package com.sugang.toys.command.course.domain;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.exception.CourseException;
+import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
+import com.sugang.toys.command.course.domain.validator.ProfessorCourseValidator;
 import com.sugang.toys.command.professor.domain.Professor;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,11 +32,6 @@ public class Course {
 
     @Embedded
     private CourseName courseName;
-
-    public String getCourseName()
-    {
-        return courseName.getValue();
-    }
 
     @Embedded
     private CourseSchedules courseSchedules;
@@ -127,9 +124,7 @@ public class Course {
             , int score
             , CreateCourseValidator createCourseValidator)
     {
-        createCourseValidator.validate(subjectId, professorId, preCourseIdSet, courseName, openCourseScheduleSet);
-
-        return new Course(
+        Course course = new Course(
                 openCourseScheduleSet
                 , courseExamination
                 , courseSummaries
@@ -140,8 +135,16 @@ public class Course {
                 , CourseStatus.HOLD
                 , score
         );
+
+        createCourseValidator.validate(course);
+        return course;
     }
-    
+
+    public void create(CreateCourseValidator createCourseValidator)
+    {
+        createCourseValidator.validate(this);
+    }
+
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);

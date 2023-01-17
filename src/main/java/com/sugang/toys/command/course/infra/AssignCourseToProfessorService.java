@@ -3,7 +3,7 @@ package com.sugang.toys.command.course.infra;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseRepository;
-import com.sugang.toys.command.course.domain.ProfessorCourseValidator;
+import com.sugang.toys.command.course.domain.validator.ProfessorCourseValidator;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.professor.domain.Professor;
 import com.sugang.toys.command.professor.domain.ProfessorRepository;

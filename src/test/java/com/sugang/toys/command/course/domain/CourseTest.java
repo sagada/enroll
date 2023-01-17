@@ -1,5 +1,6 @@
 package com.sugang.toys.command.course.domain;
 
+import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.Test;

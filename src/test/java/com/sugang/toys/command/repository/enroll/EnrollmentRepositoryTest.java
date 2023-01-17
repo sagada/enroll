@@ -1,6 +1,7 @@
 package com.sugang.toys.command.repository.enroll;
 
 import com.sugang.toys.command.course.domain.*;
+import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
 import com.sugang.toys.command.enroll.application.EnrollmentCreateValidator;
 import com.sugang.toys.command.enroll.domain.Enrollment;
 import com.sugang.toys.command.enroll.domain.EnrollmentRepository;

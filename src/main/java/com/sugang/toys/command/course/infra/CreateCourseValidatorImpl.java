@@ -2,7 +2,7 @@ package com.sugang.toys.command.course.infra;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.*;
-import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.toys.command.professor.domain.Professor;
@@ -32,21 +32,16 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
     private final SubjectService subjectService;
     private final CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
 
-    public void validate(
-            Long subjectId
-            , Long professorId
-            , Set<Long> preCourseIdSet
-            , CourseName courseName
-            , Set<CourseSchedule> openCourseScheduleSet)
+    public void validate(Course course)
     {
-        checkDuplicateCourseName(courseName);
-        checkProfessorStatus(professorId);
+        checkDuplicateCourseName(course.getCourseName());
+        checkProfessorStatus(course.getProfessorId());
 
-        Subject subject = subjectService.findById(subjectId);
-        List<Course> professorCourseList = courseRepository.findByProfessorId(professorId);
+        Subject subject = subjectService.findById(course.getSubjectId());
+        List<Course> professorCourseList = courseRepository.findByProfessorId(course.getProfessorId());
 
         checkDuplicateCourseSubject(subject, professorCourseList);
-        checkOverlapCourseSchedule(openCourseScheduleSet, professorCourseList);
+        checkOverlapCourseSchedule(course.getCourseSchedules().getCourseScheduleSet(), professorCourseList);
     }
 
     private void checkOverlapCourseSchedule(
@@ -64,9 +59,11 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private void checkDuplicateCourseSubject(Subject subject, List<Course> professorCourseList)
     {
-        Set<Subject> professorSubjectSet = professorCourseList.stream()
-                .map(Course::getSubject)
+        Set<Long> professorSubjectIdSet = professorCourseList.stream()
+                .map(Course::getSubjectId)
                 .collect(Collectors.toSet());
+
+        List<Subject> professorSubjectSet = subjectService.findByIds(professorSubjectIdSet);
 
         if (professorSubjectSet.contains(subject))
         {

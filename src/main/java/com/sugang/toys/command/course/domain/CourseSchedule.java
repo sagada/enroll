@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"start", "end", "roomNumber"})
 public class CourseSchedule {
 
-    // TODO 시간 타입 변경
     private LocalDateTime start;
     private LocalDateTime end;
 

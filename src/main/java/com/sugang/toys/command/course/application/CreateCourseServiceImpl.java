@@ -5,7 +5,7 @@ import com.sugang.toys.command.course.application.dto.CreatedCourseResult;
 import com.sugang.toys.command.course.domain.Course;
 import com.sugang.toys.command.course.domain.CourseName;
 import com.sugang.toys.command.course.domain.CourseRepository;
-import com.sugang.toys.command.course.domain.CreateCourseValidator;
+import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class CreateCourseServiceImpl implements CreateCourseService{
                 , createCourseValidator
         );
 
-        Course save = courseRepository.save(course);
-        return CreatedCourseResult.from(save);
+        courseRepository.save(course);
+        return CreatedCourseResult.from(course);
     }
 }
