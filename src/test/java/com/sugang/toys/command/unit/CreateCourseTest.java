@@ -66,7 +66,7 @@ public class CreateCourseTest {
     void duplicateCourseNameValidatorTest()
     {
         // given
-        Mockito.when(courseRepository.existsByName(Mockito.any())).thenReturn("dddd");
+        Mockito.when(courseRepository.existsByName(Mockito.any())).thenReturn(true);
 
         // when
         CourseException courseException = Assertions.assertThrows(CourseException.class,
@@ -74,10 +74,10 @@ public class CreateCourseTest {
                         givenCourseSchedules()
                         , Set.of(new CourseSummary(1, "content", "title"))
                         , new CourseExamination(LocalDateTime.now(), LocalDateTime.now())
+                        , Set.of(1L, 2L)
                         , 1L
                         , 1L
-                        , "course"
-                        , "courseName"
+                        , new CourseName("course")
                         , 10
                         , createCourseValidator
                 )
@@ -101,11 +101,11 @@ public class CreateCourseTest {
                 () -> Course.createCourse(
                         givenCourseSchedules()
                         , Set.of(new CourseSummary(1, "content", "title"))
-                        ,
+                        , new CourseExamination()
+                        , Set.of(1L, 2L)
                         , 1L
                         , 1L
-                        , "course"
-                        , "courseName"
+                        , new CourseName("course")
                         , 10
                         , createCourseValidator
                 )
@@ -125,7 +125,6 @@ public class CreateCourseTest {
         Course course = Mockito.mock(Course.class);
         List<Course> courseList = Lists.newArrayList(course);
 
-        Mockito.when(course.getSubject()).thenReturn(subject);
         Mockito.when(subjectService.findById(Mockito.any())).thenReturn(subject);
         Mockito.when(courseRepository.findByProfessorId(Mockito.any())).thenReturn(courseList);
 
@@ -138,10 +137,11 @@ public class CreateCourseTest {
                 () -> Course.createCourse(
                         givenCourseSchedules()
                         , Set.of(new CourseSummary(1, "content", "title"))
+                        , new CourseExamination()
+                        , Set.of(1L,2L)
                         , 1L
                         , 1L
-                        , "course"
-                        , "courseName"
+                        , new CourseName("course")
                         , 10
                         , createCourseValidator
                 )

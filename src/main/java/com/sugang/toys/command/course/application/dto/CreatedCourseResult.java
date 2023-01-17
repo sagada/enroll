@@ -49,7 +49,7 @@ public class CreatedCourseResult {
                 .collect(Collectors.toSet());
 
         return new CreatedCourseResult(
-                save.getCourseName()
+                save.getCourseName().getValue()
                 , save.getId()
                 , courseScheduleResultSet
                 , save.getId()

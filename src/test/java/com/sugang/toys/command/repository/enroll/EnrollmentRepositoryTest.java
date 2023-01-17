@@ -43,10 +43,10 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
                 Set.of(new CourseSchedule(LocalDateTime.now(), LocalDateTime.now(), "1004"))
                 , Set.of(new CourseSummary(1, "content", "title"))
                 , new CourseExamination(LocalDateTime.now(), LocalDateTime.now())
+                , Set.of(1L, 2L)
+                ,1L
                 , 1L
-                , 1L
-                ,"courseName"
-                , "bookName"
+                , new CourseName("courseName")
                 , 1
                 , createCourseValidator
         );

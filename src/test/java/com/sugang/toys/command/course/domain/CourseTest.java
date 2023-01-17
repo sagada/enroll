@@ -24,10 +24,10 @@ class CourseTest {
                         LocalDateTime.of(2022, Month.OCTOBER, 13, 13, 15),
                         LocalDateTime.of(2022, Month.SEPTEMBER, 13, 14, 15)
                 ),
+                Set.of(1L, 2L),
                 1L,
                 1L,
-                "courseName",
-                 "bookName",
+                new CourseName("courseName"),
                  10,
                  Mockito.mock(CreateCourseValidator.class)
                 );
