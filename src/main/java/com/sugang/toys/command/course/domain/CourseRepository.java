@@ -10,7 +10,7 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByProfessorId(Long professorId);
 
-    boolean existsByName(CourseName courseName);
+    boolean existsByCourseName(CourseName courseName);
 
     @Query(nativeQuery = true, value = "select course_id from enrollment e where student_id = :studentId")
     List<Enrollment> findEnrollmentListByStudentId(@Param("studentId") Long studentId);

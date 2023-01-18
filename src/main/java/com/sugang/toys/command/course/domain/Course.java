@@ -3,8 +3,6 @@ package com.sugang.toys.command.course.domain;
 import com.sugang.toys.command.common.exception.ErrorCode;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import com.sugang.toys.command.course.domain.validator.CreateCourseValidator;
-import com.sugang.toys.command.course.domain.validator.ProfessorCourseValidator;
-import com.sugang.toys.command.professor.domain.Professor;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,7 +60,7 @@ public class Course {
             , CourseStatus courseStatus
             , int score)
     {
-        this.professorId = professorId;
+        setProfessor(professorId);
         setSubjectId(subjectId);
         setCourseName(courseName);
         setScore(score);
@@ -71,6 +69,16 @@ public class Course {
         this.courseSummaries = new CourseSummaries(courseSummaries);
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisiteCourse = new PrerequisiteCourse(preCourseIdSet);
+    }
+
+    private void setProfessor(Long professorId)
+    {
+        if (professorId == null)
+        {
+            throw new CourseException("professorId is null");
+        }
+
+        this.professorId = professorId;
     }
 
     private void setSubjectId(Long subjectId)
@@ -140,11 +148,6 @@ public class Course {
         return course;
     }
 
-    public void create(CreateCourseValidator createCourseValidator)
-    {
-        createCourseValidator.validate(this);
-    }
-
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);
@@ -170,9 +173,4 @@ public class Course {
         this.courseStatus = CourseStatus.OPEN;
     }
 
-    public void assign(ProfessorCourseValidator professorCourseSchedule, Professor professor)
-    {
-        professorCourseSchedule.validate(this, professor);
-        this.professorId = professor.getId();
-    }
 }

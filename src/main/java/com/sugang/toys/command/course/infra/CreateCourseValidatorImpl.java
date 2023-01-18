@@ -83,7 +83,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private void checkDuplicateCourseName(CourseName courseName)
     {
-        if (courseRepository.existsByName(courseName))
+        if (courseRepository.existsByCourseName(courseName))
         {
             throw new CourseException(ErrorCode.DUPLICATE_COURSE_NAME);
         }

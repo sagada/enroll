@@ -1,8 +1,6 @@
 package com.sugang.toys.command.course.application.dto;
 
-import com.sugang.toys.command.course.domain.CourseExamination;
-import com.sugang.toys.command.course.domain.CourseSchedule;
-import com.sugang.toys.command.course.domain.CourseSummary;
+import com.sugang.toys.command.course.domain.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

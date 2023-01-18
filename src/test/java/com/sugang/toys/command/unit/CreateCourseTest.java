@@ -66,7 +66,7 @@ public class CreateCourseTest {
     void duplicateCourseNameValidatorTest()
     {
         // given
-        Mockito.when(courseRepository.existsByName(Mockito.any())).thenReturn(true);
+        Mockito.when(courseRepository.existsByCourseName(Mockito.any())).thenReturn(true);
 
         // when
         CourseException courseException = Assertions.assertThrows(CourseException.class,

@@ -13,7 +13,7 @@ public enum ErrorCode {
     ASSIGN_DEPART_MENT_ERROR("입학인 학생만 할당 가능", 105),
     //#################### PROFESSOR ####################
     NONE_PROFESSOR("없는 교수입니다.", 200),
-
+    OFF_PROFESSOR("쉬는 교수", 201),
     // ################### COURSE ###################
     NONE_COURSE("없는 수업", 300),
     DUPLICATE_COURSE_NAME("중복되는 수업 이름", 301),
