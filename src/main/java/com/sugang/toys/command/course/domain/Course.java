@@ -148,6 +148,22 @@ public class Course {
         return course;
     }
 
+    public Course update(Course updateCourse)
+    {
+        setCourseExamination(updateCourse.getCourseExamination());
+        this.setProfessor(updateCourse.getProfessorId());
+        this.setSubjectId(updateCourse.getSubjectId());
+        this.setCourseName(updateCourse.getCourseName());
+        this.courseSummaries = updateCourse.getCourseSummaries();
+        this.courseSchedules = updateCourse.getCourseSchedules();
+        this.courseStatus = updateCourse.getCourseStatus();
+        this.professorId = updateCourse.getProfessorId();
+        this.score = updateCourse.getScore();
+
+        return this;
+    }
+
+
     public boolean isClosed()
     {
         return CourseStatus.CLOSE.equals(this.courseStatus);
@@ -172,5 +188,4 @@ public class Course {
 
         this.courseStatus = CourseStatus.OPEN;
     }
-
 }

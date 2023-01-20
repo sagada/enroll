@@ -18,6 +18,9 @@ public class Student {
 
     private String name;
 
+    @Column(name = "email", unique = true)
+    private String email;
+
     @Column(name = "semester_max_score")
     private int semeseterMaxScore;
 

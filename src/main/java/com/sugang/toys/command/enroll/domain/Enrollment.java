@@ -56,18 +56,4 @@ public class Enrollment {
                 , EnrolmentStatus.PROPOSE
         );
     }
-
-    public void calculateScore(ExaminationScore examinationScore)
-    {
-        verifyEndEnrollment();
-        enrollStudent.calculateScore(examinationScore);
-    }
-
-    private void verifyEndEnrollment()
-    {
-        if(enrolmentStatus.equals(EnrolmentStatus.END))
-        {
-            throw new IllegalStateException("종료된 강의");
-        }
-    }
 }

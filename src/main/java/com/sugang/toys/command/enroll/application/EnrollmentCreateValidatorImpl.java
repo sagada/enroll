@@ -43,10 +43,6 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
         {
             throw new RuntimeException("Closed Course");
         }
-
-        // TODO : 조회 전용 쿼리 추가후 수정
-        List<Long> studentCourseIdList = enrollmentRepository.findEnrollmentListByStudentId(student.getId());
-        Set<CourseSchedule> courseSchedules = course.getCourseSchedules().getCourseScheduleSet();
     }
 
     @Override

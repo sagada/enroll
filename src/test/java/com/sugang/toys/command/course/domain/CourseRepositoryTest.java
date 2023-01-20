@@ -72,9 +72,9 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
 
         // then
         assertThat(savedCourse).isNotNull();
+        assertThat(savedCourse.getCourseStatus()).isEqualTo(CourseStatus.OPEN);
         assertThat(savedCourse.getCourseName().getValue()).isEqualTo("courseName");
         assertThat(savedCourse.getScore()).isEqualTo(2);
-
         assertThat(savedCourse.getPrerequisiteCourse()).extracting(PrerequisiteCourse::getPreCourseSeqList)
                 .isEqualTo(Set.of(1L, 2L));
 

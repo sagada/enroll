@@ -28,12 +28,6 @@ public class Professor {
     @Enumerated(EnumType.STRING)
     private ProfessorStatus professorStatus;
 
-    public Professor(Long id, String name)
-    {
-        this.id = id;
-        this.name = name;
-    }
-
     public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)
     {
         this.id = id;

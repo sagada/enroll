@@ -1,7 +1,6 @@
-package com.sugang.toys.command.integration.course;
+package com.sugang.toys.command.course.application;
 
 import com.sugang.toys.command.common.exception.ErrorCode;
-import com.sugang.toys.command.course.application.CreateCourseService;
 import com.sugang.toys.command.course.application.dto.CourseCreateCommand;
 import com.sugang.toys.command.course.application.dto.CourseScheduleRequest;
 import com.sugang.toys.command.course.application.dto.CourseSummaryRequest;
@@ -16,8 +15,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class CreateCourseServiceIntegrationTest extends IntegrationTestConfiguration
-{
+class CreateCourseServiceImplTest extends IntegrationTestConfiguration {
+
     @Autowired
     CreateCourseService createCourseService;
 
