@@ -1,6 +1,5 @@
 package com.sugang.toys.command.professor.domain;
 
-import com.sugang.toys.command.common.domain.PhoneNumber;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,6 @@ public class Professor {
 
     public static Professor create(
             Long id
-            , PhoneNumber phoneNumber
             , String name
             , ProfessorStatus professorStatus
     )

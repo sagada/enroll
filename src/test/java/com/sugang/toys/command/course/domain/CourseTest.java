@@ -1,6 +1,5 @@
 package com.sugang.toys.command.course.domain;
 
-import com.google.common.collect.Sets;
 import com.sugang.toys.command.course.domain.exception.CourseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,54 +13,23 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CourseTest {
 
-    static Set<CourseSchedule> givenCourseSchedules()
-    {
-        return Sets.newHashSet(
-                new CourseSchedule(
-                        LocalDateTime.of(2022, Month.MARCH, 1, 13, 30),
-                        LocalDateTime.of(2022, Month.MARCH, 1, 14, 30),
-                        "2004"
-                )
-        );
-    }
-
-    static Set<CourseSummary> givenCourseSummaries()
-    {
-        return Sets.newHashSet(
-                new CourseSummary(1, "content", "title")
-        );
-    }
-
-    static CourseExamination givenCourseExamination()
-    {
-        return new CourseExamination(
-                LocalDateTime.of(2022, Month.JANUARY, 13, 13, 15),
-                LocalDateTime.of(2022, Month.SEPTEMBER, 13, 14, 15)
-        );
-    }
-
     static Course givenCourse()
     {
-        Set<CourseSchedule> courseSchedules = givenCourseSchedules();
-        Set<CourseSummary> courseSummaries = givenCourseSummaries();
-        CourseExamination courseExamination = givenCourseExamination();
-
         return new Course(
-            courseSchedules,
-            courseExamination,
-            courseSummaries,
-            Set.of(1L, 2L),
-            1L,
-            1L,
-            new CourseName("courseName"),
-            CourseStatus.OPEN,
-            2
-    );
-
+                CourseTestHelper.SCHEDULES,
+                CourseTestHelper.EXAMINATION,
+                CourseTestHelper.SUMMARIES,
+                Set.of(1L, 2L),
+                1L,
+                1L,
+                new CourseName("courseName"),
+                CourseStatus.OPEN,
+                2
+        );
     }
 
     @Test
-    void courseCreateTest()
+    void createTest()
     {
         Course course = givenCourse();
 
@@ -69,7 +37,7 @@ class CourseTest {
                 .isEqualTo(LocalDateTime.of(2022, Month.JANUARY, 13, 13, 15));
         assertThat(course.getCourseStatus()).isEqualTo(CourseStatus.OPEN);
         assertThat(course.getCourseName()).isEqualTo(new CourseName("courseName"));
-        assertThat(course.getCourseSummaries()).extracting(CourseSummaries::getCourseSummaries).isEqualTo(givenCourseSummaries());
+        assertThat(course.getCourseSummaries()).extracting(CourseSummaries::getCourseSummaries).isEqualTo(CourseTestHelper.SUMMARIES);
         assertThat(course.getPrerequisiteCourse()).extracting(PrerequisiteCourse::getPreCourseSeqList).isEqualTo(Set.of(1L, 2L));
         assertThat(course.getCourseSchedules().getCourseScheduleSet()).hasSize(1);
     }
@@ -87,23 +55,12 @@ class CourseTest {
     void updateTest()
     {
         // given
-        Set<CourseSchedule> courseSchedules = givenCourseSchedules();
         Course course = givenCourse();
 
-        CourseExamination updateCourseExamination = new CourseExamination(
-                LocalDateTime.of(2022, Month.JANUARY, 13, 13, 15),
-                LocalDateTime.of(2022, Month.SEPTEMBER, 13, 15, 15)
-        );
-        Set<CourseSummary> updatedSummaries = Sets.newHashSet(
-                new CourseSummary(1, "updatedContent1", "updatedTitle1"),
-                new CourseSummary(2, "updatedContent2", "updatedTitle2"),
-                new CourseSummary(3, "updatedContent3", "updatedTitle3")
-        );
-
         Course updateCourse = new Course(
-                courseSchedules,
-                updateCourseExamination,
-                updatedSummaries,
+                CourseTestHelper.SCHEDULES,
+                CourseTestHelper.UPDATED_EXAMINATION,
+                CourseTestHelper.UPDATED_SUMMARIES,
                 Set.of(1L, 2L),
                 1L,
                 1L,
@@ -116,8 +73,8 @@ class CourseTest {
         course.update(updateCourse);
 
         // then
-        assertThat(course.getCourseExamination()).isEqualTo(updateCourseExamination);
-        assertThat(course.getCourseSummaries().getCourseSummaries()).isEqualTo(updatedSummaries);
+        assertThat(course.getCourseExamination()).isEqualTo(CourseTestHelper.UPDATED_EXAMINATION);
+        assertThat(course.getCourseSummaries().getCourseSummaries()).isEqualTo(CourseTestHelper.UPDATED_SUMMARIES);
     }
 
     @Test
