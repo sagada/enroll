@@ -18,10 +18,6 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Embedded
-    private PhoneNumber phoneNumber;
-
     private String email;
     private String name;
     private Long departmentId;
@@ -30,10 +26,9 @@ public class Professor {
     @Enumerated(EnumType.STRING)
     private ProfessorStatus professorStatus;
 
-    public Professor(Long id, PhoneNumber phoneNumber, String name, ProfessorStatus professorStatus)
+    public Professor(Long id,  String name, ProfessorStatus professorStatus)
     {
         this.id = id;
-        this.phoneNumber = phoneNumber;
         this.name = name;
         this.professorStatus = professorStatus;
     }
@@ -45,7 +40,7 @@ public class Professor {
             , ProfessorStatus professorStatus
     )
     {
-        return new Professor(id, phoneNumber, name, professorStatus);
+        return new Professor(id, name, professorStatus);
     }
 
     public boolean working()
