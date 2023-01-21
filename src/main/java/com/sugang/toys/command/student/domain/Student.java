@@ -1,9 +1,12 @@
 package com.sugang.toys.command.student.domain;
 
+import com.sugang.toys.command.student.domain.exception.StudentException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,20 +24,46 @@ public class Student {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "semester_max_score")
-    private int semeseterMaxScore;
+    @Column(name = "department_id")
+    private Long departmentId;
 
-    public Student(String name)
+    @Column(name = "academic_year")
+    private Integer academicYear;
+
+    @Column(name = "advisorProfessor_id")
+    private Long advisorProfessorId;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<StudentRegistrationInfo> studentRegistrationInfos;
+
+    public Student(String name, int academicYear, Long departmentId)
     {
         if (name.isBlank())
         {
-            throw new RuntimeException("학생 이름 누락");
+            throw new StudentException("학생 이름 누락");
         }
         this.name = name;
+        this.departmentId = departmentId;
+        setAcademicYear(academicYear);
     }
 
-    public static Student create(String name)
+    private void setAcademicYear(int academicYear)
     {
-        return new Student(name);
+        if (academicYear < 1 || academicYear > 4)
+        {
+            throw new StudentException("academicYear error");
+        }
+
+        this.academicYear = academicYear;
+    }
+
+    public void registerSemester(StudentRegistrationInfo studentRegistrationInfo) {
+
+        if (studentRegistrationInfos == null)
+        {
+            studentRegistrationInfos = new ArrayList<>();
+        }
+
+        studentRegistrationInfos.add(studentRegistrationInfo);
     }
 }

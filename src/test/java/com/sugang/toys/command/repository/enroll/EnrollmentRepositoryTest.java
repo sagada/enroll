@@ -37,7 +37,7 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     @Test
     void createTest()
     {
-        Student student = new Student("name");
+        Student student = new Student("name", 1, 1L);
 
         Course course = Course.createCourse(
                 Set.of(new CourseSchedule(LocalDateTime.now(), LocalDateTime.now(), "1004"))

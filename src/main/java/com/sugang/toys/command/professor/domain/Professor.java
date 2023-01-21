@@ -22,7 +22,9 @@ public class Professor {
     @Embedded
     private PhoneNumber phoneNumber;
 
+    private String email;
     private String name;
+    private Long departmentId;
 
     @Column(name = "professor_status")
     @Enumerated(EnumType.STRING)

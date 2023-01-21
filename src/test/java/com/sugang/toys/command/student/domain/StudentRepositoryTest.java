@@ -1,7 +1,5 @@
-package com.sugang.toys.command.repository.student;
+package com.sugang.toys.command.student.domain;
 
-import com.sugang.toys.command.student.domain.Student;
-import com.sugang.toys.command.student.domain.StudentRepository;
 import com.sugang.toys.config.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ public class StudentRepositoryTest extends JpaRepositoryTestConfiguration {
     void studentCreateTest()
     {
         // given
-        Student student = Student.create("name");
+        Student student = new Student("name", 1, 1L);
 
         // when
         Student save = studentRepository.save(student);
