@@ -17,6 +17,8 @@ public class StudentRegistrationInfo {
     private Long id;
     private String fee;
     private String semester;
+    private String personalAccount;
+    private String bankName;
 
     @Column(name = "register_date")
     private LocalDateTime registerDate;

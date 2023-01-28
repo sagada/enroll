@@ -8,7 +8,8 @@ import java.util.Set;
 
 public class CourseTestHelper {
 
-    // CREATED
+    public static Set<Long> PRE_COURSE_ID_SET = Sets.newHashSet(1L, 2L);
+    public static CourseName COURSE_NAME = new CourseName("originCourseName");
     public static Set<CourseSchedule> SCHEDULES = givenCourseSchedules();
     public static Set<CourseSummary> SUMMARIES = givenCourseSummaries();
     public static CourseExamination EXAMINATION = givenCourseExamination();
@@ -16,6 +17,7 @@ public class CourseTestHelper {
     // UPDATED
     public static Set<CourseSummary> UPDATED_SUMMARIES = getUpdatedSummaries();
     public static CourseExamination UPDATED_EXAMINATION = getUpdatedCourseExamination();
+    public static CourseName UPDATED_COURSE_NAME = new CourseName("updatedCourseName");
 
     static Set<CourseSummary> givenCourseSummaries()
     {
@@ -42,7 +44,6 @@ public class CourseTestHelper {
                 )
         );
     }
-
 
     static Set<CourseSummary> getUpdatedSummaries()
     {

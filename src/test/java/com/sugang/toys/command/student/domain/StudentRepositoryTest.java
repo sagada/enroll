@@ -14,7 +14,7 @@ public class StudentRepositoryTest extends JpaRepositoryTestConfiguration {
     void studentCreateTest()
     {
         // given
-        Student student = new Student("name", 1, 1L);
+        Student student = new Student("name", 1, 1L, 1L);
 
         // when
         Student save = studentRepository.save(student);

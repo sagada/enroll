@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class EnrollRegisteredEvent {
 
-    private Long studentId;
-    private Long courseId;
-    private Long enrollId;
+    private final Long studentId;
+    private final Long courseId;
+    private final Long enrollId;
 
     public EnrollRegisteredEvent(Long studentId, Long courseId, Long enrollId)
     {

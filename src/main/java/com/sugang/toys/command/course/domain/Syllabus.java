@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-public class CourseSummaries {
+public class Syllabus {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
@@ -23,7 +23,7 @@ public class CourseSummaries {
     )
     private Set<CourseSummary> courseSummaries;
 
-    public CourseSummaries(Set<CourseSummary> courseSummaries)
+    public Syllabus(Set<CourseSummary> courseSummaries)
     {
         validateCourseSummaries(courseSummaries);
         this.courseSummaries = courseSummaries;

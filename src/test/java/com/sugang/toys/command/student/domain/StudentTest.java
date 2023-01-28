@@ -14,13 +14,13 @@ class StudentTest {
     @Test
     void registerTest()
     {
-        Student student = new Student("studentName1", 1, 1L);
+        Student student = new Student("studentName1", 1, 1L, 1L);
         LocalDateTime now = LocalDateTime.now();
         StudentRegistrationInfo studentRegistrationInfo = new StudentRegistrationInfo(
                 true,
                 now
         );
-        student.registerSemester(studentRegistrationInfo);
+        student.register(studentRegistrationInfo);
         List<StudentRegistrationInfo> studentRegistrationInfos = student.getStudentRegistrationInfos();
         assertThat(studentRegistrationInfos).hasSize(1);
         assertThat(studentRegistrationInfos.get(0).isRegistered()).isTrue();
@@ -31,7 +31,7 @@ class StudentTest {
     void academicYearBoundErrorTest()
     {
         assertThatThrownBy(
-                    () -> new Student("studentName1", 12, 1L)
+                    () -> new Student("studentName1", 12, 1L, 1L)
                 )
                 .isInstanceOf(StudentException.class)
                 .hasMessage("academicYear error");

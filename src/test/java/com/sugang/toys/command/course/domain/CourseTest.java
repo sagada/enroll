@@ -19,16 +19,17 @@ class CourseTest {
                 CourseTestHelper.SCHEDULES,
                 CourseTestHelper.EXAMINATION,
                 CourseTestHelper.SUMMARIES,
-                Set.of(1L, 2L),
-                1L,
-                1L,
-                new CourseName("courseName"),
+                CourseTestHelper.PRE_COURSE_ID_SET,
+                CourseTestHelper.COURSE_NAME,
                 CourseStatus.OPEN,
-                2
+                2,
+                1L,
+                1L
         );
     }
 
     @Test
+    @DisplayName("Course 생성 테스트")
     void createTest()
     {
         Course course = givenCourse();
@@ -36,13 +37,14 @@ class CourseTest {
         assertThat(course.getCourseExamination().getMidTermDate())
                 .isEqualTo(LocalDateTime.of(2022, Month.JANUARY, 13, 13, 15));
         assertThat(course.getCourseStatus()).isEqualTo(CourseStatus.OPEN);
-        assertThat(course.getCourseName()).isEqualTo(new CourseName("courseName"));
-        assertThat(course.getCourseSummaries()).extracting(CourseSummaries::getCourseSummaries).isEqualTo(CourseTestHelper.SUMMARIES);
+        assertThat(course.getCourseName()).isEqualTo(CourseTestHelper.COURSE_NAME);
+        assertThat(course.getSyllabus()).extracting(Syllabus::getCourseSummaries).isEqualTo(CourseTestHelper.SUMMARIES);
         assertThat(course.getPrerequisiteCourse()).extracting(PrerequisiteCourse::getPreCourseSeqList).isEqualTo(Set.of(1L, 2L));
         assertThat(course.getCourseSchedules().getCourseScheduleSet()).hasSize(1);
     }
 
     @Test
+    @DisplayName("Course examination 날짜 에러 생성 테스트")
     void courseExaminationErrorTest()
     {
         assertThatThrownBy(() -> new CourseExamination(
@@ -52,21 +54,32 @@ class CourseTest {
     }
 
     @Test
+    @DisplayName("Course 수정 테스트")
     void updateTest()
     {
         // given
-        Course course = givenCourse();
+        Course course = new Course(
+                CourseTestHelper.SCHEDULES,
+                CourseTestHelper.EXAMINATION,
+                CourseTestHelper.SUMMARIES,
+                CourseTestHelper.PRE_COURSE_ID_SET,
+                CourseTestHelper.COURSE_NAME,
+                CourseStatus.OPEN,
+                2,
+                1L,
+                1L
+        );
 
         Course updateCourse = new Course(
                 CourseTestHelper.SCHEDULES,
                 CourseTestHelper.UPDATED_EXAMINATION,
                 CourseTestHelper.UPDATED_SUMMARIES,
-                Set.of(1L, 2L),
+                CourseTestHelper.PRE_COURSE_ID_SET,
+                CourseTestHelper.UPDATED_COURSE_NAME,
+                 CourseStatus.OPEN,
+                2,
                 1L,
-                1L,
-                new CourseName("courseName"),
-                CourseStatus.OPEN,
-                2
+                1L
         );
 
         // when
@@ -74,10 +87,12 @@ class CourseTest {
 
         // then
         assertThat(course.getCourseExamination()).isEqualTo(CourseTestHelper.UPDATED_EXAMINATION);
-        assertThat(course.getCourseSummaries().getCourseSummaries()).isEqualTo(CourseTestHelper.UPDATED_SUMMARIES);
+        assertThat(course.getSyllabus().getCourseSummaries()).isEqualTo(CourseTestHelper.UPDATED_SUMMARIES);
+        assertThat(course.getCourseName()).isEqualTo(CourseTestHelper.UPDATED_COURSE_NAME);
     }
 
     @Test
+    @DisplayName("Course close 후 상태 CLOSED 변경 테스트")
     void closeTest()
     {
         // given
@@ -91,7 +106,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("이미 OPEN 수강 OPEN 시 에러")
+    @DisplayName("이미 OPEN 수강 OPEN 시 에러 테스트")
     void alreadyOpenErrorTest()
     {
         // given

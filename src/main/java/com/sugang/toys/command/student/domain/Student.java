@@ -36,7 +36,7 @@ public class Student {
     @OneToMany(fetch = FetchType.LAZY)
     private List<StudentRegistrationInfo> studentRegistrationInfos;
 
-    public Student(String name, int academicYear, Long departmentId)
+    public Student(String name, int academicYear, Long departmentId, Long advisorProfessorId)
     {
         if (name.isBlank())
         {
@@ -44,7 +44,32 @@ public class Student {
         }
         this.name = name;
         this.departmentId = departmentId;
+        setProfessorId(advisorProfessorId);
         setAcademicYear(academicYear);
+    }
+
+    private void setProfessorId(Long advisorProfessorId)
+    {
+        if (advisorProfessorId == null)
+        {
+            throw new StudentException("professor Id is null");
+        }
+
+        this.advisorProfessorId = advisorProfessorId;
+    }
+
+    public static Student createStudent(
+            String name,
+            String email,
+            Integer academicYear,
+            String score,
+            Long advisorProfessorId,
+            Long departmentId,
+            CreateStudentValidate createStudentValidate)
+    {
+        Student student = new Student();
+        createStudentValidate.validate(student);
+        return student;
     }
 
     private void setAcademicYear(int academicYear)
@@ -57,7 +82,8 @@ public class Student {
         this.academicYear = academicYear;
     }
 
-    public void registerSemester(StudentRegistrationInfo studentRegistrationInfo) {
+    public void register(StudentRegistrationInfo studentRegistrationInfo)
+    {
 
         if (studentRegistrationInfos == null)
         {

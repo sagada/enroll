@@ -20,10 +20,9 @@ import java.io.File;
 public class IntegrationTestConfiguration {
 
     @ClassRule
-    public static DockerComposeContainer dockerComposeContainer
-            = new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"));
+    public static DockerComposeContainer<?> dockerComposeContainer = new DockerComposeContainer<>(new File("src/test/resources/docker-compose.yml"));
 
-    {
+    static {
         dockerComposeContainer.start();
     }
 }

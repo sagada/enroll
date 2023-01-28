@@ -38,7 +38,7 @@ public class Course {
     private int score;
 
     @Embedded
-    private CourseSummaries courseSummaries;
+    private Syllabus syllabus;
 
     @Embedded
     private CourseExamination courseExamination;
@@ -54,11 +54,11 @@ public class Course {
             , CourseExamination courseExamination
             , Set<CourseSummary> courseSummaries
             , Set<Long> preCourseIdSet
-            , Long professorId
-            , Long subjectId
             , CourseName courseName
             , CourseStatus courseStatus
-            , int score)
+            , int score
+            , Long subjectId
+            , Long professorId)
     {
         setProfessor(professorId);
         setSubjectId(subjectId);
@@ -66,7 +66,7 @@ public class Course {
         setScore(score);
         setCourseExamination(courseExamination);
         this.courseStatus = courseStatus;
-        this.courseSummaries = new CourseSummaries(courseSummaries);
+        this.syllabus = new Syllabus(courseSummaries);
         this.courseSchedules = new CourseSchedules(courseScheduleList);
         this.prerequisiteCourse = new PrerequisiteCourse(preCourseIdSet);
     }
@@ -137,11 +137,7 @@ public class Course {
                 , courseExamination
                 , courseSummaries
                 , preCourseIdSet
-                , professorId
-                , subjectId
-                , courseName
-                , CourseStatus.HOLD
-                , score
+                , courseName, CourseStatus.HOLD, score, subjectId, professorId
         );
 
         createCourseValidator.validate(course);
@@ -154,7 +150,7 @@ public class Course {
         this.setProfessor(updateCourse.getProfessorId());
         this.setSubjectId(updateCourse.getSubjectId());
         this.setCourseName(updateCourse.getCourseName());
-        this.courseSummaries = updateCourse.getCourseSummaries();
+        this.syllabus = updateCourse.getSyllabus();
         this.courseSchedules = updateCourse.getCourseSchedules();
         this.courseStatus = updateCourse.getCourseStatus();
         this.professorId = updateCourse.getProfessorId();
@@ -162,7 +158,6 @@ public class Course {
 
         return this;
     }
-
 
     public boolean isClosed()
     {
