@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 @Accessors(chain = true)
 public class ProfessorOpenCourseRequest {
     private Long professorId;

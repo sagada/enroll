@@ -1,6 +1,6 @@
 package com.sugang.app.domain.enroll.domain;
 
-import com.sugang.app.domain.enroll.application.EnrollmentCreateValidator;
+import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

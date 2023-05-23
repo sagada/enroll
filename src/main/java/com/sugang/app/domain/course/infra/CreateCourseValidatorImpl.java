@@ -70,7 +70,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
         if (professorSubjectSet.contains(subject))
         {
-            throw new CourseException(ErrorCode.DUPLICATE_COURSE);
+            throw new IllegalArgumentException("시간표가 중복됩니다.");
         }
     }
 

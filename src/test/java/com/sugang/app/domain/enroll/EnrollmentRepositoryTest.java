@@ -2,7 +2,7 @@ package com.sugang.app.domain.enroll;
 
 import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.domain.course.domain.validator.CreateCourseValidator;
-import com.sugang.app.domain.enroll.application.EnrollmentCreateValidator;
+import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
 import com.sugang.app.domain.enroll.domain.Enrollment;
 import com.sugang.app.domain.enroll.domain.EnrollmentRepository;
 import com.sugang.app.domain.enroll.domain.EnrolmentStatus;

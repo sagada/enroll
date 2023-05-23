@@ -32,7 +32,18 @@ public class ErrorResponse {
                             .build()
                 );
     }
-
+    public static ResponseEntity<ErrorResponse> apiException(String message)
+    {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                        ErrorResponse.builder()
+                                .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                .errorType(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                                .message(message)
+                                .build()
+                );
+    }
     public static ResponseEntity<ErrorResponse> badRequest(String message)
     {
         return ResponseEntity

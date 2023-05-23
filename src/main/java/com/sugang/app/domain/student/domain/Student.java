@@ -74,7 +74,7 @@ public class Student {
 
     private void setAcademicYear(int academicYear)
     {
-        if (academicYear < 1 || academicYear > 4)
+        if (academicYear < 1 || academicYear > 5)
         {
             throw new StudentException("academicYear error");
         }

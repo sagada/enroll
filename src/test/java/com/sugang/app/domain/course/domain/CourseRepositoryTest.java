@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Course Repository Test")
+@DisplayName("코스 레파지토리 테스트")
 public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
 
     @Autowired
