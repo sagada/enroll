@@ -1,5 +1,6 @@
-package com.sugang.app.domain.course.domain;
+package com.sugang.app.domain.course;
 
+import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.domain.course.domain.exception.CourseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

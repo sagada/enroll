@@ -1,7 +1,8 @@
-package com.sugang.app.domain.course.domain;
+package com.sugang.app.domain.course;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.domain.course.domain.exception.CourseException;
 import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.course.infra.CreateCourseValidatorImpl;

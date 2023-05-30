@@ -1,5 +1,7 @@
-package com.sugang.app.domain.student.domain;
+package com.sugang.app.domain.student;
 
+import com.sugang.app.domain.student.domain.Student;
+import com.sugang.app.domain.student.domain.StudentRepository;
 import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
