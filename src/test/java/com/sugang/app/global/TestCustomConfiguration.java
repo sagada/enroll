@@ -1,4 +1,4 @@
-package com.sugang.app.config;
+package com.sugang.app.global;
 
 import com.sugang.app.global.config.db.DataSourceProperty;
 import com.zaxxer.hikari.HikariDataSource;

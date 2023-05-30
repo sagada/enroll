@@ -1,4 +1,4 @@
-package com.sugang.app.config;
+package com.sugang.app.global;
 
 import org.junit.ClassRule;
 import org.springframework.boot.test.context.SpringBootTest;

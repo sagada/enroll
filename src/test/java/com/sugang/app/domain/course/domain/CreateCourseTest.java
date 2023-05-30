@@ -1,16 +1,15 @@
-package com.sugang.app.command.unit;
+package com.sugang.app.domain.course.domain;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.sugang.app.domain.professor.domain.ProfessorRepository;
-import com.sugang.app.global.common.exception.ErrorCode;
-import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.domain.course.domain.exception.CourseException;
 import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.course.infra.CreateCourseValidatorImpl;
 import com.sugang.app.domain.professor.domain.Professor;
+import com.sugang.app.domain.professor.domain.ProfessorRepository;
 import com.sugang.app.domain.subject.domain.Subject;
 import com.sugang.app.domain.subject.domain.SubjectService;
+import com.sugang.app.global.common.exception.ErrorCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Set;
 

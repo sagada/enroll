@@ -1,8 +1,6 @@
 package com.sugang.app.domain.student.domain;
 
-import com.sugang.app.config.JpaRepositoryTestConfiguration;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

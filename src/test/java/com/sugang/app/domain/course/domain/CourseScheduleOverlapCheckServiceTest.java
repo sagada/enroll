@@ -1,7 +1,6 @@
-package com.sugang.app.command.unit;
+package com.sugang.app.domain.course.domain;
 
 import com.google.common.collect.Sets;
-import com.sugang.app.domain.course.domain.CourseSchedule;
 import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

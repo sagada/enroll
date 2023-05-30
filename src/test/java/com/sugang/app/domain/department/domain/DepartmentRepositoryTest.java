@@ -1,10 +1,6 @@
 package com.sugang.app.domain.department.domain;
 
-import com.sugang.app.config.JpaRepositoryTestConfiguration;
-import com.sugang.app.domain.department.domain.Department;
-import com.sugang.app.domain.department.domain.DepartmentPhoneNumber;
-import com.sugang.app.domain.department.domain.DepartmentRepository;
-import com.sugang.app.domain.department.domain.Division;
+import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
