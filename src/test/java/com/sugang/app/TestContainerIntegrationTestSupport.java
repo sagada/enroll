@@ -1,12 +1,32 @@
 package com.sugang.app;
 
+import com.sugang.app.global.TestCustomConfiguration;
+import org.junit.ClassRule;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.transaction.Transactional;
+import java.io.File;
 
-@Transactional
-@ActiveProfiles("integration")
 @SpringBootTest
+@Transactional
+@ContextConfiguration(classes = TestCustomConfiguration.class)
+@TestPropertySource(locations = "classpath:application-integration.yml")
+@ActiveProfiles("integration")
+@Testcontainers
 public class TestContainerIntegrationTestSupport {
+
+    @ClassRule
+    public static DockerComposeContainer<?> dockerComposeContainer = new DockerComposeContainer<>(new File("src/test/resources/docker-compose.yml"));
+
+    static {
+        dockerComposeContainer.start();
+    }
 }
+
+
+
