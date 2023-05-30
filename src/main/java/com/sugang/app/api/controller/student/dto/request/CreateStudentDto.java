@@ -15,7 +15,13 @@ public class CreateStudentDto {
     private final Long advisorProfessorId;
 
     @Builder
-    public CreateStudentDto(Long departmentId, String name, String email, String score, Integer academicYear, Long advisorProfessorId)
+    public CreateStudentDto(
+            Long departmentId,
+            String name,
+            String email,
+            String score,
+            Integer academicYear,
+            Long advisorProfessorId)
     {
         this.departmentId = departmentId;
         this.name = name;
