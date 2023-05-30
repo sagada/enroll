@@ -1,11 +1,11 @@
 package com.sugang.app.domain.course.infra;
 
+import com.sugang.app.domain.professor.domain.ProfessorRepository;
 import com.sugang.app.global.common.exception.ErrorCode;
 import com.sugang.app.domain.course.domain.validator.CreateCourseValidator;
 import com.sugang.app.domain.course.domain.exception.CourseException;
 import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.professor.domain.Professor;
-import com.sugang.app.domain.professor.domain.ProfessorService;
 import com.sugang.app.domain.subject.domain.Subject;
 import com.sugang.app.domain.subject.domain.SubjectService;
 import com.sugang.app.domain.course.domain.Course;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private final CourseRepository courseRepository;
-    private final ProfessorService professorService;
+    private final ProfessorRepository professorRepository;
     private final SubjectService subjectService;
     private final CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
 
@@ -76,7 +76,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
     private void checkProfessorStatus(Long professorId)
     {
-        Professor professor = professorService.findById(professorId);
+        Professor professor = professorRepository.findById(professorId).orElseThrow();
 
         if (!professor.working())
         {

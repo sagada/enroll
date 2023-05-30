@@ -26,10 +26,8 @@ public class CreateStudentValidateImpl implements CreateStudentValidate {
 
     private void validate(Student student, Long advisorProfessorId, Long departmentId)
     {
-        boolean existsByEmail = studentRepository.existsByEmail(student.getEmail());
-
         // email 중복 체크
-        if (existsByEmail)
+        if (studentRepository.existsByEmail(student.getEmail()))
         {
             throw new IllegalArgumentException("이메일 중복");
         }

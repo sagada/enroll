@@ -3,10 +3,9 @@ package com.sugang.app.domain.student.domain;
 import com.sugang.app.domain.student.domain.exception.StudentException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,32 +15,33 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
     private Long id;
 
     private String name;
 
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "department_id")
     private Long departmentId;
 
-    @Column(name = "academic_year")
     private Integer academicYear;
 
-    @Column(name = "advisorProfessor_id")
     private Long advisorProfessorId;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<StudentRegistrationInfo> studentRegistrationInfos;
+    @Comment("이수 가능 학점")
+    private Integer availableScore;
 
-    public Student(String name, int academicYear, Long departmentId, Long advisorProfessorId)
+    public Student(
+            String name,
+            int academicYear,
+            Long departmentId,
+            Long advisorProfessorId)
     {
         if (name.isBlank())
         {
-            throw new StudentException("학생 이름 누락");
+            throw new StudentException("student name is blank");
         }
+
         this.name = name;
         this.departmentId = departmentId;
         setProfessorId(advisorProfessorId);
@@ -80,16 +80,5 @@ public class Student {
         }
 
         this.academicYear = academicYear;
-    }
-
-    public void register(StudentRegistrationInfo studentRegistrationInfo)
-    {
-
-        if (studentRegistrationInfos == null)
-        {
-            studentRegistrationInfos = new ArrayList<>();
-        }
-
-        studentRegistrationInfos.add(studentRegistrationInfo);
     }
 }

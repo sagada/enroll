@@ -1,27 +1,67 @@
 package com.sugang.app.global.common.event;
 
+import com.enroll.domain.EnrollmentLog;
 import com.sugang.app.domain.course.domain.Course;
 import com.sugang.app.domain.course.domain.CourseRepository;
+import com.sugang.app.domain.professor.domain.Professor;
+import com.sugang.app.domain.professor.domain.ProfessorRepository;
+import com.sugang.app.domain.student.domain.Student;
+import com.sugang.app.domain.student.domain.StudentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionalEventListener;
 
+import javax.transaction.Transactional;
+
+@Slf4j
+@Transactional
 @Service
 public class EnrollRegisteredEventListener {
 
     private final CourseRepository courseRepository;
+    private final StudentRepository studentRepository;
+    private final ProfessorRepository professorRepository;
+
+    private final KafkaTemplate<Long, EnrollmentLog> enrollmentLogKafkaTemplate;
+    private static final String TOPIC_NAME = "enroll-log";
 
     @Autowired
-    public EnrollRegisteredEventListener(CourseRepository courseRepository)
+    public EnrollRegisteredEventListener(
+            CourseRepository courseRepository
+            , StudentRepository studentRepository
+            , ProfessorRepository professorRepository
+            , @Qualifier("enrollmentLogKafkaTemplate") KafkaTemplate<Long, EnrollmentLog> enrollmentLogKafkaTemplate
+    )
     {
         this.courseRepository = courseRepository;
+        this.studentRepository = studentRepository;
+        this.professorRepository = professorRepository;
+        this.enrollmentLogKafkaTemplate = enrollmentLogKafkaTemplate;
     }
 
-    @EventListener(EnrollRegisteredEvent.class)
-    public void listenCourse(final EnrollRegisteredEvent event)
+    @TransactionalEventListener
+    public void listener(final EnrollRegisteredEvent event)
     {
-        Course course = courseRepository.findById(event.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Not Found Course"));
+        log.info("enroll log produce start");
 
+        EnrollmentLog enrollmentLog = new EnrollmentLog();
+
+        Student student = studentRepository.findById(event.getStudentId()).orElseThrow();
+        Course course = courseRepository.findById(event.getCourseId()).orElseThrow();
+        Professor professor = professorRepository.findById(course.getProfessorId()).orElseThrow();
+
+        enrollmentLog.setCourseId(event.getCourseId());
+        enrollmentLog.setStudentId(event.getStudentId());
+        enrollmentLog.setStudentName(student.getName());
+        enrollmentLog.setCourseName(course.getCourseName().getValue());
+        enrollmentLog.setCourseId(course.getId());
+        enrollmentLog.setProfessorId(professor.getId().toString());
+        enrollmentLog.setProfessorName(professor.getName());
+        enrollmentLog.setScore(course.getScore());
+
+        enrollmentLogKafkaTemplate.send(TOPIC_NAME, enrollmentLog);
     }
 }

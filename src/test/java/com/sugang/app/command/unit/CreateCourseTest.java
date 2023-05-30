@@ -2,13 +2,13 @@ package com.sugang.app.command.unit;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.sugang.app.domain.professor.domain.ProfessorRepository;
 import com.sugang.app.global.common.exception.ErrorCode;
 import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.domain.course.domain.exception.CourseException;
 import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.course.infra.CreateCourseValidatorImpl;
 import com.sugang.app.domain.professor.domain.Professor;
-import com.sugang.app.domain.professor.domain.ProfessorService;
 import com.sugang.app.domain.subject.domain.Subject;
 import com.sugang.app.domain.subject.domain.SubjectService;
 import org.junit.jupiter.api.Assertions;
@@ -36,7 +36,7 @@ public class CreateCourseTest {
     CourseRepository courseRepository;
 
     @Mock
-    ProfessorService professorService;
+    ProfessorRepository professorService;
 
     @Mock
     SubjectService subjectService;
@@ -94,7 +94,7 @@ public class CreateCourseTest {
         // given
         Professor professor = Mockito.mock(Professor.class);
         Mockito.when(professor.working()).thenReturn(false);
-        Mockito.when(professorService.findById(Mockito.any())).thenReturn(professor);
+        Mockito.when(professorService.findById(Mockito.any()).orElseThrow()).thenReturn(professor);
 
         // when
         CourseException courseException = Assertions.assertThrows(CourseException.class,
@@ -129,7 +129,7 @@ public class CreateCourseTest {
         Mockito.when(courseRepository.findByProfessorId(Mockito.any())).thenReturn(courseList);
 
         Professor professor = Mockito.mock(Professor.class);
-        Mockito.when(professorService.findById(Mockito.any())).thenReturn(professor);
+        Mockito.when(professorService.findById(Mockito.any()).orElseThrow()).thenReturn(professor);
         Mockito.when(professor.working()).thenReturn(true);
 
         // when

@@ -7,6 +7,9 @@
         { "name": "student_id", "type": "long", "default": 0 },
         {"name": "course_name", "type": "string"},
         { "name": "student_name", "type": "string"},
-        { "name": "request_date", "type": "string"}
+        { "name": "request_date", "type": "string"},
+        { "name": "professor_id", "type": "string"},
+        { "name": "professor_name", "type": "string"},
+        { "name": "score", "type": "int", "default" : 0}
     ]
 }

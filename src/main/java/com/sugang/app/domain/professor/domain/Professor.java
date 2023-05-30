@@ -21,7 +21,6 @@ public class Professor {
     private String name;
     private Long departmentId;
 
-    @Column(name = "professor_status")
     @Enumerated(EnumType.STRING)
     private ProfessorStatus professorStatus;
 

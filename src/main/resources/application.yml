@@ -1,19 +1,19 @@
-spring:
-  profiles:
-    default: local
-
-  datasource:
-    url: jdbc:h2:mem:~/cafeKioskApplication
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-
-
----
+#spring:
+#  profiles:
+#    default: local
+#
+#  datasource:
+#    url: jdbc:h2:mem:~/KakaoApplication
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#
+#
+#---
 spring:
   kafka:
     producer:
@@ -22,27 +22,41 @@ spring:
         schema:
           registry:
             url: http://localhost:8081
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/enroll
+#    username: root
+#    password: root1234
+#  profiles:
+#    active: test
+#  jpa:
+#    database: mysql
+#    open-in-view: true
+#    hibernate:
+#      ddl-auto: create
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      use-new-id-generator-mappings: false
+#    show-sql: true
+#    properties:
+#      hibernate.format_sql: true
+#      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  main:
+#    allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/enroll
-    username: root
-    password: root1234
-  profiles:
-    active: dev
+    url: jdbc:h2:mem:~/CourseApplication
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
-    database: mysql
-    open-in-view: true
     hibernate:
       ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
     show-sql: true
     properties:
-      hibernate.format_sql: true
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  main:
-    allow-bean-definition-overriding: true
+      hibernate:
+        format_sql: true
+  profiles:
+    active: test
 logging:
   level:
     org.hibernate.SQL: INFO
