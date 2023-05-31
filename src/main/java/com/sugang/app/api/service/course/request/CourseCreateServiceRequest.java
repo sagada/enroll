@@ -2,9 +2,9 @@ package com.sugang.app.api.service.course.request;
 
 import com.sugang.app.api.controller.course.dto.request.CourseScheduleRequest;
 import com.sugang.app.api.controller.course.dto.request.CourseSummaryRequest;
-import com.sugang.app.domain.course.domain.CourseExamination;
-import com.sugang.app.domain.course.domain.CourseSchedule;
-import com.sugang.app.domain.course.domain.CourseSummary;
+import com.sugang.app.domain.course.CourseExamination;
+import com.sugang.app.domain.course.CourseSchedule;
+import com.sugang.app.domain.course.CourseSummary;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

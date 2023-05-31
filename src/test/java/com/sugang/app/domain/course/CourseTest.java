@@ -1,7 +1,6 @@
 package com.sugang.app.domain.course;
 
-import com.sugang.app.domain.course.domain.*;
-import com.sugang.app.domain.course.domain.exception.CourseException;
+import com.sugang.app.domain.course.exception.CourseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +76,7 @@ class CourseTest {
                 CourseTestHelper.UPDATED_SUMMARIES,
                 CourseTestHelper.PRE_COURSE_ID_SET,
                 CourseTestHelper.UPDATED_COURSE_NAME,
-                 CourseStatus.OPEN,
+                CourseStatus.OPEN,
                 2,
                 1L,
                 1L

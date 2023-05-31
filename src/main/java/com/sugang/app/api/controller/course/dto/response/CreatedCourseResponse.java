@@ -1,8 +1,8 @@
 package com.sugang.app.api.controller.course.dto.response;
 
-import com.sugang.app.domain.course.domain.Course;
-import com.sugang.app.domain.course.domain.CourseSchedule;
-import com.sugang.app.domain.course.domain.CourseSchedules;
+import com.sugang.app.domain.course.Course;
+import com.sugang.app.domain.course.CourseSchedule;
+import com.sugang.app.domain.course.CourseSchedules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

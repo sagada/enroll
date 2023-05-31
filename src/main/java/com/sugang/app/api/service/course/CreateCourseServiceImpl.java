@@ -2,10 +2,10 @@ package com.sugang.app.api.service.course;
 
 import com.sugang.app.api.service.course.request.CourseCreateServiceRequest;
 import com.sugang.app.api.controller.course.dto.response.CreatedCourseResponse;
-import com.sugang.app.domain.course.domain.Course;
-import com.sugang.app.domain.course.domain.CourseName;
-import com.sugang.app.domain.course.domain.CourseRepository;
-import com.sugang.app.domain.course.domain.validator.CreateCourseValidator;
+import com.sugang.app.domain.course.Course;
+import com.sugang.app.domain.course.CourseName;
+import com.sugang.app.domain.course.CourseRepository;
+import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

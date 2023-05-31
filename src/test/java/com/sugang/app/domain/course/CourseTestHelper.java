@@ -1,10 +1,6 @@
 package com.sugang.app.domain.course;
 
 import com.google.common.collect.Sets;
-import com.sugang.app.domain.course.domain.CourseExamination;
-import com.sugang.app.domain.course.domain.CourseName;
-import com.sugang.app.domain.course.domain.CourseSchedule;
-import com.sugang.app.domain.course.domain.CourseSummary;
 
 import java.time.LocalDateTime;
 import java.time.Month;

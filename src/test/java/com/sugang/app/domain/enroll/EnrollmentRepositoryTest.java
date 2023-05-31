@@ -1,13 +1,10 @@
 package com.sugang.app.domain.enroll;
 
-import com.sugang.app.domain.course.domain.*;
-import com.sugang.app.domain.course.domain.validator.CreateCourseValidator;
+import com.sugang.app.domain.course.*;
+import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
-import com.sugang.app.domain.enroll.domain.Enrollment;
-import com.sugang.app.domain.enroll.domain.EnrollmentRepository;
-import com.sugang.app.domain.enroll.domain.EnrolmentStatus;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.domain.student.Student;
+import com.sugang.app.domain.student.StudentRepository;
 import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

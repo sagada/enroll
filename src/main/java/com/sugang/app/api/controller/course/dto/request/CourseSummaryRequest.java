@@ -1,6 +1,6 @@
 package com.sugang.app.api.controller.course.dto.request;
 
-import com.sugang.app.domain.course.domain.CourseSummary;
+import com.sugang.app.domain.course.CourseSummary;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

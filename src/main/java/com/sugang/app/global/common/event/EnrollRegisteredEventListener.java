@@ -1,12 +1,12 @@
 package com.sugang.app.global.common.event;
 
 import com.enroll.domain.EnrollmentLog;
-import com.sugang.app.domain.course.domain.Course;
-import com.sugang.app.domain.course.domain.CourseRepository;
-import com.sugang.app.domain.professor.domain.Professor;
-import com.sugang.app.domain.professor.domain.ProfessorRepository;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.domain.course.Course;
+import com.sugang.app.domain.course.CourseRepository;
+import com.sugang.app.domain.professor.Professor;
+import com.sugang.app.domain.professor.ProfessorRepository;
+import com.sugang.app.domain.student.Student;
+import com.sugang.app.domain.student.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

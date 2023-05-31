@@ -1,8 +1,8 @@
 package com.sugang.app.domain.subject.infra;
 
-import com.sugang.app.domain.subject.domain.Subject;
-import com.sugang.app.domain.subject.domain.SubjectRepository;
-import com.sugang.app.domain.subject.domain.SubjectService;
+import com.sugang.app.domain.subject.Subject;
+import com.sugang.app.domain.subject.SubjectRepository;
+import com.sugang.app.domain.subject.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

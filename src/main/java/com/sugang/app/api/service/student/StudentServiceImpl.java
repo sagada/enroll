@@ -1,9 +1,9 @@
 package com.sugang.app.api.service.student;
 
 import com.sugang.app.api.service.student.request.CreateStudentServiceDto;
-import com.sugang.app.domain.student.domain.CreateStudentValidate;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.domain.student.CreateStudentValidate;
+import com.sugang.app.domain.student.Student;
+import com.sugang.app.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

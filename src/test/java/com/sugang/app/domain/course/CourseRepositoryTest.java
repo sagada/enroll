@@ -1,7 +1,6 @@
 package com.sugang.app.domain.course;
 
 import com.google.common.collect.Sets;
-import com.sugang.app.domain.course.domain.*;
 import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

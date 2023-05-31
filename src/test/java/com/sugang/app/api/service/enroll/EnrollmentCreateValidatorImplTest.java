@@ -1,10 +1,10 @@
 package com.sugang.app.api.service.enroll;
 
 import com.sugang.app.IntegrationTestSupport;
-import com.sugang.app.domain.course.domain.Course;
-import com.sugang.app.domain.course.domain.CourseRepository;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.domain.course.Course;
+import com.sugang.app.domain.course.CourseRepository;
+import com.sugang.app.domain.student.Student;
+import com.sugang.app.domain.student.StudentRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

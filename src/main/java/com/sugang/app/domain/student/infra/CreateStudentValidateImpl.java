@@ -2,11 +2,11 @@ package com.sugang.app.domain.student.infra;
 
 import com.sugang.app.domain.department.domain.Department;
 import com.sugang.app.domain.department.domain.DepartmentRepository;
-import com.sugang.app.domain.professor.domain.Professor;
-import com.sugang.app.domain.professor.domain.ProfessorRepository;
-import com.sugang.app.domain.student.domain.CreateStudentValidate;
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.StudentRepository;
+import com.sugang.app.domain.professor.Professor;
+import com.sugang.app.domain.professor.ProfessorRepository;
+import com.sugang.app.domain.student.CreateStudentValidate;
+import com.sugang.app.domain.student.Student;
+import com.sugang.app.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

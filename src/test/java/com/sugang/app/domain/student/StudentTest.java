@@ -1,7 +1,6 @@
 package com.sugang.app.domain.student;
 
-import com.sugang.app.domain.student.domain.Student;
-import com.sugang.app.domain.student.domain.exception.StudentException;
+import com.sugang.app.domain.student.exception.StudentException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

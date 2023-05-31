@@ -1,17 +1,17 @@
 package com.sugang.app.domain.course.infra;
 
-import com.sugang.app.domain.professor.domain.ProfessorRepository;
+import com.sugang.app.domain.professor.ProfessorRepository;
 import com.sugang.app.global.common.exception.ErrorCode;
-import com.sugang.app.domain.course.domain.validator.CreateCourseValidator;
-import com.sugang.app.domain.course.domain.exception.CourseException;
-import com.sugang.app.domain.course.domain.service.CourseScheduleOverlapCheckService;
-import com.sugang.app.domain.professor.domain.Professor;
-import com.sugang.app.domain.subject.domain.Subject;
-import com.sugang.app.domain.subject.domain.SubjectService;
-import com.sugang.app.domain.course.domain.Course;
-import com.sugang.app.domain.course.domain.CourseName;
-import com.sugang.app.domain.course.domain.CourseRepository;
-import com.sugang.app.domain.course.domain.CourseSchedule;
+import com.sugang.app.domain.course.validator.CreateCourseValidator;
+import com.sugang.app.domain.course.exception.CourseException;
+import com.sugang.app.domain.course.service.CourseScheduleOverlapCheckService;
+import com.sugang.app.domain.professor.Professor;
+import com.sugang.app.domain.subject.Subject;
+import com.sugang.app.domain.subject.SubjectService;
+import com.sugang.app.domain.course.Course;
+import com.sugang.app.domain.course.CourseName;
+import com.sugang.app.domain.course.CourseRepository;
+import com.sugang.app.domain.course.CourseSchedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

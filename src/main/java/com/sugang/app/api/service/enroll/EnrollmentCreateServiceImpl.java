@@ -1,7 +1,7 @@
 package com.sugang.app.api.service.enroll;
 
-import com.sugang.app.domain.enroll.domain.Enrollment;
-import com.sugang.app.domain.enroll.domain.EnrollmentRepository;
+import com.sugang.app.domain.enroll.Enrollment;
+import com.sugang.app.domain.enroll.EnrollmentRepository;
 import com.sugang.app.global.common.event.EnrollRegisteredEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
