@@ -1,19 +1,22 @@
 package com.sugang.app.domain.course;
 
 import com.google.common.collect.Sets;
+import com.sugang.app.TestContainerIntegrationTestSupport;
 import com.sugang.app.domain.course.service.CourseScheduleOverlapCheckService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-public class CourseScheduleOverlapCheckServiceTest {
+public class CourseScheduleOverlapCheckServiceTest extends TestContainerIntegrationTestSupport {
 
-    CourseScheduleOverlapCheckService courseScheduleOverlapCheckService = new CourseScheduleOverlapCheckService();
+    @Autowired
+    CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
 
     @Test
-    @DisplayName("시간이 겹치면 true return")
+    @DisplayName("수업 스케줄이 겹치지 않는 것을 확인할 수 있다.")
     public void whenCourseScheduleOverlapThenReturnTrue()
     {
         // given
@@ -33,7 +36,7 @@ public class CourseScheduleOverlapCheckServiceTest {
     }
 
     @Test
-    @DisplayName("시간이 겹치지 않으면 false return")
+    @DisplayName("수업 스케줄이 겹치는 것을 확인할 수 있다.")
     public void whenCourseScheduleNotOverlapThenReturnFalse()
     {
         // given

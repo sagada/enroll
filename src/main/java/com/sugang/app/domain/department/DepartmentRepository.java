@@ -1,4 +1,4 @@
-package com.sugang.app.domain.department.domain;
+package com.sugang.app.domain.department;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

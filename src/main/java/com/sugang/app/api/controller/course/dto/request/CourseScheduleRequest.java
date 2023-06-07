@@ -24,7 +24,6 @@ public class CourseScheduleRequest {
         this.roomNumber = roomNumber;
     }
 
-
     public static CourseSchedule from(CourseScheduleRequest courseScheduleDto)
     {
         return new CourseSchedule(

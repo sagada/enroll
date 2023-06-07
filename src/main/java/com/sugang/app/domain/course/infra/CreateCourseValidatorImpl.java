@@ -1,7 +1,7 @@
 package com.sugang.app.domain.course.infra;
 
 import com.sugang.app.domain.professor.ProfessorRepository;
-import com.sugang.app.global.common.exception.ErrorCode;
+import com.sugang.app.global.exception.ErrorCode;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import com.sugang.app.domain.course.exception.CourseException;
 import com.sugang.app.domain.course.service.CourseScheduleOverlapCheckService;

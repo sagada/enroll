@@ -21,15 +21,12 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "course_id")
     private Long courseId;
 
     @Embedded
     private EnrollStudent enrollStudent;
 
     @Enumerated(EnumType.STRING)
-
-    @Column(name = "enroll_status")
     private EnrolmentStatus enrolmentStatus;
 
     public Enrollment(

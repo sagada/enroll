@@ -1,4 +1,4 @@
-package com.sugang.app.domain.department.domain;
+package com.sugang.app.domain.department;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,25 +20,22 @@ public class Department {
     @Enumerated(EnumType.STRING)
     private Division division;
 
-    @Embedded
-    private DepartmentPhoneNumber phoneNumber;
+    private String number;
 
-    public Department(Long id, String name, Division division, String phoneNumber, String faxNumber)
+    private Department(Long id, String name, Division division,  String number)
     {
         this.id = id;
         this.name = name;
         this.division = division;
-        this.phoneNumber = new DepartmentPhoneNumber(phoneNumber, faxNumber);
+        this.number = number;
     }
 
     public static Department create(
-            Long id
-            , String name
+            String name
             , Division division
-            , String phoneNumber
-            , String faxNumber
+            , String number
     )
     {
-        return new Department(id, name, division, phoneNumber, faxNumber);
+        return new Department(null, name, division, number);
     }
 }

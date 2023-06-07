@@ -1,15 +1,16 @@
 package com.sugang.app.domain.enroll;
 
+import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
 import com.sugang.app.domain.course.*;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
-import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
 import com.sugang.app.domain.student.Student;
 import com.sugang.app.domain.student.StudentRepository;
 import com.sugang.app.global.JpaRepositoryTestConfiguration;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -25,12 +26,13 @@ public class EnrollmentRepositoryTest extends JpaRepositoryTestConfiguration {
     @Autowired
     EnrollmentRepository enrollmentRepository;
 
-    @Mock
+    @MockBean
     CreateCourseValidator createCourseValidator;
 
-    @Mock
+    @MockBean
     EnrollmentCreateValidator enrollmentCreateValidator;
 
+    @DisplayName("수강신청을 할 수 있다.")
     @Test
     void createTest()
     {

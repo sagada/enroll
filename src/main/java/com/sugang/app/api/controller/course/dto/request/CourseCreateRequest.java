@@ -3,19 +3,18 @@ package com.sugang.app.api.controller.course.dto.request;
 import com.sugang.app.api.service.course.request.CourseCreateServiceRequest;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
 @Accessors(chain = true)
+@NoArgsConstructor
 public class CourseCreateRequest {
 
     @NotBlank(message = "수업 이름은 필수 값입니다.")

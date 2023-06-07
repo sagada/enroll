@@ -1,16 +1,20 @@
 package com.sugang.app.api.controller.course.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseSchedule;
 import com.sugang.app.domain.course.CourseSchedules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
+@ToString
 @Setter
 public class CreatedCourseResponse {
 
@@ -34,10 +38,13 @@ public class CreatedCourseResponse {
     @Getter
     @Setter
     @AllArgsConstructor
-    static class CourseScheduleResult
+    public static class CourseScheduleResult
     {
-        private String startTime;
-        private String endTime;
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime startTime;
+
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime endTime;
     }
 
     public static CreatedCourseResponse from(Course save)
@@ -45,7 +52,7 @@ public class CreatedCourseResponse {
         CourseSchedules courseSchedules = save.getCourseSchedules();
         Set<CourseSchedule> courseScheduleSet = courseSchedules.getCourseScheduleSet();
         Set<CourseScheduleResult> courseScheduleResultSet = courseScheduleSet.stream()
-                .map(courseSchedule -> new CourseScheduleResult(courseSchedule.getStart().toString(), courseSchedule.getEnd().toString()))
+                .map(courseSchedule -> new CourseScheduleResult(courseSchedule.getStart(), courseSchedule.getEnd()))
                 .collect(Collectors.toSet());
 
         return new CreatedCourseResponse(

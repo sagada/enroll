@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("코스 레파지토리 테스트")
+@DisplayName("수업 레파지토리 테스트")
 public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
 
     @Autowired
@@ -22,7 +22,7 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
     @Autowired
     EntityManager entityManager;
 
-    @DisplayName("Course 생성 테스트")
+    @DisplayName("수업을 생성 할 수 있다.")
     @Test
     void create()
     {
@@ -71,7 +71,7 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
     }
 
     @Test
-    @DisplayName("course close 테스트")
+    @DisplayName("수업을 닫을 수 있다.")
     void close()
     {
         // given
@@ -91,8 +91,7 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
 
         // when
         savedCourse.close();
-        entityManager.flush();
-        entityManager.clear();
+
 
         Course findCourse = courseRepository.findById(savedCourse.getId()).orElseThrow();
 

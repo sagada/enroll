@@ -11,6 +11,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DisplayName("수업 도메인 테스트")
 class CourseTest {
 
     static Course givenCourse()
@@ -29,7 +30,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("Course 생성 테스트")
+    @DisplayName("수업이 생성 될 수 있다.")
     void createTest()
     {
         Course course = givenCourse();
@@ -44,7 +45,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("Course examination 날짜 에러 생성 테스트")
+    @DisplayName("올바르지 않은 시험날짜는 생성이 되지 않는다.")
     void courseExaminationErrorTest()
     {
         assertThatThrownBy(() -> new CourseExamination(
@@ -54,7 +55,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("Course 수정 테스트")
+    @DisplayName("수업이 수정 될 수 있다.")
     void updateTest()
     {
         // given
@@ -92,7 +93,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("Course close 후 상태 CLOSED 변경 테스트")
+    @DisplayName("수업은 닫힐 수 있다.")
     void closeTest()
     {
         // given
@@ -106,7 +107,7 @@ class CourseTest {
     }
 
     @Test
-    @DisplayName("이미 OPEN 수강 OPEN 시 에러 테스트")
+    @DisplayName("이미 열린 수업은 다시 열수 없다.")
     void alreadyOpenErrorTest()
     {
         // given
@@ -118,4 +119,5 @@ class CourseTest {
                 .isInstanceOf(CourseException.class)
                 .hasMessage("already open");
     }
+
 }

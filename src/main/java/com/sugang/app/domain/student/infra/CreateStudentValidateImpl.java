@@ -1,7 +1,7 @@
 package com.sugang.app.domain.student.infra;
 
-import com.sugang.app.domain.department.domain.Department;
-import com.sugang.app.domain.department.domain.DepartmentRepository;
+import com.sugang.app.domain.department.Department;
+import com.sugang.app.domain.department.DepartmentRepository;
 import com.sugang.app.domain.professor.Professor;
 import com.sugang.app.domain.professor.ProfessorRepository;
 import com.sugang.app.domain.student.CreateStudentValidate;

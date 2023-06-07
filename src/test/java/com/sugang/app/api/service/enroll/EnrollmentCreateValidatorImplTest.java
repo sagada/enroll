@@ -1,6 +1,6 @@
 package com.sugang.app.api.service.enroll;
 
-import com.sugang.app.IntegrationTestSupport;
+import com.sugang.app.TestContainerIntegrationTestSupport;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseRepository;
 import com.sugang.app.domain.student.Student;
@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @ExtendWith(MockitoExtension.class)
-class EnrollmentCreateValidatorImplTest extends IntegrationTestSupport
+class EnrollmentCreateValidatorImplTest extends TestContainerIntegrationTestSupport
 {
     @Autowired
     StudentRepository studentRepository;

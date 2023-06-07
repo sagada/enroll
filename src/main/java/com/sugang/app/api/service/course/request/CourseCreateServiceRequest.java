@@ -64,8 +64,14 @@ public class CourseCreateServiceRequest {
 
     public CourseExamination convertExamination()
     {
+        if (midTermExamDate == null || finalExamDate == null)
+        {
+            return null;
+        }
+
         return new CourseExamination(getMidTermExamDate(), getFinalExamDate());
     }
+
     public Set<CourseSummary> convertCourseSummary()
     {
         return courseSummaryRequestSet.stream()

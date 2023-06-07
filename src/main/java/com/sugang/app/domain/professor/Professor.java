@@ -32,12 +32,11 @@ public class Professor {
     }
 
     public static Professor create(
-            Long id
-            , String name
+            String name
             , ProfessorStatus professorStatus
     )
     {
-        return new Professor(id, name, professorStatus);
+        return new Professor(null, name, professorStatus);
     }
 
     public boolean working()

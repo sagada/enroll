@@ -8,9 +8,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
+import java.time.Duration;
 
 @SpringBootTest
 @Transactional
@@ -21,10 +23,13 @@ import java.io.File;
 public class TestContainerIntegrationTestSupport {
 
     @ClassRule
-    public static DockerComposeContainer<?> dockerComposeContainer = new DockerComposeContainer<>(new File("src/test/resources/docker-compose.yml"));
+    public static DockerComposeContainer<?> dockerComposeContainer = new DockerComposeContainer<>(new File("src/test/resources/docker-compose.yml"))
+            .withExposedService("broker_1", 9092, Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)))
+            .withExposedService("zookeeper_1", 2181, Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
     static {
-        dockerComposeContainer.start();
+        dockerComposeContainer.start()
+        ;
     }
 }
 

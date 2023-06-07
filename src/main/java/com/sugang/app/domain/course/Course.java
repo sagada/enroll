@@ -1,6 +1,6 @@
 package com.sugang.app.domain.course;
 
-import com.sugang.app.global.common.exception.ErrorCode;
+import com.sugang.app.global.exception.ErrorCode;
 import com.sugang.app.domain.course.exception.CourseException;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import lombok.AccessLevel;
@@ -95,7 +95,7 @@ public class Course {
     {
         if (courseExamination == null)
         {
-            throw new CourseException("courseExamination is null");
+            return ;
         }
 
         this.courseExamination = courseExamination;
@@ -137,14 +137,18 @@ public class Course {
                 , courseExamination
                 , courseSummaries
                 , preCourseIdSet
-                , courseName, CourseStatus.HOLD, score, subjectId, professorId
+                , courseName
+                , CourseStatus.HOLD
+                , score
+                , subjectId
+                , professorId
         );
 
         createCourseValidator.validate(course);
         return course;
     }
 
-    public Course update(Course updateCourse)
+    public void update(Course updateCourse)
     {
         setCourseExamination(updateCourse.getCourseExamination());
         this.setProfessor(updateCourse.getProfessorId());
@@ -155,8 +159,6 @@ public class Course {
         this.courseStatus = updateCourse.getCourseStatus();
         this.professorId = updateCourse.getProfessorId();
         this.score = updateCourse.getScore();
-
-        return this;
     }
 
     public boolean isClosed()

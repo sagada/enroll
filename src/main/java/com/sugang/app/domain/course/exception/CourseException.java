@@ -1,6 +1,6 @@
 package com.sugang.app.domain.course.exception;
 
-import com.sugang.app.global.common.exception.ErrorCode;
+import com.sugang.app.global.exception.ErrorCode;
 
 public class CourseException extends RuntimeException{
     public CourseException(ErrorCode errorCode) {
