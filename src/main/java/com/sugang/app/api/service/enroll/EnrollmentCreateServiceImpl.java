@@ -25,12 +25,15 @@ public class EnrollmentCreateServiceImpl implements EnrollmentCreateService {
         Enrollment save = enrollmentRepository.save(enroll);
 
         Long enrollId = save.getId();
+
         publisher.publishEvent(
                 EnrollRegisteredEvent.builder()
                         .courseId(courseId)
                         .studentId(studentId)
+                        .enrollId(enrollId)
                         .build()
         );
+
         return enrollId;
     }
 

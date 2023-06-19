@@ -3,7 +3,6 @@ package com.sugang.app.api.controller.course.dto.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseSchedule;
-import com.sugang.app.domain.course.CourseSchedules;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,8 +48,7 @@ public class CreatedCourseResponse {
 
     public static CreatedCourseResponse from(Course save)
     {
-        CourseSchedules courseSchedules = save.getCourseSchedules();
-        Set<CourseSchedule> courseScheduleSet = courseSchedules.getCourseScheduleSet();
+        Set<CourseSchedule> courseScheduleSet = save.getCourseScheduleSet();
         Set<CourseScheduleResult> courseScheduleResultSet = courseScheduleSet.stream()
                 .map(courseSchedule -> new CourseScheduleResult(courseSchedule.getStart(), courseSchedule.getEnd()))
                 .collect(Collectors.toSet());

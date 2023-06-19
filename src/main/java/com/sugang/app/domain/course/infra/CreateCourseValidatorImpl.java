@@ -15,6 +15,7 @@ import com.sugang.app.domain.course.CourseSchedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
         List<Course> professorCourseList = courseRepository.findByProfessorId(course.getProfessorId());
 
         checkDuplicateCourseSubject(subject, professorCourseList);
-        checkOverlapCourseSchedule(course.getCourseSchedules().getCourseScheduleSet(), professorCourseList);
+        checkOverlapCourseSchedule(course.getCourseScheduleSet(), professorCourseList);
     }
 
     private void checkOverlapCourseSchedule(
@@ -53,8 +54,8 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
     {
         Set<CourseSchedule> professorCourseSchedules = professorCourseList
                 .stream()
-                .map(Course::getCourseSchedules)
-                .flatMap(courseSchedules -> courseSchedules.getCourseScheduleSet().stream())
+                .map(Course::getCourseScheduleSet)
+                .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
 
         courseScheduleOverlapCheckService.isOverlap(professorCourseSchedules, openCourseScheduleSet);

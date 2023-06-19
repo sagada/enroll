@@ -6,11 +6,13 @@ spring:
     init:
       mode: always
       platform: mysql
+      data-locations: classpath:db/data.sql
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:mysql:5.7://localhost/enroll
     username: root
     password:
+
   jpa:
     database: mysql
     open-in-view: true

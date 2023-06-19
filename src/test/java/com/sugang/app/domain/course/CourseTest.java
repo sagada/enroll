@@ -41,7 +41,7 @@ class CourseTest {
         assertThat(course.getCourseName()).isEqualTo(CourseTestHelper.COURSE_NAME);
         assertThat(course.getSyllabus()).extracting(Syllabus::getCourseSummaries).isEqualTo(CourseTestHelper.SUMMARIES);
         assertThat(course.getPrerequisiteCourse()).extracting(PrerequisiteCourse::getPreCourseSeqList).isEqualTo(Set.of(1L, 2L));
-        assertThat(course.getCourseSchedules().getCourseScheduleSet()).hasSize(1);
+        assertThat(course.getCourseScheduleSet()).hasSize(1);
     }
 
     @Test

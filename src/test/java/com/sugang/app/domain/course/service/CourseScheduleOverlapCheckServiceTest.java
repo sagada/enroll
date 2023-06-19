@@ -1,19 +1,20 @@
-package com.sugang.app.domain.course;
+package com.sugang.app.domain.course.service;
 
 import com.google.common.collect.Sets;
-import com.sugang.app.TestContainerIntegrationTestSupport;
-import com.sugang.app.domain.course.service.CourseScheduleOverlapCheckService;
+import com.sugang.app.domain.course.CourseSchedule;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
-public class CourseScheduleOverlapCheckServiceTest extends TestContainerIntegrationTestSupport {
+import static org.junit.jupiter.api.Assertions.*;
 
-    @Autowired
-    CourseScheduleOverlapCheckService courseScheduleOverlapCheckService;
+@ActiveProfiles("test")
+class CourseScheduleOverlapCheckServiceTest {
+
+    CourseScheduleOverlapCheckService courseScheduleOverlapCheckService = new CourseScheduleOverlapCheckService();
 
     @Test
     @DisplayName("수업 스케줄이 겹치지 않는 것을 확인할 수 있다.")

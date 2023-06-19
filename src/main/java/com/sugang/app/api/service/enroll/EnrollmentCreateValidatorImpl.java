@@ -32,6 +32,7 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
         {
             throw new IllegalStateException("student status fail!");
         }
+
     }
 
     @Override
@@ -42,7 +43,9 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
 
     private Course getCourse(Long courseId)
     {
-        return courseRepository.findById(courseId)
+        Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalStateException("empty course"));
+
+        return course;
     }
 }

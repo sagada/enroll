@@ -18,7 +18,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"start", "end", "roomNumber"})
 public class CourseSchedule {
 
+    @Column(name = "start")
     private LocalDateTime start;
+
+    @Column(name = "end")
     private LocalDateTime end;
 
     @Embedded

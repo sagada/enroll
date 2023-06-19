@@ -59,9 +59,8 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
                         )
                 );
 
-        CourseSchedules savedCourseSchedules = savedCourse.getCourseSchedules();
-        assertThat(savedCourseSchedules.getCourseScheduleSet()).hasSize(1);
-        assertThat(savedCourseSchedules.getCourseScheduleSet()).isEqualTo(Sets.newHashSet(
+        assertThat(savedCourse.getCourseScheduleSet()).hasSize(1);
+        assertThat(savedCourse.getCourseScheduleSet()).isEqualTo(Sets.newHashSet(
                 new CourseSchedule(
                         LocalDateTime.of(2022, Month.MARCH, 1, 13, 30),
                         LocalDateTime.of(2022, Month.MARCH, 1, 14, 30),

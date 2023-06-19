@@ -31,8 +31,9 @@ public class Course {
     @Embedded
     private CourseName courseName;
 
-    @Embedded
-    private CourseSchedules courseSchedules;
+    @ElementCollection
+    @CollectionTable(name = "course_scheduler", joinColumns = @JoinColumn(name = "course_id"))
+    private Set<CourseSchedule> courseScheduleSet;
 
     @Column(name = "course_score")
     private int score;
@@ -67,7 +68,7 @@ public class Course {
         setCourseExamination(courseExamination);
         this.courseStatus = courseStatus;
         this.syllabus = new Syllabus(courseSummaries);
-        this.courseSchedules = new CourseSchedules(courseScheduleList);
+        this.courseScheduleSet = courseScheduleList;
         this.prerequisiteCourse = new PrerequisiteCourse(preCourseIdSet);
     }
 
@@ -155,7 +156,7 @@ public class Course {
         this.setSubjectId(updateCourse.getSubjectId());
         this.setCourseName(updateCourse.getCourseName());
         this.syllabus = updateCourse.getSyllabus();
-        this.courseSchedules = updateCourse.getCourseSchedules();
+        this.courseScheduleSet = updateCourse.getCourseScheduleSet();
         this.courseStatus = updateCourse.getCourseStatus();
         this.professorId = updateCourse.getProfessorId();
         this.score = updateCourse.getScore();
@@ -172,7 +173,6 @@ public class Course {
         {
             throw new CourseException("already closed");
         }
-
         this.courseStatus = CourseStatus.CLOSE;
     }
 
@@ -182,7 +182,6 @@ public class Course {
         {
             throw new CourseException("already open");
         }
-
         this.courseStatus = CourseStatus.OPEN;
     }
 }

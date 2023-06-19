@@ -62,10 +62,12 @@ class CreateCourseServiceImplTest extends TestContainerIntegrationTestSupport {
 
         // then
         Assertions.assertThat(course.getCourseId()).isNotNull();
+
         Assertions.assertThat(course.getCourseScheduleResultSet())
                 .isNotEmpty()
                 .extracting("startTime", "endTime")
-                .containsExactly(Tuple.tuple(startTime.toString(), endTime.toString()));
+                .contains(Tuple.tuple(startTime, endTime));
+
         Assertions.assertThat(course)
                 .extracting("courseName", "professorId")
                 .containsExactly("courseName", 1L);

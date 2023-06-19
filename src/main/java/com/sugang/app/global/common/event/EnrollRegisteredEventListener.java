@@ -1,12 +1,12 @@
 package com.sugang.app.global.common.event;
 
-import com.enroll.domain.EnrollmentLog;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseRepository;
 import com.sugang.app.domain.professor.Professor;
 import com.sugang.app.domain.professor.ProfessorRepository;
 import com.sugang.app.domain.student.Student;
 import com.sugang.app.domain.student.StudentRepository;
+import com.sugang.app.global.config.kafka.EnrollmentLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +26,7 @@ public class EnrollRegisteredEventListener {
     private final ProfessorRepository professorRepository;
 
     private final KafkaTemplate<Long, EnrollmentLog> enrollmentLogKafkaTemplate;
-    private static final String TOPIC_NAME = "enroll-log";
+    private static final String ENROLL_LOGGING_TOPIC_NAME = "enroll-log";
 
     @Autowired
     public EnrollRegisteredEventListener(
@@ -45,8 +45,7 @@ public class EnrollRegisteredEventListener {
     @TransactionalEventListener
     public void listener(final EnrollRegisteredEvent event)
     {
-        log.info("enroll log produce start");
-
+        log.info("enroll logging EnrollId : {}, StudentId : {}", event.getEnrollId(), event.getStudentId());
         EnrollmentLog enrollmentLog = new EnrollmentLog();
 
         Student student = studentRepository.findById(event.getStudentId()).orElseThrow();
@@ -54,14 +53,15 @@ public class EnrollRegisteredEventListener {
         Professor professor = professorRepository.findById(course.getProfessorId()).orElseThrow();
 
         enrollmentLog.setCourseId(event.getCourseId());
+        enrollmentLog.setEnrollmentId(event.getEnrollId());
         enrollmentLog.setStudentId(event.getStudentId());
         enrollmentLog.setStudentName(student.getName());
         enrollmentLog.setCourseName(course.getCourseName().getValue());
         enrollmentLog.setCourseId(course.getId());
-        enrollmentLog.setProfessorId(professor.getId().toString());
+        enrollmentLog.setProfessorId(professor.getId());
         enrollmentLog.setProfessorName(professor.getName());
         enrollmentLog.setScore(course.getScore());
 
-        enrollmentLogKafkaTemplate.send(TOPIC_NAME, enrollmentLog);
+        enrollmentLogKafkaTemplate.send(ENROLL_LOGGING_TOPIC_NAME, enrollmentLog);
     }
 }

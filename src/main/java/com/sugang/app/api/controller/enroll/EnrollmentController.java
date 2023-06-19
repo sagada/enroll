@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/enroll")
 public class EnrollmentController {
+
     private final EnrollmentCreateService enrollmentCreateService;
 
     @PostMapping
