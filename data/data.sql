@@ -1,1 +1,0 @@
-INSERT INTO professor(id, name, phoneNumber, professorStatus) VALUES (1, 'sss', '010-2222-2222', 'WORK');
