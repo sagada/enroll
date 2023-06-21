@@ -46,6 +46,7 @@ public class EnrollRegisteredEventListener {
     public void listener(final EnrollRegisteredEvent event)
     {
         log.info("enroll logging EnrollId : {}, StudentId : {}", event.getEnrollId(), event.getStudentId());
+
         EnrollmentLog enrollmentLog = new EnrollmentLog();
 
         Student student = studentRepository.findById(event.getStudentId()).orElseThrow();

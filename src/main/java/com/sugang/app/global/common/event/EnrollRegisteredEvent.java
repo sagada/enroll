@@ -10,7 +10,8 @@ public class EnrollRegisteredEvent {
     private final Long enrollId;
 
     @Builder
-    public EnrollRegisteredEvent(Long studentId, Long courseId, Long enrollId) {
+    public EnrollRegisteredEvent(Long studentId, Long courseId, Long enrollId)
+    {
         this.studentId = studentId;
         this.courseId = courseId;
         this.enrollId = enrollId;

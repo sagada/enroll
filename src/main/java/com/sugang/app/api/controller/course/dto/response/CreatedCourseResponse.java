@@ -3,10 +3,7 @@ package com.sugang.app.api.controller.course.dto.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseSchedule;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -15,12 +12,13 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 @Setter
+@NoArgsConstructor
 public class CreatedCourseResponse {
 
-    private final String courseName;
-    private final Long courseId;
-    private final Set<CourseScheduleResult> courseScheduleResultSet;
-    private final Long professorId;
+    private  String courseName;
+    private  Long courseId;
+    private  Set<CourseScheduleResult> courseScheduleResultSet;
+    private  Long professorId;
 
     public CreatedCourseResponse(
             String courseName

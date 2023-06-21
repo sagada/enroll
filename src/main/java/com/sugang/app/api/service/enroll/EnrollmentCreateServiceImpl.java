@@ -36,5 +36,4 @@ public class EnrollmentCreateServiceImpl implements EnrollmentCreateService {
 
         return enrollId;
     }
-
 }

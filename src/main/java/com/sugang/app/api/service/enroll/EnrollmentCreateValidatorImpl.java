@@ -25,12 +25,12 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
     {
         if (course.isClosed())
         {
-            throw new IllegalStateException("Closed Course!");
+            throw new IllegalStateException("Closed Course");
         }
 
         if (student.getAvailableScore() - course.getScore() < 0)
         {
-            throw new IllegalStateException("student status fail!");
+            throw new IllegalStateException("student score is empty");
         }
 
     }
@@ -43,9 +43,7 @@ public class EnrollmentCreateValidatorImpl implements EnrollmentCreateValidator 
 
     private Course getCourse(Long courseId)
     {
-        Course course = courseRepository.findById(courseId)
+        return courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalStateException("empty course"));
-
-        return course;
     }
 }

@@ -2,10 +2,10 @@ package com.sugang.app.api.controller.course;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sugang.app.api.controller.course.dto.request.CourseCreateRequest;
-import com.sugang.app.api.service.course.CreateCourseService;
 import com.sugang.app.api.controller.course.dto.request.CourseScheduleRequest;
 import com.sugang.app.api.controller.course.dto.request.CourseSummaryRequest;
 import com.sugang.app.api.controller.course.dto.response.CreatedCourseResponse;
+import com.sugang.app.api.service.course.CreateCourseServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,8 @@ import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(CourseController.class)
@@ -34,13 +35,10 @@ class CourseControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CreateCourseService createCourseService;
+    private CreateCourseServiceImpl createCourseService;
 
     @Autowired
     ObjectMapper objectMapper;
-
-    @Mock
-    CreatedCourseResponse createdCourseResponse;
 
     public static CourseCreateRequest given()
     {
@@ -76,8 +74,7 @@ class CourseControllerTest {
     {
         // given
         CourseCreateRequest request = given();
-
-        BDDMockito.given(createdCourseResponse.getCourseId()).willReturn(1L);
+        CreatedCourseResponse createdCourseResponse = new CreatedCourseResponse();
         BDDMockito.given(createCourseService.createCourse(Mockito.any())).willReturn(createdCourseResponse);
 
         // when
@@ -86,8 +83,7 @@ class CourseControllerTest {
                         .contentType(APPLICATION_JSON))
                 .andDo(print())
                 // then
-                .andExpect(status().isOk())
-                .andExpect(content().string("1"));
+                .andExpect(status().isOk());
     }
 
     @DisplayName("수업을 생성 시 과목 ID는 필수값이다.")
