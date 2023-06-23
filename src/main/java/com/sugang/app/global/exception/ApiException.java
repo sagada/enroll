@@ -1,6 +1,5 @@
 package com.sugang.app.global.exception;
 
-import com.sugang.app.global.config.db.ErrorCode;
 import lombok.Getter;
 
 @Getter

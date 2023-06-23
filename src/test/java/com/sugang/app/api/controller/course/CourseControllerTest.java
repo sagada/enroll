@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("수업 컨트롤러 테스트")
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(CourseController.class)
 class CourseControllerTest {
@@ -161,4 +161,6 @@ class CourseControllerTest {
                 .andExpect(jsonPath("$.message")
                         .value("[score] - 학점은 5점 이하입니다."));
     }
+
+
 }

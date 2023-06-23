@@ -1,4 +1,4 @@
-package com.sugang.app.domain.course.service;
+package com.sugang.app.api.service.course;
 
 import com.sugang.app.domain.course.CourseSchedule;
 import org.springframework.stereotype.Service;

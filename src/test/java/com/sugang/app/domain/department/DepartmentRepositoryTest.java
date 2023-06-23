@@ -1,6 +1,6 @@
 package com.sugang.app.domain.department;
 
-import com.sugang.app.global.JpaRepositoryTestConfiguration;
+import com.sugang.app.JpaRepositoryTestConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

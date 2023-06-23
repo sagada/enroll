@@ -28,7 +28,8 @@ public class CourseCreateServiceRequest {
     private LocalDateTime midTermExamDate;
     private LocalDateTime finalExamDate;
     private Set<Long> preCourseIdSet;
-    private Integer score;
+    private int score;
+    private int availableStudentCount;
 
     @Builder
     private CourseCreateServiceRequest(
@@ -41,7 +42,8 @@ public class CourseCreateServiceRequest {
             LocalDateTime midTermExamDate,
             LocalDateTime finalExamDate,
             Set<Long> preCourseIdSet,
-            Integer score)
+            Integer score,
+            int availableStudentCount)
     {
         this.courseName = courseName;
         this.professorId = professorId;
@@ -53,6 +55,7 @@ public class CourseCreateServiceRequest {
         this.finalExamDate = finalExamDate;
         this.preCourseIdSet = preCourseIdSet;
         this.score = score;
+        this.availableStudentCount = availableStudentCount;
     }
 
     public Set<CourseSchedule> convertCourseSchedules()

@@ -1,7 +1,7 @@
 package com.sugang.app.domain.course;
 
 import com.google.common.collect.Sets;
-import com.sugang.app.global.JpaRepositoryTestConfiguration;
+import com.sugang.app.JpaRepositoryTestConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,13 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
     {
         // given
         Course course = new Course(
-                CourseTestHelper.SCHEDULES,
+                Sets.newHashSet(
+                        new CourseSchedule(
+                                LocalDateTime.of(2022, 3, 1, 13, 30),
+                                LocalDateTime.of(2022, 3, 1, 14, 30),
+                                "2004"
+                        )
+                ),
                 CourseTestHelper.EXAMINATION,
                 CourseTestHelper.SUMMARIES,
                 CourseTestHelper.PRE_COURSE_ID_SET,
@@ -36,7 +42,8 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
                 CourseStatus.OPEN,
                 2,
                 1L,
-                1L
+                1L,
+                10
         );
 
         // when
@@ -67,6 +74,7 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
                         "2004"
                 )
         ));
+        assertThat(savedCourse.getAvailStudentCount()).isEqualTo(10);
     }
 
     @Test
@@ -83,15 +91,14 @@ public class CourseRepositoryTest extends JpaRepositoryTestConfiguration {
                 CourseStatus.OPEN,
                 2,
                 1L,
-                1L
+                1L,
+                10
         );
 
         Course savedCourse = courseRepository.save(course);
 
         // when
         savedCourse.close();
-
-
         Course findCourse = courseRepository.findById(savedCourse.getId()).orElseThrow();
 
         // then

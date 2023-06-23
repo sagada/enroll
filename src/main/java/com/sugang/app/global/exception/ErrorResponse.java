@@ -1,6 +1,5 @@
 package com.sugang.app.global.exception;
 
-import com.sugang.app.global.config.db.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -9,15 +8,15 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class ErrorResponse {
     private String message;
-    private int errorCode;
-    private String errorType;
+    private String errorCode;
+    private int status;
 
     @Builder
-    public ErrorResponse(String message, int errorCode, String errorType)
+    public ErrorResponse(String message, String errorCode, int status)
     {
         this.message = message;
-        this.errorType = errorType;
         this.errorCode = errorCode;
+        this.status = status;
     }
 
     public static ResponseEntity<ErrorResponse> response(ErrorCode errorCode)
@@ -26,34 +25,24 @@ public class ErrorResponse {
                 .status(errorCode.getHttpStatus())
                 .body(
                     ErrorResponse.builder()
-                            .errorCode(errorCode.getHttpStatus().value())
-                            .errorType(errorCode.getHttpStatus().getReasonPhrase())
+                            .status(errorCode.getHttpStatus().value())
+                            .errorCode(errorCode.getHttpStatus().name())
                             .message(errorCode.getMessage())
                             .build()
                 );
     }
-    public static ResponseEntity<ErrorResponse> apiException(String message)
-    {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(
-                        ErrorResponse.builder()
-                                .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                                .errorType(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                                .message(message)
-                                .build()
-                );
-    }
+
     public static ResponseEntity<ErrorResponse> badRequest(String message)
     {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .errorCode(HttpStatus.BAD_REQUEST.value())
-                                .errorType(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                                .errorCode(HttpStatus.BAD_REQUEST.name())
+                                .status(HttpStatus.BAD_REQUEST.value())
                                 .message(message)
                                 .build()
                 );
     }
+
 }

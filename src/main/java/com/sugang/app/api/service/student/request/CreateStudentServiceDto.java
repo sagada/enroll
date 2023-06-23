@@ -9,12 +9,12 @@ public class CreateStudentServiceDto {
     private Long departmentId;
     private String name;
     private String email;
-    private String score;
+    private int score;
     private Integer academicYear;
     private Long advisorProfessorId;
 
     @Builder
-    public CreateStudentServiceDto(Long departmentId, String name, String email, String score, Integer academicYear, Long advisorProfessorId)
+    public CreateStudentServiceDto(Long departmentId, String name, String email, int score, Integer academicYear, Long advisorProfessorId)
     {
         this.departmentId = departmentId;
         this.name = name;

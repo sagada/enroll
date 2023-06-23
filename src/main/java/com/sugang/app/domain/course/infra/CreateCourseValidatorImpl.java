@@ -4,7 +4,7 @@ import com.sugang.app.domain.professor.ProfessorRepository;
 import com.sugang.app.global.exception.ErrorCode;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import com.sugang.app.domain.course.exception.CourseException;
-import com.sugang.app.domain.course.service.CourseScheduleOverlapCheckService;
+import com.sugang.app.api.service.course.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.professor.Professor;
 import com.sugang.app.domain.subject.Subject;
 import com.sugang.app.domain.subject.SubjectService;
@@ -81,7 +81,7 @@ public class CreateCourseValidatorImpl implements CreateCourseValidator {
 
         if (!professor.working())
         {
-            throw new CourseException(ErrorCode.PROFESSOR_STATUS);
+            throw new IllegalStateException("professor status error");
         }
     }
 

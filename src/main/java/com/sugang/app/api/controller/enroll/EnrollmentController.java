@@ -1,7 +1,9 @@
 package com.sugang.app.api.controller.enroll;
 
 import com.sugang.app.api.controller.enroll.dto.request.EnrollRequest;
-import com.sugang.app.api.service.enroll.EnrollmentCreateService;
+import com.sugang.app.api.controller.enroll.dto.response.EnrollResponse;
+import com.sugang.app.api.service.enroll.EnrollService;
+import com.sugang.app.api.service.enroll.response.EnrollServiceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,11 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/api/enroll")
 public class EnrollmentController {
 
-    private final EnrollmentCreateService enrollmentCreateService;
+    private final EnrollService enrollService;
 
     @PostMapping
-    public void enroll(@Valid @RequestBody EnrollRequest enrollRequest)
+    public EnrollResponse enroll(@Valid @RequestBody EnrollRequest enrollRequest)
     {
-        enrollmentCreateService.enroll(enrollRequest.getCourseId(), enrollRequest.getStudentId());
+        EnrollServiceResponse enroll = enrollService.enroll(enrollRequest.getCourseId(), enrollRequest.getStudentId());
+        return EnrollResponse.from(enroll);
     }
 }

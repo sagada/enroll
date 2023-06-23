@@ -31,6 +31,7 @@ public class CreateCourseServiceImpl implements CreateCourseService{
                 , new CourseName(command.getCourseName())
                 , command.getScore()
                 , createCourseValidator
+                , command.getAvailableStudentCount()
         );
 
         courseRepository.save(course);

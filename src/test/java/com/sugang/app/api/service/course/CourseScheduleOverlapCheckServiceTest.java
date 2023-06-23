@@ -1,23 +1,20 @@
-package com.sugang.app.domain.course.service;
+package com.sugang.app.api.service.course;
 
 import com.google.common.collect.Sets;
 import com.sugang.app.domain.course.CourseSchedule;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
 class CourseScheduleOverlapCheckServiceTest {
 
     CourseScheduleOverlapCheckService courseScheduleOverlapCheckService = new CourseScheduleOverlapCheckService();
 
     @Test
-    @DisplayName("수업 스케줄이 겹치지 않는 것을 확인할 수 있다.")
+    @DisplayName("수업 스케줄이 겹치는 것을 확인할 수 있다.")
     public void whenCourseScheduleOverlapThenReturnTrue()
     {
         // given
@@ -31,13 +28,15 @@ class CourseScheduleOverlapCheckServiceTest {
                 ,LocalDateTime.of(2023,1, 13, 14, 50)
                 , "1004");
 
+        // when
         boolean overlap = courseScheduleOverlapCheckService.isOverlap(Sets.newHashSet(c1), Sets.newHashSet(c2));
 
+        // then
         Assertions.assertThat(overlap).isTrue();
     }
 
     @Test
-    @DisplayName("수업 스케줄이 겹치는 것을 확인할 수 있다.")
+    @DisplayName("수업 스케줄이 겹치지 않는 것을 확인할 수 있다.")
     public void whenCourseScheduleNotOverlapThenReturnFalse()
     {
         // given
@@ -51,8 +50,10 @@ class CourseScheduleOverlapCheckServiceTest {
                 ,LocalDateTime.of(2023,1, 13, 16, 50)
                 , "1004");
 
+        // when
         boolean overlap = courseScheduleOverlapCheckService.isOverlap(Sets.newHashSet(c1), Sets.newHashSet(c2));
 
+        // then
         Assertions.assertThat(overlap).isFalse();
     }
 }

@@ -1,6 +1,7 @@
 package com.sugang.app.domain.course;
 
 import com.sugang.app.domain.course.exception.CourseException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,8 @@ class CourseTest {
                 CourseStatus.OPEN,
                 2,
                 1L,
-                1L
+                1L,
+                10
         );
     }
 
@@ -68,7 +70,8 @@ class CourseTest {
                 CourseStatus.OPEN,
                 2,
                 1L,
-                1L
+                1L,
+                10
         );
 
         Course updateCourse = new Course(
@@ -80,7 +83,8 @@ class CourseTest {
                 CourseStatus.OPEN,
                 2,
                 1L,
-                1L
+                1L,
+                10
         );
 
         // when
@@ -120,4 +124,28 @@ class CourseTest {
                 .hasMessage("already open");
     }
 
+    @DisplayName("수강 인원이 초과한 수업은 추가 수강이 불가능 하다.")
+    @Test
+    void exceedStudentCourse()
+    {
+        // given
+        Course course = new Course(
+            CourseTestHelper.SCHEDULES,
+            CourseTestHelper.EXAMINATION,
+            CourseTestHelper.SUMMARIES,
+            CourseTestHelper.PRE_COURSE_ID_SET,
+            CourseTestHelper.COURSE_NAME,
+            CourseStatus.OPEN,
+            2,
+            1L,
+            1L,
+            0
+        );
+
+        // when
+        boolean availableAddStudent = course.availableAddStudent();
+
+        // then
+        Assertions.assertThat(availableAddStudent).isFalse();
+    }
 }

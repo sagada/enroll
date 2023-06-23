@@ -1,7 +1,5 @@
 package com.sugang.app.domain.course;
 
-import com.sugang.app.global.exception.ErrorCode;
-import com.sugang.app.domain.course.exception.CourseException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,7 @@ public class CourseName {
     {
         if (value.isBlank())
         {
-            throw new CourseException(ErrorCode.COURSE_NAME_BLANK);
+            throw new IllegalStateException("course name empty");
         }
 
         this.value = value;

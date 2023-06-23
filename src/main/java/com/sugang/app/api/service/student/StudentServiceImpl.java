@@ -26,8 +26,7 @@ public class StudentServiceImpl implements StudentService{
                 createStudentDto.getAcademicYear(),
                 createStudentDto.getScore(),
                 createStudentDto.getAdvisorProfessorId(),
-                createStudentDto.getDepartmentId(),
-                createStudentValidate
+                createStudentDto.getDepartmentId()
         );
 
         return studentRepository.save(student);

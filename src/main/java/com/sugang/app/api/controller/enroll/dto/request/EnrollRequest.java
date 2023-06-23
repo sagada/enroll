@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 public class EnrollRequest {
 
     @NotNull(message = "수업 ID는 필수입니다.")
-    private long courseId;
+    private Long courseId;
 
     @NotNull(message = "학생 ID는 필수입니다.")
-    private long studentId;
+    private Long studentId;
 
     @Builder
-    private EnrollRequest(long courseId, long studentId)
+    private EnrollRequest(Long courseId, Long studentId)
     {
         this.courseId = courseId;
         this.studentId = studentId;

@@ -10,7 +10,7 @@ public class CreateStudentDto {
     private final Long departmentId;
     private final String name;
     private final String email;
-    private final String score;
+    private final int score;
     private final Integer academicYear;
     private final Long advisorProfessorId;
 
@@ -19,7 +19,7 @@ public class CreateStudentDto {
             Long departmentId,
             String name,
             String email,
-            String score,
+            int score,
             Integer academicYear,
             Long advisorProfessorId)
     {

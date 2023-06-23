@@ -1,8 +1,9 @@
 package com.sugang.app.domain.course;
 
-import com.sugang.app.global.exception.ErrorCode;
+import com.sugang.app.domain.BaseEntity;
 import com.sugang.app.domain.course.exception.CourseException;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
+import com.sugang.app.global.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Table(name = "course")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Course {
+public class Course extends BaseEntity {
 
     @Id
     @Column(name = "course_id")
@@ -50,6 +51,8 @@ public class Course {
     @Column(name = "professor_id")
     private Long professorId;
 
+    private int availStudentCount;
+
     protected Course(
             Set<CourseSchedule> courseScheduleList
             , CourseExamination courseExamination
@@ -59,7 +62,8 @@ public class Course {
             , CourseStatus courseStatus
             , int score
             , Long subjectId
-            , Long professorId)
+            , Long professorId
+            , int availStudentCount)
     {
         setProfessor(professorId);
         setSubjectId(subjectId);
@@ -70,6 +74,7 @@ public class Course {
         this.syllabus = new Syllabus(courseSummaries);
         this.courseScheduleSet = courseScheduleList;
         this.prerequisiteCourse = new PrerequisiteCourse(preCourseIdSet);
+        this.availStudentCount = availStudentCount;
     }
 
     private void setProfessor(Long professorId)
@@ -131,7 +136,8 @@ public class Course {
             , Long subjectId
             , CourseName courseName
             , int score
-            , CreateCourseValidator createCourseValidator)
+            , CreateCourseValidator createCourseValidator
+            , int availStudentCount)
     {
         Course course = new Course(
                 openCourseScheduleSet
@@ -143,10 +149,16 @@ public class Course {
                 , score
                 , subjectId
                 , professorId
+                , availStudentCount
         );
 
         createCourseValidator.validate(course);
         return course;
+    }
+
+    public void setAvailStudentCount(int availStudentCount)
+    {
+        this.availStudentCount = availStudentCount;
     }
 
     public void update(Course updateCourse)
@@ -183,5 +195,25 @@ public class Course {
             throw new CourseException("already open");
         }
         this.courseStatus = CourseStatus.OPEN;
+    }
+
+    public void addStudent()
+    {
+        if (isClosed())
+        {
+            throw new CourseException("already closed");
+        }
+
+        if (availStudentCount - 1 < 0)
+        {
+            throw new IllegalStateException("Exceeded number of students");
+        }
+
+        this.availStudentCount -= 1;
+    }
+
+    public boolean availableAddStudent()
+    {
+        return this.availStudentCount > 0 && !isClosed();
     }
 }

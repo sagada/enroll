@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -15,7 +14,6 @@ import java.io.File;
 import java.time.Duration;
 
 @SpringBootTest
-@Transactional
 @ContextConfiguration(classes = TestCustomConfiguration.class)
 @TestPropertySource(locations = "classpath:application-integration.yml")
 @ActiveProfiles("integration")

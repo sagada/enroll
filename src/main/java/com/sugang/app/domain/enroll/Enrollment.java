@@ -1,6 +1,6 @@
 package com.sugang.app.domain.enroll;
 
-import com.sugang.app.api.service.enroll.EnrollmentCreateValidator;
+import com.sugang.app.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,22 +9,21 @@ import javax.persistence.*;
 
 @Table(name = "enrollment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SecondaryTable(
-        name = "course_credit",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "enroll_id")
-)
 @Entity
 @Getter
-public class Enrollment {
+public class Enrollment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long courseId;
+    private Long studentId;
+
+    private boolean isCompleted;
 
     @Embedded
-    private EnrollStudent enrollStudent;
+    private ExaminationScore examinationScore;
 
     @Enumerated(EnumType.STRING)
     private EnrolmentStatus enrolmentStatus;
@@ -35,18 +34,15 @@ public class Enrollment {
             , EnrolmentStatus enrolmentStatus)
     {
         this.courseId = courseId;
-        this.enrollStudent = new EnrollStudent(studentId);
+        this.studentId = studentId;
         this.enrolmentStatus = enrolmentStatus;
+        this.isCompleted = false;
     }
 
     public static Enrollment enroll(
             Long courseId
-            , Long studentId
-            , EnrollmentCreateValidator enrollmentCreateValidator
-    )
+            , Long studentId)
     {
-        enrollmentCreateValidator.validate(courseId, studentId);
-
         return new Enrollment(
                 courseId
                 , studentId
