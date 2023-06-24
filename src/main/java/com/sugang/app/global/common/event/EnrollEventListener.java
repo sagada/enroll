@@ -10,13 +10,13 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 @Slf4j
 @Service
-public class EnrollRegisteredEventListener {
+public class EnrollEventListener {
 
     private final KafkaTemplate<Long, EnrollmentLog> enrollmentLogKafkaTemplate;
     private static final String ENROLL_LOGGING_TOPIC_NAME = "enroll-log";
 
     @Autowired
-    public EnrollRegisteredEventListener(
+    public EnrollEventListener(
            @Qualifier("enrollmentLogKafkaTemplate") KafkaTemplate<Long, EnrollmentLog> enrollmentLogKafkaTemplate)
     {
         this.enrollmentLogKafkaTemplate = enrollmentLogKafkaTemplate;

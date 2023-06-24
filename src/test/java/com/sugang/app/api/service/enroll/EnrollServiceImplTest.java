@@ -8,6 +8,8 @@ import com.sugang.app.domain.course.CourseTestHelper;
 import com.sugang.app.domain.course.infra.CreateCourseValidatorImpl;
 import com.sugang.app.domain.student.Student;
 import com.sugang.app.domain.student.StudentRepository;
+import com.sugang.app.global.exception.ApiException;
+import com.sugang.app.global.exception.ErrorCode;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -112,7 +114,9 @@ class EnrollServiceImplTest extends TestContainerIntegrationTestSupport {
         // when
         Assertions.assertThatThrownBy(() -> enrollService.enroll(course.getId(), student.getId()))
                 // then
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Exceeded number of students");
+                .isInstanceOf(ApiException.class)
+                .hasMessage(ErrorCode.EXCEEDED_COURSE_STUDENT.getMessage());
     }
+
+
 }
