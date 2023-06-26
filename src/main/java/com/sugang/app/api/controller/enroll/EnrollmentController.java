@@ -5,10 +5,7 @@ import com.sugang.app.api.controller.enroll.dto.response.EnrollResponse;
 import com.sugang.app.api.service.enroll.EnrollService;
 import com.sugang.app.api.service.enroll.response.EnrollServiceResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,4 +22,6 @@ public class EnrollmentController {
         EnrollServiceResponse enroll = enrollService.enroll(enrollRequest.getCourseId(), enrollRequest.getStudentId());
         return EnrollResponse.from(enroll);
     }
+
+
 }

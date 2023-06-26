@@ -11,6 +11,7 @@ import com.sugang.app.domain.student.StudentRepository;
 import com.sugang.app.global.exception.ApiException;
 import com.sugang.app.global.exception.ErrorCode;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ class EnrollServiceImplTest extends TestContainerIntegrationTestSupport {
 
     @Autowired
     CreateCourseValidatorImpl createCourseValidator;
+
+    @BeforeEach
+    void init()
+    {
+        courseRepository.deleteAll();
+    }
 
     @DisplayName("수강신청을 할 수 있다.")
     @Test

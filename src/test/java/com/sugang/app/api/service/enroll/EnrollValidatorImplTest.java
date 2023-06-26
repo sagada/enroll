@@ -1,10 +1,11 @@
 package com.sugang.app.api.service.enroll;
 
+import com.sugang.app.api.service.course.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseRepository;
 import com.sugang.app.domain.course.CourseTestHelper;
 import com.sugang.app.domain.course.infra.CreateCourseValidatorImpl;
-import com.sugang.app.api.service.course.CourseScheduleOverlapCheckService;
+import com.sugang.app.domain.enroll.Enrollment;
 import com.sugang.app.domain.enroll.EnrollmentRepository;
 import com.sugang.app.domain.student.Student;
 import com.sugang.app.global.exception.ApiException;
@@ -38,6 +39,7 @@ class EnrollValidatorImplTest {
 
     @InjectMocks
     EnrollValidatorImpl enrollValidator;
+
 
     @DisplayName("닫힌 수강은 등록 할 수 없다.")
     @Test
@@ -86,8 +88,11 @@ class EnrollValidatorImplTest {
         BDDMockito.given(course.getId()).willReturn(1L);
         BDDMockito.given(course.availableAddStudent()).willReturn(true);
 
-        BDDMockito.given(enrollmentRepository.findCourseIdListByStudentId(Mockito.any()))
-                        .willReturn(List.of(1L, 2L));
+        BDDMockito.given(enrollmentRepository.findByStudentId(Mockito.any()))
+                        .willReturn(List.of(
+                                Enrollment.enroll(1L, 2L),
+                                Enrollment.enroll(2L, 2L)
+                        ));
         // when
         Assertions.assertThatThrownBy(() -> enrollValidator.validate(course, student))
                 // then

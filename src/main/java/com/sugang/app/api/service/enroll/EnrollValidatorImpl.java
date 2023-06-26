@@ -4,6 +4,7 @@ import com.sugang.app.api.service.course.CourseScheduleOverlapCheckService;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseRepository;
 import com.sugang.app.domain.course.CourseSchedule;
+import com.sugang.app.domain.enroll.Enrollment;
 import com.sugang.app.domain.enroll.EnrollmentRepository;
 import com.sugang.app.domain.student.Student;
 import com.sugang.app.global.exception.ApiException;
@@ -48,14 +49,19 @@ public class EnrollValidatorImpl implements EnrollValidator {
             throw new ApiException(ErrorCode.EXCEEDED_COURSE_STUDENT);
         }
 
-        List<Long> studentCourseIdList = enrollmentRepository.findCourseIdListByStudentId(student.getId());
+        List<Enrollment> studentCourseIdList = enrollmentRepository.findByStudentId(student.getId());
 
-        if (studentCourseIdList.contains(course.getId()))
+        if (studentCourseIdList.stream().map(Enrollment::getCourseId).collect(Collectors.toSet())
+                .contains(course.getId()))
         {
             throw new ApiException(ErrorCode.DUPLICATE_COURSE);
         }
 
-        List<Course> studentCourses = courseRepository.findAllById(studentCourseIdList);
+        Set<Long> studentCourseIdSet = studentCourseIdList.stream()
+                .map(Enrollment::getCourseId)
+                .collect(Collectors.toSet());
+
+        List<Course> studentCourses = courseRepository.findAllById(studentCourseIdSet);
 
         Set<CourseSchedule> courseScheduleList = studentCourses.stream()
                 .flatMap(studentCourse -> studentCourse.getCourseScheduleSet().stream())

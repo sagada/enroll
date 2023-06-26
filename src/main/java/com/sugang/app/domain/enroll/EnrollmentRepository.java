@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
-    @Query("select e.courseId from Enrollment e where e.studentId = :studentId")
-    List<Long> findCourseIdListByStudentId(@Param("studentId") Long studentId);
+    List<Enrollment> findByStudentId(Long studentId);
 }

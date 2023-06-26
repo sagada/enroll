@@ -5,8 +5,10 @@ import com.sugang.app.api.controller.course.dto.request.CourseScheduleRequest;
 import com.sugang.app.api.controller.course.dto.request.CourseSummaryRequest;
 import com.sugang.app.api.controller.course.dto.response.CreatedCourseResponse;
 import com.sugang.app.api.service.course.request.CourseCreateServiceRequest;
+import com.sugang.app.domain.course.CourseRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,15 @@ class CreateCourseServiceImplTest extends TestContainerIntegrationTestSupport {
 
     @Autowired
     CreateCourseService createCourseService;
+
+    @Autowired
+    CourseRepository courseRepository;
+
+    @BeforeEach
+    void init()
+    {
+        courseRepository.deleteAll();
+    }
 
     @DisplayName("수업을 생성할 수 있다.")
     @Test
