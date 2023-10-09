@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 public class CreatedCourseResponse {
-
     private  String courseName;
     private  Long courseId;
     private  Set<CourseScheduleResult> courseScheduleResultSet;
