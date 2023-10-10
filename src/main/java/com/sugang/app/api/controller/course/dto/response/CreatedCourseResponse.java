@@ -3,49 +3,26 @@ package com.sugang.app.api.controller.course.dto.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sugang.app.domain.course.Course;
 import com.sugang.app.domain.course.CourseSchedule;
-import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@ToString
-@Setter
-@NoArgsConstructor
-public class CreatedCourseResponse {
+public record CreatedCourseResponse(
+        String courseName,
+        Long courseId,
+        Set<CourseScheduleResult> courseScheduleResultSet,
+        Long professorId
+) {
+    public record CourseScheduleResult(
+            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+            LocalDateTime startTime,
 
-    private  String courseName;
-    private  Long courseId;
-    private  Set<CourseScheduleResult> courseScheduleResultSet;
-    private  Long professorId;
+            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+            LocalDateTime endTime
+    ) {}
 
-    public CreatedCourseResponse(
-            String courseName
-            , Long courseId
-            , Set<CourseScheduleResult> courseScheduleResultSet
-            , Long professorId)
-    {
-        this.courseName = courseName;
-        this.courseId = courseId;
-        this.courseScheduleResultSet = courseScheduleResultSet;
-        this.professorId = professorId;
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public static class CourseScheduleResult
-    {
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        private LocalDateTime startTime;
-
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        private LocalDateTime endTime;
-    }
-
-    public static CreatedCourseResponse from(Course save)
-    {
+    public static CreatedCourseResponse from(Course save) {
         Set<CourseSchedule> courseScheduleSet = save.getCourseScheduleSet();
         Set<CourseScheduleResult> courseScheduleResultSet = courseScheduleSet.stream()
                 .map(courseSchedule -> new CourseScheduleResult(courseSchedule.getStart(), courseSchedule.getEnd()))

@@ -8,38 +8,17 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// TODO controller -> service
-@Getter
-@ToString
-@Setter
-@NoArgsConstructor
-public class CreatedCourseServiceResponse {
-
-    private String courseName;
-    private Long courseId;
-    private Set<CourseScheduleResult> courseScheduleResultSet;
-    private Long professorId;
-
-    public CreatedCourseServiceResponse(
-            String courseName
-            , Long courseId
-            , Set<CourseScheduleResult> courseScheduleResultSet
-            , Long professorId)
-    {
-        this.courseName = courseName;
-        this.courseId = courseId;
-        this.courseScheduleResultSet = courseScheduleResultSet;
-        this.professorId = professorId;
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public static class CourseScheduleResult
-    {
-        private LocalDateTime startTime;
-        private LocalDateTime endTime;
-    }
+public record CreatedCourseServiceResponse(
+        String courseName,
+        Long courseId,
+        Set<CourseScheduleResult> courseScheduleResultSet,
+        Long professorId
+) {
+    @Builder
+    public record CourseScheduleResult(
+            LocalDateTime startTime,
+            LocalDateTime endTime
+    ) {}
 
     public static CreatedCourseServiceResponse from(Course save)
     {

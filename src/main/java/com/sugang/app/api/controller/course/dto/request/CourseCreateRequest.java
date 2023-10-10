@@ -2,71 +2,42 @@ package com.sugang.app.api.controller.course.dto.request;
 
 import com.sugang.app.api.service.course.request.CourseCreateServiceRequest;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@NoArgsConstructor
-public class CourseCreateRequest {
+@Builder
+public record CourseCreateRequest(
+        @NotBlank(message = "수업 이름은 필수 값입니다.")
+        String courseName,
 
-    @NotBlank(message = "수업 이름은 필수 값입니다.")
-    private String courseName;
+        Long professorId,
 
-    private Long professorId;
+        String bookName,
 
-    private String bookName;
+        @NotNull(message = "과목 ID는 필수 값입니다.")
+        Long subjectId,
 
-    @NotNull(message = "과목 ID는 필수 값입니다.")
-    private Long subjectId;
+        Set<CourseScheduleRequest> courseScheduleRequestSet,
 
-    private Set<CourseScheduleRequest> courseScheduleRequestSet;
-    private Set<CourseSummaryRequest> courseSummaryRequestSet;
+        Set<CourseSummaryRequest> courseSummaryRequestSet,
 
-    private LocalDateTime midTermExamDate;
-    private LocalDateTime finalExamDate;
+        LocalDateTime midTermExamDate,
 
-    private Set<Long> preCourseIdSet;
+        LocalDateTime finalExamDate,
 
-    @NotNull(message = "학점은 필수 값입니다.")
-    @Max(value = 5, message = "학점은 5점 이하입니다.")
-    @Min(value = 1, message = "학점은 1점 이상입니다.")
-    private Integer score;
+        Set<Long> preCourseIdSet,
 
-    @Builder
-    private CourseCreateRequest(
-            String courseName,
-            Long professorId,
-            String bookName,
-            Long subjectId,
-            Set<CourseScheduleRequest> courseScheduleRequestSet,
-            Set<CourseSummaryRequest> courseSummaryRequestSet,
-            LocalDateTime midTermExamDate,
-            LocalDateTime finalExamDate,
-            Set<Long> preCourseIdSet,
-            int score)
-    {
-        this.courseName = courseName;
-        this.professorId = professorId;
-        this.bookName = bookName;
-        this.subjectId = subjectId;
-        this.courseScheduleRequestSet = courseScheduleRequestSet;
-        this.courseSummaryRequestSet = courseSummaryRequestSet;
-        this.midTermExamDate = midTermExamDate;
-        this.finalExamDate = finalExamDate;
-        this.preCourseIdSet = preCourseIdSet;
-        this.score = score;
-    }
-
-    public CourseCreateServiceRequest toServiceDto()
-    {
+        @NotNull(message = "학점은 필수 값입니다.")
+        @Max(value = 5, message = "학점은 5점 이하입니다.")
+        @Min(value = 1, message = "학점은 1점 이상입니다.")
+        Integer score
+) {
+    public CourseCreateServiceRequest toServiceDto() {
         return CourseCreateServiceRequest.builder()
                 .bookName(bookName)
                 .courseName(courseName)

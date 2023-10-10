@@ -5,7 +5,7 @@ import com.sugang.app.api.controller.course.dto.request.CourseCreateRequest;
 import com.sugang.app.api.controller.course.dto.request.CourseScheduleRequest;
 import com.sugang.app.api.controller.course.dto.request.CourseSummaryRequest;
 import com.sugang.app.api.controller.course.dto.response.CreatedCourseResponse;
-import com.sugang.app.api.service.course.CreateCourseServiceImpl;
+import com.sugang.app.api.service.course.CreateCourseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +35,7 @@ class CourseControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CreateCourseServiceImpl createCourseService;
+    private CreateCourseService createCourseService;
 
     @Autowired
     ObjectMapper objectMapper;

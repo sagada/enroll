@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Transactional
-class CreateCourseServiceImplTest extends TestContainerIntegrationTestSupport {
+class CreateCourseServiceTest extends TestContainerIntegrationTestSupport {
 
     @Autowired
     CreateCourseService createCourseService;
@@ -70,9 +70,9 @@ class CreateCourseServiceImplTest extends TestContainerIntegrationTestSupport {
         CreatedCourseResponse course = createCourseService.createCourse(courseCreateRequest);
 
         // then
-        Assertions.assertThat(course.getCourseId()).isNotNull();
+        Assertions.assertThat(course.courseId()).isNotNull();
 
-        Assertions.assertThat(course.getCourseScheduleResultSet())
+        Assertions.assertThat(course.courseScheduleResultSet())
                 .isNotEmpty()
                 .extracting("startTime", "endTime")
                 .contains(Tuple.tuple(startTime, endTime));

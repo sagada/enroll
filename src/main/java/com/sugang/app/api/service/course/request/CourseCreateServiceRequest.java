@@ -6,65 +6,25 @@ import com.sugang.app.domain.course.CourseExamination;
 import com.sugang.app.domain.course.CourseSchedule;
 import com.sugang.app.domain.course.CourseSummary;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class CourseCreateServiceRequest {
-
-    private String courseName;
-    private Long professorId;
-    private String bookName;
-    private Long subjectId;
-    private Set<CourseScheduleRequest> courseScheduleRequestSet;
-    private Set<CourseSummaryRequest> courseSummaryRequestSet;
-    private LocalDateTime midTermExamDate;
-    private LocalDateTime finalExamDate;
-    private Set<Long> preCourseIdSet;
-    private int score;
-    private int availableStudentCount;
-
-    @Builder
-    private CourseCreateServiceRequest(
-            String courseName,
-            Long professorId,
-            String bookName,
-            Long subjectId,
-            Set<CourseScheduleRequest> courseScheduleRequestSet,
-            Set<CourseSummaryRequest> courseSummaryRequestSet,
-            LocalDateTime midTermExamDate,
-            LocalDateTime finalExamDate,
-            Set<Long> preCourseIdSet,
-            Integer score,
-            int availableStudentCount)
-    {
-        this.courseName = courseName;
-        this.professorId = professorId;
-        this.bookName = bookName;
-        this.subjectId = subjectId;
-        this.courseScheduleRequestSet = courseScheduleRequestSet;
-        this.courseSummaryRequestSet = courseSummaryRequestSet;
-        this.midTermExamDate = midTermExamDate;
-        this.finalExamDate = finalExamDate;
-        this.preCourseIdSet = preCourseIdSet;
-        this.score = score;
-        this.availableStudentCount = availableStudentCount;
-    }
-
-    public Set<CourseSchedule> convertCourseSchedules()
-    {
-        return courseScheduleRequestSet.stream()
-                .map(CourseScheduleRequest::from)
-                .collect(Collectors.toSet());
-    }
-
+@Builder
+public record CourseCreateServiceRequest(
+        String courseName,
+        Long professorId,
+        String bookName,
+        Long subjectId,
+        Set<CourseScheduleRequest> courseScheduleRequestSet,
+        Set<CourseSummaryRequest> courseSummaryRequestSet,
+        LocalDateTime midTermExamDate, 
+        LocalDateTime finalExamDate,
+        Set<Long> preCourseIdSet, 
+        int score, 
+        int availableStudentCount
+) {
     public CourseExamination convertExamination()
     {
         if (midTermExamDate == null || finalExamDate == null)
@@ -72,7 +32,7 @@ public class CourseCreateServiceRequest {
             return null;
         }
 
-        return new CourseExamination(getMidTermExamDate(), getFinalExamDate());
+        return new CourseExamination(midTermExamDate(), finalExamDate());
     }
 
     public Set<CourseSummary> convertCourseSummary()
@@ -82,4 +42,10 @@ public class CourseCreateServiceRequest {
                 .collect(Collectors.toSet());
     }
 
+    public Set<CourseSchedule> convertCourseSchedules()
+    {
+        return this.courseScheduleRequestSet.stream()
+                .map(dto-> new CourseSchedule(dto.from(), dto.to(), dto.roomNumber()))
+                .collect(Collectors.toSet());
+    }
 }

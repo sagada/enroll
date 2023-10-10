@@ -74,10 +74,10 @@ class EnrollServiceImplTest extends TestContainerIntegrationTestSupport {
         // then
         Assertions.assertThat(enroll).isNotNull()
                 .extracting(
-                    EnrollServiceResponse::getCourseName,
-                    EnrollServiceResponse::getCourseId,
-                    EnrollServiceResponse::getStudentId,
-                    EnrollServiceResponse::getStudentName)
+                    EnrollServiceResponse::courseName,
+                    EnrollServiceResponse::courseId,
+                    EnrollServiceResponse::studentId,
+                    EnrollServiceResponse::studentName)
                 .contains(
                     CourseTestHelper.COURSE_NAME.getValue(),
                     course.getId(),

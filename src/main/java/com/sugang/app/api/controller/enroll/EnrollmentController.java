@@ -19,7 +19,7 @@ public class EnrollmentController {
     @PostMapping
     public EnrollResponse enroll(@Valid @RequestBody EnrollRequest enrollRequest)
     {
-        EnrollServiceResponse enroll = enrollService.enroll(enrollRequest.getCourseId(), enrollRequest.getStudentId());
+        EnrollServiceResponse enroll = enrollService.enroll(enrollRequest.courseId(), enrollRequest.studentId());
         return EnrollResponse.from(enroll);
     }
 
