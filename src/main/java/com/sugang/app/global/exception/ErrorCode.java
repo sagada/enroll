@@ -9,6 +9,7 @@ public enum ErrorCode {
     //#################### COMMON ####################
     NOT_FOUND_RESOURSE("없는 리소스", HttpStatus.NOT_FOUND),
     SERVER_ERROR("서버 에러", HttpStatus.INTERNAL_SERVER_ERROR),
+
     //#################### STUDENT ####################
     EXCEEDED_COURSE_CREDIT("수강 가능 학점 초과", HttpStatus.BAD_REQUEST),
 

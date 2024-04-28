@@ -5,7 +5,6 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-@Builder
 public record CourseScheduleRequest(
         int week,
         LocalDateTime from,

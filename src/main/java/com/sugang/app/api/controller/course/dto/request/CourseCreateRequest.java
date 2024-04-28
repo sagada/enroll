@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Builder
 public record CourseCreateRequest(
         @NotBlank(message = "수업 이름은 필수 값입니다.")
         String courseName,

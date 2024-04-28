@@ -1,5 +1,7 @@
-package com.sugang.app.global.exception;
+package com.sugang.app.api.controller.advice;
 
+import com.sugang.app.global.exception.ApiException;
+import com.sugang.app.global.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
