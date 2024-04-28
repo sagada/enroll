@@ -1,11 +1,11 @@
 package com.sugang.app.domain.professor;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
 
 @Table(name = "professor")
 @Getter

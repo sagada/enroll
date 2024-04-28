@@ -4,10 +4,10 @@ import com.sugang.app.api.controller.enroll.dto.request.EnrollRequest;
 import com.sugang.app.api.controller.enroll.dto.response.EnrollResponse;
 import com.sugang.app.api.service.enroll.EnrollService;
 import com.sugang.app.api.service.enroll.response.EnrollServiceResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController

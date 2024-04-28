@@ -1,14 +1,13 @@
 package com.sugang.app.domain.department;
 
+import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Embeddable;
 
 @NoArgsConstructor
 @Embeddable
 @EqualsAndHashCode(of = {"number", "faxNumber"})
-public class DepartmentPhoneNumber {
+class DepartmentPhoneNumber {
     private String number;
     private String faxNumber;
 

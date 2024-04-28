@@ -1,14 +1,14 @@
 package com.sugang.app.domain.enroll;
 
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 
 @NoArgsConstructor
 @Embeddable
 @Getter
-public class ExaminationScore {
+class ExaminationScore {
 
     private Double midTermTotalScore;
     private Double finalTotalScore;

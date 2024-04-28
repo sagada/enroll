@@ -1,10 +1,10 @@
 package com.sugang.app.domain.course;
 
 import com.sugang.app.domain.course.exception.CourseException;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
 @Getter

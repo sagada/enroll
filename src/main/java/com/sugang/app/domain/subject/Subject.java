@@ -1,9 +1,9 @@
 package com.sugang.app.domain.subject;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 
 @Table(name = "subject")
 @Entity

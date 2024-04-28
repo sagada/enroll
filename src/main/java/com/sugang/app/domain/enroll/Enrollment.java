@@ -1,11 +1,11 @@
 package com.sugang.app.domain.enroll;
 
 import com.sugang.app.domain.BaseEntity;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 
 @Table(name = "enrollment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

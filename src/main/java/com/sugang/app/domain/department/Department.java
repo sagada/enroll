@@ -1,9 +1,8 @@
 package com.sugang.app.domain.department;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Table(name = "department")
 @NoArgsConstructor

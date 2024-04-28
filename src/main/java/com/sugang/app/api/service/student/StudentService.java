@@ -5,8 +5,8 @@ import com.sugang.app.domain.student.Student;
 import com.sugang.app.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Transactional
 @RequiredArgsConstructor

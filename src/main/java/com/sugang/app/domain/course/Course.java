@@ -4,11 +4,11 @@ import com.sugang.app.domain.BaseEntity;
 import com.sugang.app.domain.course.exception.CourseException;
 import com.sugang.app.domain.course.validator.CreateCourseValidator;
 import com.sugang.app.global.exception.ErrorCode;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @Getter

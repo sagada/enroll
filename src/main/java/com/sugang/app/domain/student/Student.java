@@ -2,11 +2,11 @@ package com.sugang.app.domain.student;
 
 import com.sugang.app.domain.BaseEntity;
 import com.sugang.app.domain.student.exception.StudentException;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
